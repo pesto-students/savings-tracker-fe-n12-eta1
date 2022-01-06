@@ -1,37 +1,61 @@
 .App-logo {
-    height: 75px;
+    height: 50px;
     pointer-events: none;
   }
 
-  .navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link {
-    color: #00a651 !important;
-  }
-  
-  header {
-    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -2px rgb(0 0 0 / 5%);
+  .border-radius-xl {
+    border-radius: 0.75rem;
 }
 
-  li.nav-item.active {
-    color: #00a651;
-    position: relative;
-  }
-  
-  header li {
-    font-weight: 500;
-    font-size: 14px;
-  }
-  
-  .App-header {
-    background-color: #282c34;
-    min-height: 100vh;
+.blur{
+backdrop-filter: saturate(200%) blur(30px);
+background-color: hsla(0,0%,100%,.8)!important
+}
+
+header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  /* background-size: cover;
+  padding: 0px; */
+  overflow: hidden;
+  /* background-position: 50% center; */
+  /* height:  400px; */
+  z-index: 999;
+}
+
+.navbar {
+  box-shadow: 0 2px 12px 0 rgb(0 0 0 / 16%);
+}
+
+.bg-gradient-primary {
+  background-image: linear-gradient(
+195deg,#ec407a,#d81b60);
+}
+
+.mask {
+  background-size: cover;
+  position: absolute;
+  background-position: 50%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.navbar .nav-link, .navbar .navbar-brand {
+  color: #344767;
+  font-size: .875rem;
+}
+
+li.nav-item.active span {
+  font-weight: 700;
+  border-bottom: 3px solid #ee4a65;
+}
+
+.nav-ul{
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
-  }
-  
-  .App-link {
-    color: #61dafb;
-  }
+    justify-content: end;
+    width: 100%;
+}
