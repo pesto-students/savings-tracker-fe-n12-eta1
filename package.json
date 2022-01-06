@@ -1,5 +1,5 @@
 {
-  "name": "savings_tracker_client",
+  "name": "Savings tracker front",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -19,7 +19,7 @@
     "react-toastify": "^8.1.0",
     "redux": "^4.1.2",
     "web-vitals": "^2.1.2",
-    "express": "^4.17.2"
+    "express":"^4.17.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -27,16 +27,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/pesto-students/savings-tracker-fe-n12-eta1"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/pesto-students/savings-tracker-fe-n12-eta1/issues"
-  },
-  "homepage": "https://github.com/pesto-students/savings-tracker-fe-n12-eta1#readme", 
   "eslintConfig": {
     "extends": [
       "react-app",
