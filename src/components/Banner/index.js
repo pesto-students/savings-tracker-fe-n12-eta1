@@ -1,13 +1,8 @@
-import {
-    BrowserRouter as Router,
-    Link,
-  } from "react-router-dom";
 
-  import logo from '../../logo.png';
   import banner from './images/banner.jpg';
   import Button from '../common/Button/index.js';
 
-  const Banner = ({token=null, active='home'}) => {
+  const Banner = ({show, setShow}) => {
 
     return (
       <>
@@ -20,7 +15,7 @@ import {
                     <p className="lead">looking to digitally track your financial goals and expenses with minimal efforts?
                     <br/>We are there to help you
                     </p>
-                    <Button text="Get Started" extraClass="primary btn-round text-white"/>
+                    <Button text="Get Started" extraClass="primary btn-round text-white" onClick={() => setShow(true)}/>
                 </div>
             </div>
             
