@@ -4,6 +4,7 @@ import {
   } from "react-router-dom";
   import './index.css';
   import logo from '../../logo.png';
+  import Button from "../common/Button";
 
   const Header = ({token=null, active='home'}) => {
 
@@ -35,16 +36,16 @@ import {
                 </Link>
                 </li>
                 <li className={active === 'home'?'nav-item pr-2':'nav-item pr-2'}>
-                  <Link className="nav-link flex align-item-center" to="/">
+                  <a className="nav-link flex align-item-center" href="#contact-section">
                   <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-4p" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                     <span>Contact US</span>  
-                </Link>
+                </a>
                 </li>
 
                 <li className='nav-item'>
-                  <Link className="nav-link btn shadow glob-btn bg-gradient-primary text-white" to="/contact">Sign in</Link>
+                <Button text="Sign In" extraClass="primary btn-round text-white"/>
                 </li>
               </ul>
             </div>
