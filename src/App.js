@@ -3,6 +3,7 @@ import Header from './components/Header/index';
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import Home from './components/views/Home/index.js';
 import Footer from './components/Footer';
+import Onboarding from "./components/views/Onboarding";
 
 function App() {
     return (
@@ -13,6 +14,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Home/>}/>
                     <Route path="/home" element={<Home/>}/>
+                    <Route path="/onboarding" element={<Onboarding/>}/>
                 </Routes>
 
                 <Footer/>

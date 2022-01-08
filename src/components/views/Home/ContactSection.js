@@ -8,7 +8,7 @@ const ContactSection = () => {
                 <div className="row">
                 <div className="col-md-8 ml-auto mr-auto">
                     <h2 className="text-center title">Reach US</h2>
-                    <h4 className="text-center description">If you want any assist, please feel free to contact us.</h4>
+                    <h4 className="text-center description">If you want any assistance, please feel free to contact us.</h4>
                     <form className="contact-form mt-4">
                     <div className="row">
                         <div className="col-md-6">
