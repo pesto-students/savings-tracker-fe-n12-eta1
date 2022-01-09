@@ -6,6 +6,9 @@ import {postToApi} from './api'
 
 import {useState} from 'react';
 
+import AuthContext from '../../../AuthContext';
+
+
 const Onboarding = () => {
 
     const [error, setError] = useState('');
@@ -24,18 +27,18 @@ const Onboarding = () => {
             setError(error.message)
         });
 
-        console.log('call');
-
     };
 
     return <div className="container" id="onboarding">
         <div className="row">
             <h1>Onboarding</h1>
-            <div className="col">
 
+
+            <div className="col">
                 <form className="g-3" onSubmit={handleSubmit}>
                     <div className="row mb-3">
-                        <div className="col-6"><label htmlFor="currency" className="form-label">Currency</label>
+                        <div className="col-md-3"><label htmlFor="currency"
+                                                         className="form-label">Currency</label>
                             <select className="form-control" name="currency" id="currency">
                                 <option value="INR">₹ (INR)</option>
                                 <option value="USD">$ (USD)</option>
@@ -43,20 +46,21 @@ const Onboarding = () => {
                             </select></div>
                     </div>
                     <div className="row mb-3">
-                        <div className="col-6"><label htmlFor="monthly-income" className="form-label">Monthly
+                        <div className="col-md-3"><label htmlFor="monthly-income" className="form-label">Monthly
                             Income</label>
-                            <input type="number" className="form-control" id="monthly-income" name="monthly-income"/>
+                            <input type="number" className="form-control" id="monthly-income"
+                                   name="monthly-income"/>
                         </div>
                     </div>
                     <div className="row mb-3">
-                        <div className="col-6"><label htmlFor="monthly-expenses" className="form-label">Monthly
+                        <div className="col-md-3"><label htmlFor="monthly-expenses" className="form-label">Monthly
                             Expenses</label>
                             <input type="number" className="form-control" id="monthly-expenses"
                                    name="monthly-expenses"/>
                         </div>
                     </div>
                     <div className="row mb-3">
-                        <div className="col-6">
+                        <div className="col-md-3">
                             <Button type="submit" text="Proceed" extraClass="primary btn-round text-white"/>
                         </div>
                     </div>
