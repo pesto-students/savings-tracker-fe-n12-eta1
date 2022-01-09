@@ -9,20 +9,8 @@ import {useEffect, useState} from 'react';
 
 import {auth} from './firebase';
 
-import AuthContext from './AuthContext';
 
 function App() {
-
-    const [user, setUser] = useState(null);
-
-    useEffect(() => {
-        auth.onAuthStateChanged(function (user) {
-            setUser(user);
-        });
-
-    }, []);
-
-
     return (
         <div className="App">
             <Router>

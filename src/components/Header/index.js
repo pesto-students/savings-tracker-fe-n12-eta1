@@ -12,6 +12,7 @@ const Header = ({token = null, active = 'home'}) => {
         <>
             <header className="w-100 fixed">
 
+
                 <nav
                     className="navbar py-0 navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg blur border-radius-xl shadow my-3 mx-7"
                     color-on-scroll="100" id="sectionsNav">
