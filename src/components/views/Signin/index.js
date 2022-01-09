@@ -1,4 +1,4 @@
-import {useState, useEffect, useLayoutEffect} from 'react';
+import {useState, useEffect} from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Button from '../../common/Button/index.js';
@@ -17,19 +17,11 @@ const SignIn = ({show, setShow}) => {
 
     useEffect(() => {
 
-        recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
-            'size': 'invisible',
-            'callback': (response) => {
-
-                console.log(response);
+        recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {'size': 'invisible'}, auth);
 
 
-            }
-        }, auth);
     }, []);
 
-
-    const [values, setValues] = useState({});
 
     const [error, setError] = useState();
 
@@ -70,7 +62,7 @@ const SignIn = ({show, setShow}) => {
         const otp = form.otp.value;
 
         authConfirmationResult.confirm(otp).then((result) => {
-            // User signed in successfully.
+            // User signed in successfully. Redirect
             const user = result.user;
 
             setShow(false);
@@ -84,27 +76,8 @@ const SignIn = ({show, setShow}) => {
 
     };
 
-    const handleSubmit = () => {
-
-        // check currunt step
-        console.log(error);
-        console.log(values);
-
-        if (step === 1 && values?.mobile?.length !== 10) {
-
-            setError('Mobile number is required');
-
-            return false;
-        }
-
-        setStep(2);
-
-    };
-
-
     return (
         <>
-            <div id="recaptcha-container" className="d-none"></div>
             <Modal
                 size="md"
                 show={show}
