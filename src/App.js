@@ -3,9 +3,14 @@ import Header from './components/Header/index';
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import Home from './components/views/Home/index.js';
 import Footer from './components/Footer';
+import Onboarding from "./components/views/Onboarding";
+
+import {useEffect, useState} from 'react';
+
+import {auth} from './firebase';
+
 
 function App() {
-
     return (
         <div className="App">
             <Router>
@@ -13,6 +18,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Home/>}/>
                     <Route path="/home" element={<Home/>}/>
+                    <Route path="/onboarding" element={<Onboarding/>}/>
                 </Routes>
 
                 <Footer/>
