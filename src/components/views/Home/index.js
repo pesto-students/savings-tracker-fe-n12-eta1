@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import {useState} from 'react';
 import Banner from '../../Banner/index';
 import MainSection from './MainSection';
 import ContactSection from './ContactSection';
@@ -11,27 +11,27 @@ const Home = () => {
     const [show, setShow] = useState(false);
 
     return (
-       <>
-        <Banner 
-            show={show}
-            setShow={setShow}
-         />
+        <>
+            <Banner
+                show={show}
+                setShow={setShow}
+            />
 
-        <SignIn
-            show={show}
-            setShow={setShow}
-        />
-        
-        <div className="main main-raised">
-            <div className="container">
-                <MainSection />
+            <SignIn
+                show={show}
+                setShow={setShow}
+            />
 
-                <TeamSection />
+            <div className="main main-raised">
+                <div className="container">
+                    <MainSection/>
 
-                <ContactSection />
-            
+                    <TeamSection/>
+
+                    <ContactSection/>
+
+                </div>
             </div>
-        </div>
 
         </>
     );
