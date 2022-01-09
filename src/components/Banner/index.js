@@ -1,33 +1,15 @@
 import banner from './images/banner.jpg';
 import Button from '../common/Button/index.js';
 
-import {auth} from '../../firebase';
-
-import {signOut} from "firebase/auth";
+import {signOut} from '../../auth';
 
 
-import {useEffect, useState} from "react";
+import {useSelector} from "react-redux";
 
 
 const Banner = ({show, setShow}) => {
 
-    const [user, setUser] = useState(null);
-
-    useEffect(() => {
-        auth.onAuthStateChanged(function (user) {
-            setUser(user);
-        });
-
-    }, []);
-
-
-    const logOut = () => {
-        signOut(auth).then(() => {
-            // Sign-out successful.
-        }).catch((error) => {
-            // An error happened.
-        });
-    };
+    const user = useSelector((state) => state.user);
 
 
     return (
@@ -42,10 +24,12 @@ const Banner = ({show, setShow}) => {
                                 minimal efforts?
                                 <br/>We are there to help you
                             </p>
-                            {user ? <div>Signed In with : {user.phoneNumber} <Button text="Sign Out" extraClass="primary btn-round text-white" onClick={logOut}/>
-                            </div> :
+                            {user ? <div>Signed In with : {user.phoneNumber} <Button text="Sign Out"
+                                                                                     extraClass="primary btn-round text-white"
+                                                                                     onClick={signOut}/>
+                                </div> :
                                 <Button text="Get Started" extraClass="primary btn-round text-white"
-                                             onClick={() => setShow(true)}/>}
+                                        onClick={() => setShow(true)}/>}
                         </div>
                     </div>
 

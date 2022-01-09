@@ -7,20 +7,52 @@ import Onboarding from "./components/views/Onboarding";
 
 import {useEffect, useState} from 'react';
 
+import {useDispatch} from 'react-redux';
+
 import {auth} from './firebase';
+import SignIn from "./components/views/Signin";
 
 
 function App() {
+
+    const dispatch = useDispatch();
+
+    const [loading, setLoading] = useState(false);
+
+    const [show, setShow] = useState(false);
+
+
+    useEffect(() => {
+
+        setLoading(true);
+
+        auth.onAuthStateChanged(function (user) {
+            // setUser(user);
+            dispatch({type: 'AUTH', payload: user});
+
+
+        });
+
+        setLoading(false);
+
+
+    }, []);
+
+
     return (
         <div className="App">
             <Router>
-                <Header/>
+                <Header setShow={setShow}
+                />
                 <Routes>
-                    <Route path="/" element={<Home/>}/>
-                    <Route path="/home" element={<Home/>}/>
+                    <Route path="/" element={<Home setShow={setShow} />}/>
+                    <Route path="/home" element={<Home setShow={setShow}/>}/>
                     <Route path="/onboarding" element={<Onboarding/>}/>
                 </Routes>
-
+                <SignIn
+                    show={show}
+                    setShow={setShow}
+                />
                 <Footer/>
             </Router>
         </div>

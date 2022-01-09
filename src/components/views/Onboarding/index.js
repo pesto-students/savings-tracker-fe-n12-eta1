@@ -18,7 +18,7 @@ const Onboarding = () => {
         const values = Object.fromEntries(formData);
 
         postToApi(values).then((response) => {
-            console.log(response);
+
             //navigate to dashboard or goals page
 
         }).catch((error) => {
@@ -46,14 +46,14 @@ const Onboarding = () => {
                     <div className="row mb-3">
                         <div className="col-md-3"><label htmlFor="monthly-income" className="form-label">Monthly
                             Income</label>
-                            <input type="number" className="form-control" id="monthly-income"
+                            <input min="0" type="number" className="form-control" id="monthly-income"
                                    name="monthly-income"/>
                         </div>
                     </div>
                     <div className="row mb-3">
                         <div className="col-md-3"><label htmlFor="monthly-expenses" className="form-label">Monthly
                             Expenses</label>
-                            <input type="number" className="form-control" id="monthly-expenses"
+                            <input min="0" type="number" className="form-control" id="monthly-expenses"
                                    name="monthly-expenses"/>
                         </div>
                     </div>

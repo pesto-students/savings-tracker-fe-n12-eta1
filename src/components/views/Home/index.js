@@ -4,20 +4,12 @@ import MainSection from './MainSection';
 import ContactSection from './ContactSection';
 import './index.css';
 import TeamSection from './TeamSection';
-import SignIn from '../Signin/index';
 
-const Home = () => {
-
-    const [show, setShow] = useState(false);
+const Home = ({show, setShow}) => {
 
     return (
         <>
             <Banner
-                show={show}
-                setShow={setShow}
-            />
-
-            <SignIn
                 show={show}
                 setShow={setShow}
             />
@@ -35,6 +27,6 @@ const Home = () => {
 
         </>
     );
-}
+};
 
 export default Home

@@ -5,13 +5,18 @@ import {
 import './index.css';
 import logo from '../../logo.png';
 import Button from "../common/Button";
+import {useSelector} from "react-redux";
 
-const Header = ({token = null, active = 'home'}) => {
+import {signOut} from "../../auth";
+
+const Header = ({active = 'home', setShow}) => {
+
+    const user = useSelector((state) => state.user);
+
 
     return (
         <>
             <header className="w-100 fixed">
-
 
                 <nav
                     className="navbar py-0 navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg blur border-radius-xl shadow my-3 mx-7"
@@ -55,7 +60,14 @@ const Header = ({token = null, active = 'home'}) => {
                                 </li>
 
                                 <li className='nav-item'>
-                                    <Button text="Sign In" extraClass="primary btn-round text-white"/>
+                                    {user ?
+                                        <Button text="Sign Out" extraClass="primary btn-round text-white"
+                                                onClick={signOut}/> :
+                                        <Button text="Sign In" extraClass="primary btn-round text-white"
+                                                onClick={() => {
+                                                    setShow(true)
+                                                }}/>}
+
                                 </li>
                             </ul>
                         </div>

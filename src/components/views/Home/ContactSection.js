@@ -4,22 +4,22 @@ import submitContactForm from '../../../actions/contactAction'
 
 const ContactSection = () => {
 
-    const [contactform,setState] = useState({
-        fields: {},
-        errors: {},
-        success:false
-      })
+    const [contactform, setState] = useState({
+                                                 fields: {},
+                                                 errors: {},
+                                                 success: false
+                                             })
 
-    const handleValidation  =(e)=>{
+    const handleValidation = (e) => {
         let fields = contactform.fields;
         let errors = {};
         let formIsValid = true;
 
-        if(typeof contactform.fields==='undefined'){
+        if (typeof contactform.fields === 'undefined') {
             errors["name"] = "Cannot be empty";
             errors["email"] = "Cannot be empty";
             errors["message"] = "Cannot be empty";
-            setState({ errors: errors,fields:fields });
+            setState({errors: errors, fields: fields});
             return false
         }
 
@@ -48,11 +48,11 @@ const ContactSection = () => {
 
             if (
                 !(
-                lastAtPos < lastDotPos &&
-                lastAtPos > 0 &&
-                fields["email"].indexOf("@@") == -1 &&
-                lastDotPos > 2 &&
-                fields["email"].length - lastDotPos > 2
+                    lastAtPos < lastDotPos &&
+                    lastAtPos > 0 &&
+                    fields["email"].indexOf("@@") == -1 &&
+                    lastDotPos > 2 &&
+                    fields["email"].length - lastDotPos > 2
                 )
             ) {
                 formIsValid = false;
@@ -66,29 +66,29 @@ const ContactSection = () => {
             errors["message"] = "Cannot be empty";
         }
 
-        setState({ errors: errors,fields:fields });
+        setState({errors: errors, fields: fields});
         return formIsValid;
     }
 
-    const contactSubmit =(e) =>{
-        e.preventDefault();    
+    const contactSubmit = (e) => {
+        e.preventDefault();
         if (handleValidation()) {
-            submitContactForm().then(response => {         
-                console.log(response)  
-                contactform.success = response                  
+            submitContactForm().then(response => {
+                console.log(response)
+                contactform.success = response
             })
-            
+
         } else {
-          console.log(contactform)
-          //alert("Form has errors.");
+            console.log(contactform)
+            //alert("Form has errors.");
         }
-      }
-    
-    const handleChange = (e) =>{
+    }
+
+    const handleChange = (e) => {
         let fields = contactform.fields;
         fields[e.target.name] = e.target.value;
-        setState({ fields,success:false });
-      }
+        setState({fields, success: false});
+    }
 
     return (
 
@@ -97,44 +97,49 @@ const ContactSection = () => {
                 <div className="col-md-8 ml-auto mr-auto">
                     <h2 className="text-center title">Reach US</h2>
 
-                    <h4 className="text-center description">If you want any assistance, please feel free to contact us.</h4>
+                    <h4 className="text-center description">If you want any assistance, please feel free to contact
+                        us.</h4>
                     <form className="contact-form mt-4" onSubmit={contactSubmit}>
                         <div className="row">
                             <div className="col-md-6">
                                 <div className="form-group">
-                                    <input name="name" value={contactform.name} type="text" onChange={handleChange} placeholder="Your Name" className="form-control" />
-                                    {(typeof contactform.errors!=='undefined' && contactform.errors["name"]!=='undefined')?
-                                    <span style={{ color: "red" }}>{contactform.errors["name"]}</span>:''
+                                    <input name="name" value={contactform.name} type="text" onChange={handleChange}
+                                           placeholder="Your Name" className="form-control"/>
+                                    {(typeof contactform.errors !== 'undefined' && contactform.errors["name"] !== 'undefined') ?
+                                        <span style={{color: "red"}}>{contactform.errors["name"]}</span> : ''
                                     }
                                 </div>
-                                
+
                             </div>
                             <div className="col-md-6">
                                 <div className="form-group">
-                                    <input name="email" value={contactform.email} type="email" onChange={handleChange} placeholder="Your Email Address" className="form-control" />
-                                    {(typeof contactform.errors!=='undefined' && contactform.errors["email"]!=='undefined')?
-                                    <span style={{ color: "red" }}>{contactform.errors["email"]}</span>:''
+                                    <input name="email" value={contactform.email} type="email" onChange={handleChange}
+                                           placeholder="Your Email Address" className="form-control"/>
+                                    {(typeof contactform.errors !== 'undefined' && contactform.errors["email"] !== 'undefined') ?
+                                        <span style={{color: "red"}}>{contactform.errors["email"]}</span> : ''
                                     }
                                 </div>
-                        
+
                             </div>
 
                         </div>
-                    <div className="form-group">
-                        <textarea name="message" value={contactform.message} type="text" placeholder="Your Message" className="form-control" rows="4" id="exampleMessage" onChange={handleChange}></textarea>
-                        {(typeof contactform.errors!=='undefined' && contactform.errors["message"]!=='undefined')?
-                            <span style={{ color: "red" }}>{contactform.errors["message"]}</span>:''
-                        }
-                    </div>
-                    <div className="row">
-                        <div className="col-md-4 ml-auto mr-auto text-center">
-                        <Button type="submit" text="Send Message" extraClass="primary btn-round text-white"/>
+                        <div className="form-group">
+                            <textarea name="message" value={contactform.message} type="text" placeholder="Your Message"
+                                      className="form-control" rows="4" id="exampleMessage"
+                                      onChange={handleChange}></textarea>
+                            {(typeof contactform.errors !== 'undefined' && contactform.errors["message"] !== 'undefined') ?
+                                <span style={{color: "red"}}>{contactform.errors["message"]}</span> : ''
+                            }
                         </div>
-                    </div>
+                        <div className="row">
+                            <div className="col-md-4 ml-auto mr-auto text-center">
+                                <Button type="submit" text="Send Message" extraClass="primary btn-round text-white"/>
+                            </div>
+                        </div>
                     </form>
                 </div>
-                {(typeof contactform!=='undefined' && typeof contactform.success!=='undefined' && contactform.success)?
-                    <span style={{ color: "green" }}>Successfully Submitted</span>:''
+                {(typeof contactform !== 'undefined' && typeof contactform.success !== 'undefined' && contactform.success) ?
+                    <span style={{color: "green"}}>Successfully Submitted</span> : ''
                 }
             </div>
         </div>
