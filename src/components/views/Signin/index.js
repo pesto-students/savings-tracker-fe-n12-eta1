@@ -38,8 +38,6 @@ const SignIn = ({show, setShow}) => {
         signInWithPhoneNumber(auth, mobileNumber, recaptchaVerifier)
             .then((confirmationResult) => {
 
-                // setOtpSent(true);
-
                 authConfirmationResult = confirmationResult;
 
                 setStep(2);
@@ -49,7 +47,6 @@ const SignIn = ({show, setShow}) => {
             setError(error.message);
             // recaptchaVerifier?.clear();
             window.grecaptcha?.reset();
-            console.error(error);
         });
 
 
@@ -63,7 +60,6 @@ const SignIn = ({show, setShow}) => {
 
         authConfirmationResult.confirm(otp).then((result) => {
             // User signed in successfully. Redirect
-            const user = result.user;
 
             setShow(false);
 

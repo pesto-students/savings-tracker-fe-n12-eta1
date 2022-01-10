@@ -2,9 +2,17 @@ import './style.css';
 import Button from "../../common/Button";
 import Error from "../../common/Error";
 
+import StepWizard from "react-step-wizard";
+
+
 import {postToApi} from './api'
 
 import {useState} from 'react';
+
+import PersonalInfo from './PersonalInfo';
+import LocationInfo from './LocationInfo';
+import FinancialInfo from './FinancialInfo';
+import Nav from './Nav';
 
 
 const Onboarding = () => {
@@ -30,41 +38,16 @@ const Onboarding = () => {
     return <div className="container" id="onboarding">
         <div className="row">
             <h1>Onboarding</h1>
+            <form className="g-3" onSubmit={handleSubmit}>
+                <StepWizard nav={<Nav/>}>
 
+                    <PersonalInfo/>
+                    <LocationInfo/>
+                    <FinancialInfo/>
 
-            <div className="col">
-                <form className="g-3" onSubmit={handleSubmit}>
-                    <div className="row mb-3">
-                        <div className="col-md-3"><label htmlFor="currency"
-                                                         className="form-label">Currency</label>
-                            <select className="form-control" name="currency" id="currency">
-                                <option value="INR">₹ (INR)</option>
-                                <option value="USD">$ (USD)</option>
-                                <option value="EUR">€ (EURO)</option>
-                            </select></div>
-                    </div>
-                    <div className="row mb-3">
-                        <div className="col-md-3"><label htmlFor="monthly-income" className="form-label">Monthly
-                            Income</label>
-                            <input min="0" type="number" className="form-control" id="monthly-income"
-                                   name="monthly-income"/>
-                        </div>
-                    </div>
-                    <div className="row mb-3">
-                        <div className="col-md-3"><label htmlFor="monthly-expenses" className="form-label">Monthly
-                            Expenses</label>
-                            <input min="0" type="number" className="form-control" id="monthly-expenses"
-                                   name="monthly-expenses"/>
-                        </div>
-                    </div>
-                    <div className="row mb-3">
-                        <div className="col-md-3">
-                            <Button type="submit" text="Proceed" extraClass="primary btn-round text-white"/>
-                        </div>
-                    </div>
-                    {error && <Error message={error}/>}
-                </form>
-            </div>
+                </StepWizard>
+            </form>
+
         </div>
     </div>
 };
