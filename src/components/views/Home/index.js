@@ -1,40 +1,32 @@
-import { useState } from 'react';
+import {useState} from 'react';
 import Banner from '../../Banner/index';
 import MainSection from './MainSection';
 import ContactSection from './ContactSection';
 import './index.css';
 import TeamSection from './TeamSection';
-import SignIn from '../Signin/index';
 
-const Home = () => {
-
-    const [show, setShow] = useState(false);
+const Home = ({show, setShow}) => {
 
     return (
-       <>
-        <Banner 
-            show={show}
-            setShow={setShow}
-         />
+        <>
+            <Banner
+                show={show}
+                setShow={setShow}
+            />
 
-        <SignIn
-            show={show}
-            setShow={setShow}
-        />
-        
-        <div className="main main-raised">
-            <div className="container">
-                <MainSection />
+            <div className="main main-raised">
+                <div className="container">
+                    <MainSection/>
 
-                <TeamSection />
+                    <TeamSection/>
 
-                <ContactSection />
-            
+                    <ContactSection/>
+
+                </div>
             </div>
-        </div>
 
         </>
     );
-}
+};
 
 export default Home

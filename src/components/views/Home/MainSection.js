@@ -5,7 +5,7 @@ const MainSection = () => {
         <div className="section text-center">
                 <div className="row">
                 <div className="col-md-8 ml-auto mr-auto">
-                    <h2 className="title">Why Saving Tracker</h2>
+                    <h2 className="title">Why Savings Tracker</h2>
                     <h5 className="description">Track your earnings, expenses & savings in one place <b>ANYTIME, ANYWHERE</b>. A quick and easy way to get started with your financial goals planning and tracking spends</h5>
                 </div>
                 </div>
@@ -20,7 +20,7 @@ const MainSection = () => {
                             </svg>
                         </div>
                         <h4 className="info-title">Saving</h4>
-                        <p>set & achieve your financials savings goals</p>
+                        <p>Set & achieve your financials savings goals</p>
                     </div>
                     </div>
                     <div className="col-md-4">
