@@ -1,5 +1,5 @@
-//import banner from './images/banner.jpg';
-  import banner from './images/tracker-hero2.png';
+  import banner from './images/banner.jpg';
+  //import banner from './images/tracker-hero2.png';
   import Button from '../common/Button/index.js';
 
 import {Link} from "react-router-dom";

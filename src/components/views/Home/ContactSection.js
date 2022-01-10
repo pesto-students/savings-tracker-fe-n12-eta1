@@ -2,7 +2,7 @@ import Form from 'react-bootstrap/Form';
 import Button from '../../common/Button/index.js';
 import {useState} from 'react'
 import Error from '../../common/Error/index.js';
-import submitContactForm from '../../../actions/contactAction'
+import submitContactForm from '../../../actions/contact.service'
 
 
 const ContactSection = () => {

@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-const apiUrl = "https://saving-tracker-backend.herokuapp.com/notification/api/"
+const apiUrl = "https://saving-tracker-backend.herokuapp.com/api/notifications/"
 
-function contactAction() {
+const ContactService = () => {
     try {
         return axios.post(apiUrl + 'submit-contact')
             .then(response => {
@@ -16,4 +16,4 @@ function contactAction() {
 
 }
 
-export default contactAction
+export default ContactService
