@@ -1,5 +1,6 @@
 
-  import banner from './images/banner.jpg';
+  //import banner from './images/banner.jpg';
+  import banner from './images/tracker-image.jpg';
   import Button from '../common/Button/index.js';
 
   const Banner = ({show, setShow}) => {

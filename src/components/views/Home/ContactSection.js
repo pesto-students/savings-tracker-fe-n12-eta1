@@ -1,5 +1,7 @@
-import Button from "../../common/Button";
+import Form from 'react-bootstrap/Form';
+import Button from '../../common/Button/index.js';
 import {useState} from 'react'
+import Error from '../../common/Error/index.js';
 import submitContactForm from '../../../actions/contactAction'
 
 const ContactSection = () => {
@@ -101,18 +103,22 @@ const ContactSection = () => {
                         <div className="row">
                             <div className="col-md-6">
                                 <div className="form-group">
-                                    <input name="name" value={contactform.name} type="text" onChange={handleChange} placeholder="Your Name" className="form-control" />
+                                    <input name="name" value={contactform.name} type="text" onChange={handleChange} placeholder="Your Name" className={(typeof contactform.errors!=='undefined' && contactform.errors["name"]!=='undefined' && contactform.errors["name"])?
+                                        'form-control is-invalid':'form-control'
+                                    } />
                                     {(typeof contactform.errors!=='undefined' && contactform.errors["name"]!=='undefined')?
-                                    <span style={{ color: "red" }}>{contactform.errors["name"]}</span>:''
+                                        <Error message={contactform.errors.name} />:''
                                     }
                                 </div>
                                 
                             </div>
                             <div className="col-md-6">
                                 <div className="form-group">
-                                    <input name="email" value={contactform.email} type="email" onChange={handleChange} placeholder="Your Email Address" className="form-control" />
+                                    <input name="email" value={contactform.email} type="email" onChange={handleChange} placeholder="Your Email Address" className={(typeof contactform.errors!=='undefined' && contactform.errors["email"]!=='undefined' && contactform.errors["email"])?
+                                        'form-control is-invalid':'form-control'
+                                    } />
                                     {(typeof contactform.errors!=='undefined' && contactform.errors["email"]!=='undefined')?
-                                    <span style={{ color: "red" }}>{contactform.errors["email"]}</span>:''
+                                    <Error message={contactform.errors.email} />:''
                                     }
                                 </div>
                         
@@ -120,9 +126,11 @@ const ContactSection = () => {
                             
                         </div>
                     <div className="form-group">
-                        <textarea name="message" value={contactform.message} type="text" placeholder="Your Message" className="form-control" rows="4" id="exampleMessage" onChange={handleChange}></textarea>
+                        <textarea name="message" value={contactform.message} type="text" placeholder="Your Message" className={(typeof contactform.errors!=='undefined' && contactform.errors["message"]!=='undefined' && contactform.errors["message"])?
+                            'form-control is-invalid':'form-control'
+                        } rows="4" id="exampleMessage" onChange={handleChange}></textarea>
                         {(typeof contactform.errors!=='undefined' && contactform.errors["message"]!=='undefined')?
-                            <span style={{ color: "red" }}>{contactform.errors["message"]}</span>:''
+                            <Error message={contactform.errors.message} />:''
                         }
                     </div>
                     <div className="row">
