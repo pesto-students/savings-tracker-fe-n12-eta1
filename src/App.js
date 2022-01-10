@@ -4,7 +4,9 @@ import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import Home from './components/views/Home/index.js';
 import Footer from './components/Footer';
 import Onboarding from "./components/views/Onboarding";
-
+import Dashboard from "./components/views/Dashboard";
+import Profile from "./components/views/Profile";
+import GuardRoute from './GuardRoute';
 import {useEffect, useState} from 'react';
 
 import {useDispatch} from 'react-redux';
@@ -47,7 +49,33 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Home setShow={setShow} />}/>
                     <Route path="/home" element={<Home setShow={setShow}/>}/>
-                    <Route path="/onboarding" element={<Onboarding/>}/>
+
+                    <Route
+                        path="/dashboard"
+                        element={
+                            <GuardRoute>
+                            <Dashboard active="dashboard"/>
+                            </GuardRoute>
+                        }
+                    />
+
+                    <Route
+                        path="/onboarding"
+                        element={
+                            <GuardRoute>
+                            <Onboarding active="onboarding"/>
+                            </GuardRoute>
+                        }
+                    />
+
+                    <Route
+                        path="/profile"
+                        element={
+                            <GuardRoute>
+                            <Profile active="profile"/>
+                            </GuardRoute>
+                        }
+                    />
                 </Routes>
                 <SignIn
                     show={show}
