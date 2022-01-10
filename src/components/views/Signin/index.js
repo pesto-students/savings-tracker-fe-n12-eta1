@@ -16,7 +16,7 @@ const SignIn = ({show, setShow}) => {
 
 
     useEffect(() => {
-
+        setStep(1)
         recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {'size': 'invisible'}, auth);
 
 

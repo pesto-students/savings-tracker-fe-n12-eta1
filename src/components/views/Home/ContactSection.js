@@ -1,6 +1,7 @@
 import Button from "../../common/Button";
 import {useState} from 'react'
-import submitContactForm from '../../../actions/contactAction'
+import ContactService from '../../../actions/contact.service'
+import Error from "../../common/Error";
 
 const ContactSection = () => {
 
@@ -16,9 +17,9 @@ const ContactSection = () => {
         let formIsValid = true;
 
         if (typeof contactform.fields === 'undefined') {
-            errors["name"] = "Cannot be empty";
-            errors["email"] = "Cannot be empty";
-            errors["message"] = "Cannot be empty";
+            errors["name"] = "Name field is required";
+            errors["email"] = "Email field is required";
+            errors["message"] = "Message field is required";
             setState({errors: errors, fields: fields});
             return false
         }
@@ -26,20 +27,20 @@ const ContactSection = () => {
         //Name
         if (!fields["name"]) {
             formIsValid = false;
-            errors["name"] = "Cannot be empty";
+            errors["name"] = "Name field is required";
         }
 
         if (typeof fields["name"] !== "undefined") {
             if (!fields["name"].match(/^[a-zA-Z]+$/)) {
                 formIsValid = false;
-                errors["name"] = "Only letters";
+                errors["name"] = "Name contains only letters";
             }
         }
 
         //Email
         if (!fields["email"]) {
             formIsValid = false;
-            errors["email"] = "Cannot be empty";
+            errors["email"] = "Email field is required";
         }
 
         if (typeof fields["email"] !== "undefined") {
@@ -63,7 +64,7 @@ const ContactSection = () => {
         //Email
         if (!fields["message"]) {
             formIsValid = false;
-            errors["message"] = "Cannot be empty";
+            errors["message"] = "Message field is required";
         }
 
         setState({errors: errors, fields: fields});
@@ -73,7 +74,7 @@ const ContactSection = () => {
     const contactSubmit = (e) => {
         e.preventDefault();
         if (handleValidation()) {
-            submitContactForm().then(response => {
+            ContactService().then(response => {
                 console.log(response)
                 contactform.success = response
             })
@@ -106,7 +107,8 @@ const ContactSection = () => {
                                     <input name="name" value={contactform.name} type="text" onChange={handleChange}
                                            placeholder="Your Name" className="form-control"/>
                                     {(typeof contactform.errors !== 'undefined' && contactform.errors["name"] !== 'undefined') ?
-                                        <span style={{color: "red"}}>{contactform.errors["name"]}</span> : ''
+                                        
+                                        <Error message={contactform.errors.name} /> : ''
                                     }
                                 </div>
 
@@ -116,7 +118,7 @@ const ContactSection = () => {
                                     <input name="email" value={contactform.email} type="email" onChange={handleChange}
                                            placeholder="Your Email Address" className="form-control"/>
                                     {(typeof contactform.errors !== 'undefined' && contactform.errors["email"] !== 'undefined') ?
-                                        <span style={{color: "red"}}>{contactform.errors["email"]}</span> : ''
+                                        <Error message={contactform.errors.email} /> : ''
                                     }
                                 </div>
 
@@ -128,7 +130,7 @@ const ContactSection = () => {
                                       className="form-control" rows="4" id="exampleMessage"
                                       onChange={handleChange}></textarea>
                             {(typeof contactform.errors !== 'undefined' && contactform.errors["message"] !== 'undefined') ?
-                                <span style={{color: "red"}}>{contactform.errors["message"]}</span> : ''
+                                <Error message={contactform.errors.message} /> : ''
                             }
                         </div>
                         <div className="row">

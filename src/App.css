@@ -6,6 +6,9 @@ body {
   margin-left: auto!important;
 }
 
+.mr-2, .mx-2 {
+  margin-right: 0.5rem!important;
+}
 
 .mr-auto, .mx-auto {
   margin-right: auto !important;
@@ -63,11 +66,45 @@ body {
   z-index: 999;
 }
 
+.dashoard-container {
+  padding: 50px;
+  height: 800px;
+}
+
+label {
+  color: #464646;
+  font-size: 16px;
+  padding-bottom: 8px;
+  font-weight: 700;
+}
+
+.font_30 {
+
+  font-size: 30px;
+    color: #464646;
+}
+
 .bg-gradient-primary {
   background-image: linear-gradient(
 195deg,#ec407a,#d81b60);
 box-shadow: 0 3px 3px 0 rgb(233 30 99 / 15%), 0 3px 1px -2px rgb(233 30 99 / 20%), 0 1px 5px 0 rgb(233 30 99 / 15%);
 }
+
+.bg-gradient-primary:hover, button:hover {
+  color: white !important;
+  background: #9d132b;
+}
+
+.btn-border {
+  background: #dc2265;
+    color: #fff;
+    border: none;
+    height: 50px;
+    width: 150px;
+    font-size: 14px;
+    border-radius: 0px !important;
+}
+
 
 .h-20 {
   height: 20px;

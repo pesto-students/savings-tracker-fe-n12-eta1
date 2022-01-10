@@ -1,0 +1,29 @@
+a{
+    text-decoration:none!important;
+    color:inherit;
+}
+ a:hover{
+    text-decoration:none!important;
+    color:inherit;
+}
+ .frontend_sec p{
+    font-size:14px;
+}
+ p{
+    line-height:25px;
+}
+ .dash_bord.active{
+    background:#e0296a;
+    color:#fff;
+    padding:8px 15px;
+}
+ .dash_bord{
+    background:#f9f9f9;
+    color:#555555;
+    padding:8px 15px;
+    font-size:14px;
+    border-bottom:1px solid #ededed;
+}
+ .dash_bord p{
+    margin-bottom:0;
+}

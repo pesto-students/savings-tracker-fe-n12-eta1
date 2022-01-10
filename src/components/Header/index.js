@@ -59,6 +59,15 @@ const Header = ({active = 'home', setShow}) => {
                                     </a>
                                 </li>
 
+                                {
+                                    user &&
+                                    <li className='nav-item'>
+                                        <Link className="nav-link flex align-item-center" to="/dashboard">
+                                        <button class="btn btn-outline-primary my-2 my-sm-0" type="button">Dashboard</button>
+                                        </Link>
+                                    </li>
+                                }
+
                                 <li className='nav-item'>
                                     {user ?
                                         <Button text="Sign Out" extraClass="primary btn-round text-white"
