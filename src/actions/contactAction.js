@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const apiUrl = "https://saving-tracker-backend.herokuapp.com/notification/api/"
+const apiUrl = "https://saving-tracker-backend.herokuapp.com/api/notifications/"
 
 function contactAction() {
     try {
