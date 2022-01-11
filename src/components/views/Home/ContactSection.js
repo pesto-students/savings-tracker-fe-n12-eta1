@@ -2,7 +2,7 @@ import Form from 'react-bootstrap/Form';
 import Button from '../../common/Button/index.js';
 import {useState} from 'react'
 import Error from '../../common/Error/index.js';
-import submitContactForm from '../../../actions/contactAction'
+import ContactService from '../../../actions/contact.service.js'
 
 
 const ContactSection = () => {
@@ -76,7 +76,7 @@ const ContactSection = () => {
     const contactSubmit = (e) => {
         e.preventDefault();
         if (handleValidation()) {
-            submitContactForm().then(response => {
+            ContactService().then(response => {
                 console.log(response)
                 contactform.success = response
             })

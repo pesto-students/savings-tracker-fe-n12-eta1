@@ -1,7 +1,5 @@
 import './style.css';
-import Button from "../../common/Button";
-import Error from "../../common/Error";
-
+import Modal from 'react-bootstrap/Modal';
 import StepWizard from "react-step-wizard";
 
 
@@ -35,21 +33,36 @@ const Onboarding = () => {
 
     };
 
-    return <div className="container" id="onboarding">
-        <div className="row">
-            <h1>Onboarding</h1>
-            <form className="g-3" onSubmit={handleSubmit}>
-                <StepWizard nav={<Nav/>}>
+    return (
 
-                    <PersonalInfo/>
-                    <LocationInfo/>
-                    <FinancialInfo/>
+        <Modal
+            size="lg"
+            show={true}
+            aria-labelledby="signin-modal-title"
+        >
+            <Modal.Header closeButton>
+                <Modal.Title id="signin-modal-title">
+                   On Boarding
+                </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+            <div className="container" id="onboarding">
+                <div className="row">
+                    <form className="g-3" onSubmit={handleSubmit}>
+                        <StepWizard nav={<Nav/>}>
 
-                </StepWizard>
-            </form>
+                            <PersonalInfo/>
+                            <LocationInfo/>
+                            <FinancialInfo/>
 
-        </div>
-    </div>
+                        </StepWizard>
+                    </form>
+                </div>
+            </div>
+            </Modal.Body>
+        </Modal>
+        
+    );
 };
 
 export default Onboarding;
