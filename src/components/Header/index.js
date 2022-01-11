@@ -50,13 +50,15 @@ const Header = ({active = 'home', setShow}) => {
                                     </Link>
                                 </li>
                                 }
-
+                                {
+                                    !user &&
                                 <li className={active === 'home' ? 'nav-item pr-2' : 'nav-item pr-2'}>
                                     <a className="nav-link flex align-item-center" href="#contact-section">
                                         <MailIcon className="icon-nav mr-4p"/>
                                         <span>Contact Us</span>
                                     </a>
                                 </li>
+                                }
 
                                 <li className='nav-item'>
                                     {user ?

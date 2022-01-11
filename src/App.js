@@ -5,10 +5,11 @@ import Home from './components/views/Home/index.js';
 import Footer from './components/Footer';
 import Onboarding from "./components/views/Onboarding";
 import Dashboard from "./components/views/Dashboard";
+import Portfolio from './components/views/Portfolio';
 import Profile from "./components/views/Profile";
 import GuardRoute from './GuardRoute';
 import {useEffect, useState} from 'react';
-
+import Spinner from './components/common/Spinner';
 import {useDispatch} from 'react-redux';
 
 import {auth} from './firebase';
@@ -43,6 +44,9 @@ function App() {
 
     return (
         <div className="App">
+
+        {loading?<Spinner/>:''}
+
             <Router>
                 <Header setShow={setShow}
                 />
@@ -55,6 +59,15 @@ function App() {
                         element={
                             <GuardRoute>
                             <Dashboard active="dashboard"/>
+                            </GuardRoute>
+                        }
+                    />
+
+                    <Route
+                        path="/portfolio"
+                        element={
+                            <GuardRoute>
+                            <Portfolio active="portfolio"/>
                             </GuardRoute>
                         }
                     />

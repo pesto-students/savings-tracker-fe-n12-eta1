@@ -7,6 +7,7 @@ const LocationInfo = (props) => {
             <div className="row">
                 <div className="col-md-12 mb-3">
                     <h5><i className="fas fa-map-marker-alt"></i> &nbsp;Location Info</h5>
+
                 </div>
             </div>
             <div className="row">
