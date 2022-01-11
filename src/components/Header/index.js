@@ -37,7 +37,7 @@ const Header = ({active = 'home', setShow}) => {
                             <ul className="navbar-nav ml-auto nav-ul">
                                 <li className={active === 'home' ? 'nav-item active pr-2' : 'nav-item pr-2'}>
                                     <Link className="nav-link flex align-item-center" to="/">
-                                        <HomeIcon className="icon mr-4p"/>
+                                        <HomeIcon className="icon-nav mr-4p"/>
                                         <span>Home</span>
                                     </Link>
                                 </li>
@@ -45,7 +45,7 @@ const Header = ({active = 'home', setShow}) => {
                                 <li className={active === 'dashboard' ? 'nav-item pr-2' : 'nav-item pr-2'}>
                                     <Link to="/dashboard" className="nav-link flex align-item-center">
 
-                                        <ChartPieIcon className="icon mr-4p"/>
+                                        <ChartPieIcon className="icon-nav mr-4p"/>
                                         <span>Dashboard</span>
                                     </Link>
                                 </li>
@@ -53,19 +53,10 @@ const Header = ({active = 'home', setShow}) => {
 
                                 <li className={active === 'home' ? 'nav-item pr-2' : 'nav-item pr-2'}>
                                     <a className="nav-link flex align-item-center" href="#contact-section">
-                                        <MailIcon className="icon mr-4p"/>
+                                        <MailIcon className="icon-nav mr-4p"/>
                                         <span>Contact Us</span>
                                     </a>
                                 </li>
-
-                                {
-                                    user &&
-                                    <li className='nav-item'>
-                                        <Link className="nav-link flex align-item-center" to="/dashboard">
-                                        <button class="btn btn-outline-primary my-2 my-sm-0" type="button">Dashboard</button>
-                                        </Link>
-                                    </li>
-                                }
 
                                 <li className='nav-item'>
                                     {user ?

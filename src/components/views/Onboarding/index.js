@@ -1,6 +1,7 @@
 import './style.css';
 import Modal from 'react-bootstrap/Modal';
 import StepWizard from "react-step-wizard";
+import {useNavigate} from "react-router-dom";
 
 
 import {postToApi} from './api'
@@ -11,9 +12,12 @@ import PersonalInfo from './PersonalInfo';
 import LocationInfo from './LocationInfo';
 import FinancialInfo from './FinancialInfo';
 import Nav from './Nav';
+import Error from "../../common/Error";
 
 
 const Onboarding = () => {
+
+    const navigate = useNavigate();
 
     const [error, setError] = useState('');
     const handleSubmit = (e) => {
@@ -26,6 +30,7 @@ const Onboarding = () => {
         postToApi(values).then((response) => {
 
             //navigate to dashboard or goals page
+            // navigate('/dashboard');
 
         }).catch((error) => {
             setError(error.message)
@@ -34,34 +39,22 @@ const Onboarding = () => {
     };
 
     return (
+        <div className="container" id="onboarding">
+            <h1>Onboarding</h1>
 
-        <Modal
-            size="lg"
-            show={true}
-            aria-labelledby="signin-modal-title"
-        >
-            <Modal.Header closeButton>
-                <Modal.Title id="signin-modal-title">
-                   On Boarding
-                </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-            <div className="container" id="onboarding">
-                <div className="row">
-                    <form className="g-3" onSubmit={handleSubmit}>
-                        <StepWizard nav={<Nav/>}>
+            <form className="g-3" onSubmit={handleSubmit}>
+                <StepWizard nav={<Nav/>}>
 
-                            <PersonalInfo/>
-                            <LocationInfo/>
-                            <FinancialInfo/>
+                    <PersonalInfo/>
+                    <LocationInfo/>
+                    <FinancialInfo/>
 
-                        </StepWizard>
-                    </form>
-                </div>
-            </div>
-            </Modal.Body>
-        </Modal>
-        
+                </StepWizard>
+                <Error error={error}/>
+            </form>
+
+        </div>
+
     );
 };
 
