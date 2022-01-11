@@ -1,14 +1,15 @@
-import { useState } from 'react';
+import {useState} from 'react';
 import Button from '../../common/Button';
 import Error from '../../common/Error';
 import ProfileService from '../../../actions/profile.service';
+
 const Edit = ({setEdit}) => {
 
     const [profile, setProfile] = useState({
-        fields: {},
-        errors: {},
-        success: false
-    })
+                                               fields: {},
+                                               errors: {},
+                                               success: false
+                                           })
 
     const handleValidation = (e) => {
         let fields = profile.fields;
@@ -85,7 +86,7 @@ const Edit = ({setEdit}) => {
 
             formIsValid = false;
             errors["mobile"] = "Mobile number field is required";
-        }else{
+        } else {
 
             if (fields["mobile"].length !== 10) {
                 formIsValid = false;
@@ -148,18 +149,18 @@ const Edit = ({setEdit}) => {
     }
 
     return (
-        
+
         <div className="col-md-9">
             <div className="row">
                 <div className="col-md-6">
                     <h1 className="font_30"><i className="fa fa-user mr-2"></i>Edit Profile</h1>
                 </div>
                 <div className="col-md-6 flex">
-                <Button 
-                    text="Back" 
-                    extraClass="primary btn-border ml-auto" 
-                    icon={<i className="fas fa-arrow-alt-circle-left mr-2"></i>} 
-                    onClick={(e) => setEdit(false)}                
+                    <Button
+                        text="Back"
+                        extraClass="primary btn-border ml-auto"
+                        icon={<i className="fas fa-arrow-alt-circle-left mr-2"></i>}
+                        onClick={(e) => setEdit(false)}
                     />
                 </div>
             </div>
@@ -170,9 +171,9 @@ const Edit = ({setEdit}) => {
                         <div className="form-group">
                             <label>First Name</label>
                             <input name="first_name" type="text" onChange={handleChange}
-                                    placeholder="First Name" className="form-control"/>
+                                   placeholder="First Name" className="form-control"/>
                             {(typeof profile.errors !== 'undefined' && profile.errors["first_name"] !== 'undefined') ?
-                                <Error message={profile.errors.first_name} /> : ''
+                                <Error message={profile.errors.first_name}/> : ''
                             }
                         </div>
                     </div>
@@ -181,9 +182,9 @@ const Edit = ({setEdit}) => {
                         <div className="form-group">
                             <label>Last Name</label>
                             <input name="last_name" type="text" onChange={handleChange}
-                                    placeholder="Last Name" className="form-control"/>
+                                   placeholder="Last Name" className="form-control"/>
                             {(typeof profile.errors !== 'undefined' && profile.errors["last_name"] !== 'undefined') ?
-                                <Error message={profile.errors.last_name} /> : ''
+                                <Error message={profile.errors.last_name}/> : ''
                             }
                         </div>
                     </div>
@@ -192,9 +193,9 @@ const Edit = ({setEdit}) => {
                         <div className="form-group">
                             <label>Email</label>
                             <input name="email" type="email" onChange={handleChange}
-                                    placeholder="Your Email Address" className="form-control"/>
+                                   placeholder="Your Email Address" className="form-control"/>
                             {(typeof profile.errors !== 'undefined' && profile.errors["email"] !== 'undefined') ?
-                                <Error message={profile.errors.email} /> : ''
+                                <Error message={profile.errors.email}/> : ''
                             }
                         </div>
                     </div>
@@ -203,9 +204,9 @@ const Edit = ({setEdit}) => {
                         <div className="form-group">
                             <label>Mobile</label>
                             <input name="mobile" type="text" onChange={handleChange}
-                                    placeholder="Mobile" className="form-control"/>
+                                   placeholder="Mobile" className="form-control"/>
                             {(typeof profile.errors !== 'undefined' && profile.errors["mobile"] !== 'undefined') ?
-                                <Error message={profile.errors.mobile} /> : ''
+                                <Error message={profile.errors.mobile}/> : ''
                             }
                         </div>
                     </div>
@@ -214,9 +215,9 @@ const Edit = ({setEdit}) => {
                         <div className="form-group">
                             <label>Date of Birth</label>
                             <input name="dob" type="date" onChange={handleChange}
-                                    placeholder="DOB" className="form-control"/>
+                                   placeholder="DOB" className="form-control"/>
                             {(typeof profile.errors !== 'undefined' && profile.errors["dob"] !== 'undefined') ?
-                                <Error message={profile.errors.dob} /> : ''
+                                <Error message={profile.errors.dob}/> : ''
                             }
                         </div>
                     </div>
@@ -225,9 +226,9 @@ const Edit = ({setEdit}) => {
                         <div className="form-group">
                             <label>Country</label>
                             <input name="country" type="text" onChange={handleChange}
-                                    placeholder="Country" className="form-control"/>
+                                   placeholder="Country" className="form-control"/>
                             {(typeof profile.errors !== 'undefined' && profile.errors["country"] !== 'undefined') ?
-                                <Error message={profile.errors.country} /> : ''
+                                <Error message={profile.errors.country}/> : ''
                             }
                         </div>
                     </div>
@@ -236,9 +237,9 @@ const Edit = ({setEdit}) => {
                         <div className="form-group">
                             <label>City</label>
                             <input name="city" type="text" onChange={handleChange}
-                                    placeholder="City" className="form-control"/>
+                                   placeholder="City" className="form-control"/>
                             {(typeof profile.errors !== 'undefined' && profile.errors["city"] !== 'undefined') ?
-                                <Error message={profile.errors.city} /> : ''
+                                <Error message={profile.errors.city}/> : ''
                             }
                         </div>
                     </div>
@@ -250,13 +251,14 @@ const Edit = ({setEdit}) => {
                                       className="form-control" rows="4"
                                       onChange={handleChange}></textarea>
                             {(typeof profile.errors !== 'undefined' && profile.errors["bio"] !== 'undefined') ?
-                                <Error message={profile.errors.bio} /> : ''
+                                <Error message={profile.errors.bio}/> : ''
                             }
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-md-4 ml-auto mr-auto text-center">
-                            <Button type="button" text="Update Profile" extraClass="primary btn-round text-white" onClick={handlesubmit}/>
+                            <Button type="button" text="Update Profile" extraClass="primary btn-round text-white"
+                                    onClick={handlesubmit}/>
                         </div>
                     </div>
                 </div>

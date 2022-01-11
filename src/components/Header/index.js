@@ -4,11 +4,19 @@ import logo from '../../logo.png';
 import Button from "../common/Button";
 import {useSelector} from "react-redux";
 
+import {useLocation} from "react-router-dom";
+
+
 import {signOut} from "../../auth";
 
 import {MailIcon, HomeIcon, ChartPieIcon} from '@heroicons/react/outline'
 
-const Header = ({active = 'home', setShow}) => {
+
+const Header = ({setShow}) => {
+
+    const location = useLocation().pathname;
+
+    console.log(location);
 
     const user = useSelector((state) => state.user);
 
@@ -35,14 +43,14 @@ const Header = ({active = 'home', setShow}) => {
                         </div>
                         <div className="collapse navbar-collapse">
                             <ul className="navbar-nav ml-auto nav-ul">
-                                <li className={active === 'home' ? 'nav-item active pr-2' : 'nav-item pr-2'}>
+                                <li className={(location === '/' ? 'active ' : '') + 'nav-item pr-2'}>
                                     <Link className="nav-link flex align-item-center" to="/">
                                         <HomeIcon className="icon-nav mr-4p"/>
                                         <span>Home</span>
                                     </Link>
                                 </li>
-                                {user &&
-                                <li className={active === 'dashboard' ? 'nav-item pr-2' : 'nav-item pr-2'}>
+                                {user && location === '/' &&
+                                <li className="nav-item pr-2">
                                     <Link to="/dashboard" className="nav-link flex align-item-center">
 
                                         <ChartPieIcon className="icon-nav mr-4p"/>
@@ -50,15 +58,14 @@ const Header = ({active = 'home', setShow}) => {
                                     </Link>
                                 </li>
                                 }
-                                {
-                                    !user &&
-                                <li className={active === 'home' ? 'nav-item pr-2' : 'nav-item pr-2'}>
-                                    <a className="nav-link flex align-item-center" href="#contact-section">
+
+                                <li className={location === 'home' ? 'nav-item pr-2' : 'nav-item pr-2'}>
+                                    <a className="nav-link flex align-item-center" href="/#contact-section">
                                         <MailIcon className="icon-nav mr-4p"/>
                                         <span>Contact Us</span>
                                     </a>
                                 </li>
-                                }
+
 
                                 <li className='nav-item'>
                                     {user ?

@@ -1,6 +1,6 @@
 import './App.css';
 import Header from './components/Header/index';
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import {BrowserRouter as Router, Routes, Route, useLocation} from "react-router-dom";
 import Home from './components/views/Home/index.js';
 import Footer from './components/Footer';
 import Onboarding from "./components/views/Onboarding";
@@ -12,31 +12,34 @@ import {useEffect, useState} from 'react';
 import Spinner from './components/common/Spinner';
 import {useDispatch} from 'react-redux';
 
-import {auth} from './firebase';
 import SignIn from "./components/views/Signin";
 
+import {auth} from './firebase';
 
 function App() {
 
     const dispatch = useDispatch();
 
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const [show, setShow] = useState(false);
+    const [activePage, setActivePage] = useState('/');
 
+
+    // console.log(auth);
 
     useEffect(() => {
 
-        setLoading(true);
+        // setLoading(true);
 
         auth.onAuthStateChanged(function (user) {
-            // setUser(user);
             dispatch({type: 'AUTH', payload: user});
-
+            // setUser(user);
+            setLoading(false);
 
         });
 
-        setLoading(false);
+        // setLoading(false);
 
 
     }, []);
@@ -45,20 +48,20 @@ function App() {
     return (
         <div className="App">
 
-        {loading?<Spinner/>:''}
-
+            {loading ? <Spinner/> : ''}
+            {!loading &&
             <Router>
                 <Header setShow={setShow}
                 />
                 <Routes>
-                    <Route path="/" element={<Home setShow={setShow} />}/>
+                    <Route path="/" element={<Home setShow={setShow}/>}/>
                     <Route path="/home" element={<Home setShow={setShow}/>}/>
 
                     <Route
                         path="/dashboard"
                         element={
                             <GuardRoute>
-                            <Dashboard active="dashboard"/>
+                                <Dashboard active="dashboard"/>
                             </GuardRoute>
                         }
                     />
@@ -67,7 +70,7 @@ function App() {
                         path="/portfolio"
                         element={
                             <GuardRoute>
-                            <Portfolio active="portfolio"/>
+                                <Portfolio active="portfolio"/>
                             </GuardRoute>
                         }
                     />
@@ -76,7 +79,7 @@ function App() {
                         path="/onboarding"
                         element={
                             <GuardRoute>
-                            <Onboarding active="onboarding"/>
+                                <Onboarding active="onboarding"/>
                             </GuardRoute>
                         }
                     />
@@ -85,7 +88,7 @@ function App() {
                         path="/profile"
                         element={
                             <GuardRoute>
-                            <Profile active="profile"/>
+                                <Profile active="profile"/>
                             </GuardRoute>
                         }
                     />
@@ -96,6 +99,7 @@ function App() {
                 />
                 <Footer/>
             </Router>
+            }
         </div>
     );
 }
