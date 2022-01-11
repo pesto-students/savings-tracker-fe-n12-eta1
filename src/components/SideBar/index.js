@@ -20,8 +20,8 @@ const SideBar = ({active='dashboard'}) => {
             <p><i className="fa fa-bullseye mr-2"></i>My Goals</p>
             </Link>
         </div>
-        <div className={active === 'onboarding'?'dash_bord active':'dash_bord'}>
-            <Link to="/onboarding">
+        <div className={active === 'portfolio'?'dash_bord active':'dash_bord'}>
+            <Link to="/portfolio">
             <p><i className="fas fa-users-cog mr-2"></i> Portfolio </p>
             </Link>
         </div>

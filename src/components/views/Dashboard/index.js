@@ -3,6 +3,7 @@ import DashboardBanner from '../../common/DashboardBanner';
 import './index.css';
 import banner from './images/banner.jpg';
 import SideBar from '../../SideBar';
+import Spinner from "../../common/Spinner";
 
 const Dashboard = ({active}) => {
 
@@ -12,7 +13,6 @@ const Dashboard = ({active}) => {
                 image={banner}
             />
             
-
             <div className="main main-raised dashoard-container">
                 <div className="container">
                 <div className="row">

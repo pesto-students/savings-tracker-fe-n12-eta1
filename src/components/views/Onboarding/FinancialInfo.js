@@ -4,7 +4,7 @@ const FinancialInfo = (props) => {
     return (
         <div className="row">
             <div className="col-md-12 mb-3">
-                <h5><i class="fas fa-coins"></i> &nbsp;Financial Info</h5>
+                <h5><i className="fas fa-coins"></i> &nbsp;Financial Info</h5>
             </div>
             <div className="col-md-6">
                 <div className="form-group"> 
