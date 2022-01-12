@@ -1,8 +1,7 @@
 import './style.css';
-import Button from "../../common/Button";
-import Error from "../../common/Error";
-
+import Modal from 'react-bootstrap/Modal';
 import StepWizard from "react-step-wizard";
+import {useNavigate} from "react-router-dom";
 
 
 import {postToApi} from './api'
@@ -13,9 +12,12 @@ import PersonalInfo from './PersonalInfo';
 import LocationInfo from './LocationInfo';
 import FinancialInfo from './FinancialInfo';
 import Nav from './Nav';
+import Error from "../../common/Error";
 
 
 const Onboarding = () => {
+
+    const navigate = useNavigate();
 
     const [error, setError] = useState('');
     const handleSubmit = (e) => {
@@ -28,6 +30,7 @@ const Onboarding = () => {
         postToApi(values).then((response) => {
 
             //navigate to dashboard or goals page
+            // navigate('/dashboard');
 
         }).catch((error) => {
             setError(error.message)
@@ -35,9 +38,10 @@ const Onboarding = () => {
 
     };
 
-    return <div className="container" id="onboarding">
-        <div className="row">
+    return (
+        <div className="container" id="onboarding">
             <h1>Onboarding</h1>
+
             <form className="g-3" onSubmit={handleSubmit}>
                 <StepWizard nav={<Nav/>}>
 
@@ -46,10 +50,12 @@ const Onboarding = () => {
                     <FinancialInfo/>
 
                 </StepWizard>
+                <Error error={error}/>
             </form>
 
         </div>
-    </div>
+
+    );
 };
 
 export default Onboarding;

@@ -1,13 +1,130 @@
-#onboarding {
-    margin-top: 6rem;
+*, ::after, ::before {
+    box-sizing: border-box;
 }
 
-.breadcrumb a{
+#onboarding{
+    margin-top: 10rem;
+}
+
+h5 {
+    margin-top: 0;
+    margin-bottom: .5rem;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+b {
+    font-weight: bolder;
+}
+
+a {
+    color: #007bff;
     text-decoration: none;
+    background-color: transparent;
 }
 
-
-.breadcrumb li.active a{
+a:hover {
+    color: #0056b3;
     text-decoration: underline;
+}
+
+h5 {
+    margin-bottom: .5rem;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+h5 {
+    font-size: 1.25rem;
+}
+
+@media print {
+    *, ::after, ::before {
+        text-shadow: none !important;
+        box-shadow: none !important;
+    }
+
+    a:not(.btn) {
+        text-decoration: underline;
+    }
+
+    p {
+        orphans: 3;
+        widows: 3;
+    }
+}
+
+/*! CSS Used from: https://onlinechessentry.com/css/style.css */
+a {
+    text-decoration: none !important;
+    color: inherit;
+}
+
+a:hover {
+    text-decoration: none !important;
+    color: inherit;
+}
+
+a.level2.active {
+    background: #e53270;
+    color: #fff;
+}
+
+.text-bold {
     font-weight: bold;
+}
+
+a.level2 p {
+    margin-bottom: 0;
+}
+
+a.level2 {
+    height: 30px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e1e1e1;
+    color: #000;
+    border-radius: 5px;
+    margin: auto;
+    z-index: 99999;
+}
+
+.lev h5 {
+    font-size: 16px;
+}
+
+.frontend_sec p {
+    font-size: 14px;
+}
+
+p {
+    line-height: 25px;
+}
+
+b {
+    font-weight: bold;
+}
+
+@media (max-width: 900px) {
+    a.level2 p::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 4px;
+        background: #e1e1e1;
+        top: -62px;
+        bottom: 0;
+        margin: auto;
+        left: 62px;
+        z-index: 0;
+    }
+
+    .m_auto {
+        margin: auto !important;
+    }
 }

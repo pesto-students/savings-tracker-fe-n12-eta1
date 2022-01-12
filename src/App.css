@@ -188,6 +188,14 @@ p {
     position: relative;
 }
 
-.icon {
+.icon-nav {
     width: 20px;
+}
+.loader{
+    width: 100%;
+    justify-content: center;
+    opacity: 0.75;
+    background: grey;
+    height: 100%;
+    align-items: center;
 }
