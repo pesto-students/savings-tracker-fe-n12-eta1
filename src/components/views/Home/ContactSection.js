@@ -83,7 +83,6 @@ const ContactSection = () => {
 
         } else {
             console.log(contactform)
-            //alert("Form has errors.");
         }
     }
 
@@ -91,7 +90,7 @@ const ContactSection = () => {
         let fields = contactform.fields;
         fields[e.target.name] = e.target.value;
         setState({fields, success: false});
-        handleValidation()
+        //handleValidation()
     }
 
     return (
@@ -108,7 +107,7 @@ const ContactSection = () => {
                             <div className="col-md-6">
                                 <div className="form-group">
                                     <input name="name" value={contactform.name} type="text" onChange={handleChange} placeholder="Your Name" className={(typeof contactform.errors!=='undefined' && contactform.errors["name"]!=='undefined' && contactform.errors["name"])?
-                                        'form-control is-invalid':'form-control is-valid'
+                                        'form-control is-invalid':'form-control'
                                     } />
                                     {(typeof contactform.errors!=='undefined' && contactform.errors["name"]!=='undefined')?
                                         <Error message={contactform.errors.name} />:''
@@ -119,7 +118,7 @@ const ContactSection = () => {
                             <div className="col-md-6">
                                 <div className="form-group">
                                     <input name="email" value={contactform.email} type="email" onChange={handleChange} placeholder="Your Email Address" className={(typeof contactform.errors!=='undefined' && contactform.errors["email"]!=='undefined' && contactform.errors["email"])?
-                                        'form-control is-invalid':'form-control is-valid'
+                                        'form-control is-invalid':'form-control'
                                     } />
                                     {(typeof contactform.errors!=='undefined' && contactform.errors["email"]!=='undefined')?
                                     <Error message={contactform.errors.email} />:''
@@ -135,8 +134,12 @@ const ContactSection = () => {
 
                         <div className="form-group">
                             <textarea name="message" value={contactform.message} type="text" placeholder="Your Message"
-                                      className="form-control" rows="4" id="exampleMessage"
-                                      onChange={handleChange}></textarea>
+                                      className={(typeof contactform.errors!=='undefined' && contactform.errors["message"]!=='undefined' && contactform.errors["message"])?
+                                      'form-control is-invalid':'form-control'
+                                       } rows="4" id="exampleMessage"
+                                      onChange={handleChange}>
+
+                            </textarea>
                             {(typeof contactform.errors !== 'undefined' && contactform.errors["message"] !== 'undefined') ?
                                 <Error message={contactform.errors.message} /> : ''
                             }
