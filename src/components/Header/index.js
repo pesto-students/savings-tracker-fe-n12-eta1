@@ -1,3 +1,4 @@
+import React, {useEffect} from "react";
 import {Link} from "react-router-dom";
 import './index.css';
 import logo from '../../logo.png';
@@ -15,11 +16,34 @@ import {MailIcon, HomeIcon, ChartPieIcon} from '@heroicons/react/outline'
 const Header = ({setShow}) => {
 
     const location = useLocation().pathname;
-
-    console.log(location);
+    const hash = useLocation().hash;
+    const ref = React.createRef();
+    console.log(hash);
 
     const user = useSelector((state) => state.user);
+    useEffect(() => {
+        
+        if(hash === '#contact-section'){
+            var contactID = hash.substring(1);
+            const element = document.getElementById(contactID);
 
+             if (element) {
+                element.scrollIntoView({
+                   behavior: 'smooth'
+                });
+             }
+        }
+        else if(hash === '#team-section'){
+            var aboutID = hash.substring(1);
+            const element = document.getElementById(aboutID);
+
+             if (element) {
+                element.scrollIntoView({
+                   behavior: 'smooth'
+                });
+             }
+        }
+    }, [])
 
     return (
         <>
