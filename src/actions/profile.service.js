@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-const apiUrl = "https://saving-tracker-backend.herokuapp.com/notification/api/"
+//const apiUrl = "https://saving-tracker-backend.herokuapp.com/api/notifications/"
+const apiUrl =process.env.REACT_APP_API_URL+"/api/notifications/"
 
 const ProfileService = () => {
     try {

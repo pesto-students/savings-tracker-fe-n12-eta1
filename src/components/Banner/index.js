@@ -1,9 +1,8 @@
-//import banner from './images/banner.jpg';
+
 import banner from './images/banner.jpg';
 import Button from '../common/Button/index.js';
 
 import {Link} from "react-router-dom";
-
 import {useSelector} from "react-redux";
 
 
