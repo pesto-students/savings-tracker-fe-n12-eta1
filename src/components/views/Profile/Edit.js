@@ -11,7 +11,10 @@ const Edit = ({setEdit}) => {
                                                success: false
                                            })
 
+    const [loading, setLoading] = useState(true)
+
     const handleValidation = (e) => {
+        setLoading(false);
         let fields = profile.fields;
         let errors = {};
         let formIsValid = true;
@@ -101,40 +104,42 @@ const Edit = ({setEdit}) => {
             errors["dob"] = "Date of birth field is required";
         }
 
-        //DOB
+        //country
         if (!fields["country"]) {
 
             formIsValid = false;
             errors["country"] = "Country field is required";
         }
 
-        //DOB
+        //city
         if (!fields["city"]) {
 
             formIsValid = false;
             errors["city"] = "City field is required";
         }
 
-        //DOB
-        if (!fields["bio"]) {
-
-            formIsValid = false;
-            errors["bio"] = "Bio field is required";
-        }
-
         setProfile({errors: errors, fields: fields});
-        return formIsValid;
+        setLoading(false);
+        return errors;
     }
 
     const handleChange = (e) => {
+    
         let fields = profile.fields;
         fields[e.target.name] = e.target.value;
-        setProfile({fields, success: false});
+        setProfile({fields});
+
+        let errors = handleValidation();
+
+        setProfile({errors, fields});
+
     }
 
     const handlesubmit = (e) => {
         e.preventDefault();
-        if (handleValidation()) {
+
+        let  errors = handleValidation()
+        if ( Object.keys(errors).length === 0) {
 
             console.log('form submit success')
             ProfileService().then(response => {
@@ -169,7 +174,7 @@ const Edit = ({setEdit}) => {
                 <div className="row mt-4 ply_infrm ">
                     <div className="col-md-6">
                         <div className="form-group">
-                            <label>First Name</label>
+                            <label>First Name <span className='text-danger'>*</span></label>
                             <input name="first_name" type="text" onChange={handleChange}
                                    placeholder="First Name" className="form-control"/>
                             {(typeof profile.errors !== 'undefined' && profile.errors["first_name"] !== 'undefined') ?
@@ -180,7 +185,7 @@ const Edit = ({setEdit}) => {
 
                     <div className="col-md-6">
                         <div className="form-group">
-                            <label>Last Name</label>
+                            <label>Last Name <span className='text-danger'>*</span></label>
                             <input name="last_name" type="text" onChange={handleChange}
                                    placeholder="Last Name" className="form-control"/>
                             {(typeof profile.errors !== 'undefined' && profile.errors["last_name"] !== 'undefined') ?
@@ -191,7 +196,7 @@ const Edit = ({setEdit}) => {
 
                     <div className="col-md-6">
                         <div className="form-group">
-                            <label>Email</label>
+                            <label>Email <span className='text-danger'>*</span></label>
                             <input name="email" type="email" onChange={handleChange}
                                    placeholder="Your Email Address" className="form-control"/>
                             {(typeof profile.errors !== 'undefined' && profile.errors["email"] !== 'undefined') ?
@@ -202,7 +207,7 @@ const Edit = ({setEdit}) => {
 
                     <div className="col-md-6">
                         <div className="form-group">
-                            <label>Mobile</label>
+                            <label>Mobile <span className='text-danger'>*</span></label>
                             <input name="mobile" type="text" onChange={handleChange}
                                    placeholder="Mobile" className="form-control"/>
                             {(typeof profile.errors !== 'undefined' && profile.errors["mobile"] !== 'undefined') ?
@@ -213,7 +218,7 @@ const Edit = ({setEdit}) => {
 
                     <div className="col-md-6">
                         <div className="form-group">
-                            <label>Date of Birth</label>
+                            <label>Date of Birth <span className='text-danger'>*</span></label>
                             <input name="dob" type="date" onChange={handleChange}
                                    placeholder="DOB" className="form-control"/>
                             {(typeof profile.errors !== 'undefined' && profile.errors["dob"] !== 'undefined') ?
@@ -224,7 +229,7 @@ const Edit = ({setEdit}) => {
 
                     <div className="col-md-6">
                         <div className="form-group">
-                            <label>Country</label>
+                            <label>Country <span className='text-danger'>*</span></label>
                             <input name="country" type="text" onChange={handleChange}
                                    placeholder="Country" className="form-control"/>
                             {(typeof profile.errors !== 'undefined' && profile.errors["country"] !== 'undefined') ?
@@ -235,7 +240,7 @@ const Edit = ({setEdit}) => {
 
                     <div className="col-md-6">
                         <div className="form-group">
-                            <label>City</label>
+                            <label>City <span className='text-danger'>*</span></label>
                             <input name="city" type="text" onChange={handleChange}
                                    placeholder="City" className="form-control"/>
                             {(typeof profile.errors !== 'undefined' && profile.errors["city"] !== 'undefined') ?
@@ -250,15 +255,16 @@ const Edit = ({setEdit}) => {
                             <textarea name="bio" type="text" placeholder="Your Bio"
                                       className="form-control" rows="4"
                                       onChange={handleChange}></textarea>
-                            {(typeof profile.errors !== 'undefined' && profile.errors["bio"] !== 'undefined') ?
-                                <Error message={profile.errors.bio}/> : ''
-                            }
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-md-4 ml-auto mr-auto text-center">
                             <Button type="button" text="Update Profile" extraClass="primary btn-round text-white"
-                                    onClick={handlesubmit}/>
+                                    onClick={handlesubmit} disabled={(profile.errors 
+                                        && Object.keys(profile.errors).length === 0
+                                        && Object.getPrototypeOf(profile.errors) === Object.prototype) ?
+                                    '' : 'disabled'
+                                }/>
                         </div>
                     </div>
                 </div>

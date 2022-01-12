@@ -11,7 +11,7 @@ import GuardRoute from './GuardRoute';
 import {useEffect, useState} from 'react';
 import Spinner from './components/common/Spinner';
 import {useDispatch} from 'react-redux';
-
+import Banner from './components/Banner/images/banner.jpg'
 import SignIn from "./components/views/Signin";
 
 import {auth} from './firebase';
@@ -46,7 +46,7 @@ function App() {
 
 
     return (
-        <div className="App">
+        <div className="App" style={{ backgroundImage: `url("${Banner}")` }}>
 
             {loading ? <Spinner/> : ''}
             {!loading &&
