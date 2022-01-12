@@ -7,7 +7,6 @@ import './style.css';
 
 const CurrencySelect = ({name, onChange, value}) => {
     const [options, setOptions] = useState([]);
-    const [selectedValue, setSelectedValue] = useState({});
 
     useEffect(() => {
 
@@ -20,8 +19,6 @@ const CurrencySelect = ({name, onChange, value}) => {
             });
 
             setOptions(optionsArray);
-
-            setSelectedValue({key: value, label: currenciesObject[value]});
         })
 
     }, []);
@@ -59,8 +56,14 @@ const CurrencySelect = ({name, onChange, value}) => {
 
     };
 
-    return <Select options={options} styles={customStyles} name={name} onChange={onChange}
-                   value={selectedValue}/>
+    function onSelect(option) {
+        if (onChange) {
+            onChange(option.value);
+        }
+    }
+
+    return <Select options={options} styles={customStyles} name={name} onChange={onSelect}
+                   defaultInputValue={value}/>
 };
 
 export default CurrencySelect;
