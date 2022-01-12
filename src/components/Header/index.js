@@ -16,8 +16,6 @@ const Header = ({setShow}) => {
 
     const location = useLocation().pathname;
 
-    console.log(location);
-
     const user = useSelector((state) => state.user);
 
 

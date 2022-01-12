@@ -27,13 +27,15 @@ const Footer = () => {
                                         </Link>
                                     </li>
                                     <li>
-                                        <a href="/#team-section">
+                                        <Link to="/#team-section">About Us</Link>
+
+                                        {/* <a href="/#team-section">
                                             About Us
-                                        </a>
+                                        </a>*/}
                                     </li>
                                     <li>
                                         <a href="/#contact-section">
-                                            Contact US
+                                            Contact Us
                                         </a>
                                     </li>
                                 </ul>
