@@ -1,6 +1,8 @@
 import image1 from './images/1.jpg';
-import image2 from './images/2.jpg';
-import image3 from './images/3.jpg';
+/*import image2 from './images/2.jpg';
+import image3 from './images/3.jpg';*/
+import image2 from './images/harish_patidar.jpg';
+import image3 from './images/kashifa-profile.jpeg';
 import Card from '../../common/Team/Card';
 const TeamSection = () => {
 
@@ -14,24 +16,24 @@ const TeamSection = () => {
                         image={image1}
                         title="Karandeep Singh"
                         profile="Software Enginner"
-                        content="You can write here details about one of your team members. You can give more details about what they do. Feel free to add some
-                        for people to be able to follow them outside the site."
+                        content="You can relay on our amazing features list and also our customer services will be great experience."
+                        links={{github:'https://github.com/karan-2809',linkedin:'https://www.linkedin.com/in/karandeep-singh-a904b3a2/',email:'karannnnn@yahoo.com'}}
                     />
 
                     <Card 
                         image={image2}
                         title="Harish Patidar"
                         profile="Software Enginner"
-                        content="You can write here details about one of your team members. You can give more details about what they do. Feel free to add some
-                        for people to be able to follow them outside the site."
+                        content="You can relay on our amazing features list and also our customer services will be great experience."
+                        links={{github:'https://github.com/rjharish333',linkedin:'https://www.linkedin.com/in/er-harish-patidar/',email:'patidarharish08@gmail.com'}}
                     />
 
                     <Card 
                         image={image3}
                         title="Kashifa Khan"
                         profile="Software Enginner"
-                        content="You can write here details about one of your team members. You can give more details about what they do. Feel free to add some
-                        for people to be able to follow them outside the site."
+                        content="You can relay on our amazing features list and also our customer services will be great experience."
+                        links={{github:'https://github.com/kashifakhan1996',linkedin:'https://www.linkedin.com/in/kashifa-khan-520102127/',email:'khankashifa.1996@gmail.com'}}
                     />
                 
                 </div>
