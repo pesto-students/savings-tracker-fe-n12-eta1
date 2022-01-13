@@ -1,5 +1,7 @@
+
 import banner from './images/banner.jpg';
 import Button from '../common/Button/index.js';
+
 import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
 
@@ -20,7 +22,8 @@ const Banner = ({show, setShow}) => {
                                 minimal efforts?
                                 <br/>We are there to help you
                             </p>
-                            {user ? <Link to="/dashboard" className="btn btn-primary btn-round text-white shadow glob-btn bg-gradient-primary">Dashboard</Link>
+                            {user ? <Link to="/dashboard"
+                                          className="btn btn-primary btn-round text-white shadow glob-btn bg-gradient-primary">Dashboard</Link>
                                 :
                                 <Button text="Get Started" extraClass="primary btn-round text-white"
                                         onClick={() => setShow(true)}/>}

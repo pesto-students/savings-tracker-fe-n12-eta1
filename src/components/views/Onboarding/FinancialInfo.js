@@ -1,4 +1,5 @@
 import Button from "../../common/Button";
+import CurrencySelect from "../../common/CurrencySelect";
 
 const FinancialInfo = (props) => {
     return (
@@ -13,12 +14,8 @@ const FinancialInfo = (props) => {
             <div className="row">
                 <div className="col-md-6">
                     <div className="form-group">
-                        <label htmlFor="country" className="form-label">Curruncy</label>
-                        <select className="form-control" name="currency" id="currency">
-                            <option value="INR">₹ (INR)</option>
-                            <option value="USD">$ (USD)</option>
-                            <option value="EUR">€ (EURO)</option>
-                        </select>
+                        <label htmlFor="country" className="form-label">Currency</label>
+                        <CurrencySelect name="currency" value="INR"/>
                     </div>
                 </div>
             </div>

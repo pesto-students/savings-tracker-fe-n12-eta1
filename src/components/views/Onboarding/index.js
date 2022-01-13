@@ -1,5 +1,4 @@
 import './style.css';
-import Modal from 'react-bootstrap/Modal';
 import StepWizard from "react-step-wizard";
 import {useNavigate} from "react-router-dom";
 
@@ -30,7 +29,7 @@ const Onboarding = () => {
         postToApi(values).then((response) => {
 
             //navigate to dashboard or goals page
-            // navigate('/dashboard');
+            navigate('/dashboard');
 
         }).catch((error) => {
             setError(error.message)

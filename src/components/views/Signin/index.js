@@ -3,6 +3,8 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Button from '../../common/Button/index.js';
 import {omit} from 'lodash'
+import {useNavigate} from "react-router-dom";
+
 import Error from '../../common/Error/index.js';
 
 import {RecaptchaVerifier, signInWithPhoneNumber} from "firebase/auth";
@@ -14,9 +16,10 @@ let recaptchaVerifier, authConfirmationResult;
 
 const SignIn = ({show, setShow}) => {
 
+    const navigate = useNavigate();
 
     useEffect(() => {
-        setStep(1)
+        setStep(1);
         recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {'size': 'invisible'}, auth);
 
 
@@ -60,7 +63,7 @@ const SignIn = ({show, setShow}) => {
 
         authConfirmationResult.confirm(otp).then((result) => {
             // User signed in successfully. Redirect
-
+            navigate('/onboarding');
             setShow(false);
 
         }).catch((error) => {
