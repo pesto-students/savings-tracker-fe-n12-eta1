@@ -73,7 +73,7 @@ body {
 
 .dashoard-container {
   padding: 50px;
-  height: 800px;
+  min-height: 800px;
 }
 
 label {
