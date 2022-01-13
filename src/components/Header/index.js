@@ -16,6 +16,7 @@ import {MailIcon, HomeIcon, ChartPieIcon} from '@heroicons/react/outline'
 const Header = ({setShow}) => {
 
     const location = useLocation().pathname;
+
     const hash = useLocation().hash;
     const ref = React.createRef();
     console.log(hash);
