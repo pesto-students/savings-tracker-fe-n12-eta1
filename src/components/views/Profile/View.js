@@ -1,7 +1,8 @@
 import Button from '../../common/Button';
-import {signOut} from "../../../auth";
 
-const View = ({active, setEdit}) => {
+import {formatDob} from './utils';
+
+const View = ({active, setEdit, userData}) => {
 
     return (
 
@@ -26,7 +27,7 @@ const View = ({active, setEdit}) => {
                     <b>Full Name</b>
                 </div>
                 <div className="col-md-6">
-                    Harish Patidar
+                    {userData?.first_name} {userData?.last_name}
                 </div>
             </div>
 
@@ -35,16 +36,16 @@ const View = ({active, setEdit}) => {
                     <b>Email Address</b>
                 </div>
                 <div className="col-md-6">
-                    patidarharish08@gmail.com
+                    {userData?.email}
                 </div>
             </div>
 
             <div className="row mt-4 mb-3">
                 <div className="col-md-6">
-                    <b>Mobile Number</b>
+                    <b>Phone Number</b>
                 </div>
                 <div className="col-md-6">
-                    9893337046
+                    {userData?.phone_number}
                 </div>
             </div>
 
@@ -53,7 +54,7 @@ const View = ({active, setEdit}) => {
                     <b>Date of Birth</b>
                 </div>
                 <div className="col-md-6">
-                    20 April 1995
+                    {formatDob(userData.dob)}
                 </div>
             </div>
 
@@ -62,7 +63,7 @@ const View = ({active, setEdit}) => {
                     <b>Country</b>
                 </div>
                 <div className="col-md-6">
-                    India
+                    {userData?.country}
                 </div>
             </div>
 
@@ -71,7 +72,8 @@ const View = ({active, setEdit}) => {
                     <b>City</b>
                 </div>
                 <div className="col-md-6">
-                    Indore
+                    {userData?.city}
+
                 </div>
             </div>
 
@@ -80,7 +82,7 @@ const View = ({active, setEdit}) => {
                     <b>Bio</b>
                 </div>
                 <div className="col-md-6">
-                    I'm a software engineer.
+                    {userData?.bio}
                 </div>
             </div>
         </div>

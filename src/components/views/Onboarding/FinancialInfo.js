@@ -1,5 +1,6 @@
 import Button from "../../common/Button";
 import CurrencySelect from "../../common/CurrencySelect";
+import Loader from "../../common/Loader";
 
 const FinancialInfo = (props) => {
     return (
@@ -25,7 +26,7 @@ const FinancialInfo = (props) => {
                     <div className="form-group">
                         <label htmlFor="city" className="form-label">Monthly Income</label>
                         <input min="0" type="number" className="form-control" id="monthly-income"
-                               name="monthly-income"/>
+                               name="monthly_income"/>
                     </div>
                 </div>
             </div>
@@ -36,7 +37,7 @@ const FinancialInfo = (props) => {
                     <div className="form-group">
                         <label htmlFor="bio" className="form-label">Monthly Expenses</label>
                         <input min="0" type="number" className="form-control" id="monthly-expenses"
-                               name="monthly-expenses"/>
+                               name="monthly_expenses"/>
                     </div>
                 </div>
             </div>
@@ -47,7 +48,9 @@ const FinancialInfo = (props) => {
                         <Button text="Go Back" extraClass=" me-3 primary btn-round text-white"
                                 onClick={props.previousStep}/>
                         <Button type="submit" text="Proceed" extraClass="primary btn-round text-white"/>
-                    </div>
+                        {/*<Loader visible={loading}/></div>*/}
+
+                </div>
                 </div>
             </div>
         </>
