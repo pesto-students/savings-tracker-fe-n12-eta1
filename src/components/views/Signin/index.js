@@ -11,8 +11,10 @@ import {RecaptchaVerifier, signInWithPhoneNumber} from "firebase/auth";
 import {auth} from '../../../firebase';
 
 import './index.css';
+import Loader from "../../common/Loader";
+import {getUserStatus} from "./api";
 
-let recaptchaVerifier, authConfirmationResult;
+let authConfirmationResult;
 
 const SignIn = ({show, setShow}) => {
 
@@ -20,7 +22,10 @@ const SignIn = ({show, setShow}) => {
 
     useEffect(() => {
         setStep(1);
-        recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {'size': 'invisible'}, auth);
+
+        if (!window.recaptchaVerifier) {
+            window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {'size': 'invisible'}, auth);
+        }
 
 
     }, []);
@@ -30,25 +35,30 @@ const SignIn = ({show, setShow}) => {
 
     const [step, setStep] = useState(1);
 
+    const [loading, setLoading] = useState(false);
+
 
     const sendOTP = (e) => {
         e.preventDefault();
         setError('');
+        setLoading(true);
 
         const form = e.target.form;
         const mobileNumber = form.mobile.value;
 
-        signInWithPhoneNumber(auth, mobileNumber, recaptchaVerifier)
+        signInWithPhoneNumber(auth, mobileNumber, window.recaptchaVerifier)
             .then((confirmationResult) => {
 
                 authConfirmationResult = confirmationResult;
 
                 setStep(2);
+                setLoading(false);
 
             }).catch((error) => {
 
-            setError(error.message);
-            // recaptchaVerifier?.clear();
+            console.error(error);
+            setError('Please use a valid phone number with the Country code.');
+            setLoading(false);
             window.grecaptcha?.reset();
         });
 
@@ -58,18 +68,34 @@ const SignIn = ({show, setShow}) => {
     const verifyOTP = (e) => {
         e.preventDefault();
         setError('');
+        setLoading(true);
         const form = e.target.form;
         const otp = form.otp.value;
 
         authConfirmationResult.confirm(otp).then((result) => {
             // User signed in successfully. Redirect
-            navigate('/onboarding');
-            setShow(false);
+
+            getUserStatus().then((response => {
+
+                if (response.data.returning_user) {
+                    navigate('/dashboard');
+                } else {//if new user
+                    navigate('/onboarding');
+                }
+                setStep(1);
+                setShow(false);
+                setLoading(false);
+
+            })).catch(err => {
+                setError('Server Error. Please try again');
+                setLoading(false);
+
+            });
+
 
         }).catch((error) => {
-            setError(error.message);
-            console.error(error);
-
+            setError('Please confirm that the OTP is correct.');
+            setLoading(false);
 
         });
 
@@ -78,9 +104,14 @@ const SignIn = ({show, setShow}) => {
     return (
         <>
             <Modal
+
                 size="md"
                 show={show}
-                onHide={() => setShow(false)}
+                onHide={() => {
+                    setShow(false);
+                    setStep(1)
+                }
+                }
                 aria-labelledby="signin-modal-title"
             >
                 <Modal.Header closeButton>
@@ -103,7 +134,10 @@ const SignIn = ({show, setShow}) => {
                                     </Form.Text>
 
                                 </Form.Group>
-                                <Button text="Sign In" extraClass="primary btn-round text-white" onClick={sendOTP}/>
+                                <div className="d-flex">
+                                    <Button disabled={loading} text="Sign In" extraClass="primary btn-round text-white"
+                                            onClick={sendOTP}/>
+                                    <Loader visible={loading}/></div>
 
                             </>
                         }
@@ -115,7 +149,13 @@ const SignIn = ({show, setShow}) => {
                                     <Form.Control type="text" name="otp" placeholder="OTP"/>
 
                                 </Form.Group>
-                                <Button text="Verify" extraClass="primary btn-round text-white" onClick={verifyOTP}/>
+                                <div className="d-flex">
+
+                                    <Button text="Verify" extraClass="primary btn-round text-white"
+                                            onClick={verifyOTP}/>
+                                    <Loader visible={loading}/>
+
+                                </div>
 
                             </>
 

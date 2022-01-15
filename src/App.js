@@ -15,6 +15,7 @@ import {useDispatch} from 'react-redux';
 import SignIn from "./components/views/Signin";
 
 import {auth} from './firebase';
+import axiosClient from "./axios";
 
 function App() {
 
@@ -23,18 +24,16 @@ function App() {
     const [loading, setLoading] = useState(true);
 
     const [show, setShow] = useState(false);
-    const [activePage, setActivePage] = useState('/');
-
-
-    // console.log(auth);
 
     useEffect(() => {
 
-        // setLoading(true);
 
         auth.onAuthStateChanged(function (user) {
             dispatch({type: 'AUTH', payload: user});
-            // setUser(user);
+
+         /*  if(user){ user.getIdToken().then(token => {
+                console.log(token);
+            });}*/
             setLoading(false);
 
         });

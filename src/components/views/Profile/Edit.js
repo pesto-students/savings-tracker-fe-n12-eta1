@@ -1,15 +1,20 @@
 import {useState} from 'react';
 import Button from '../../common/Button';
 import Error from '../../common/Error';
-import ProfileService from '../../../actions/profile.service';
+import {formatDob} from "./utils";
+import Loader from "../../common/Loader";
+import {saveProfile} from "./api";
 
-const Edit = ({setEdit}) => {
+const Edit = ({setEdit, userData, onSave}) => {
 
+    const profileFields = ['first_name', 'last_name', 'email', 'dob', 'country', 'city', 'bio'];
     const [profile, setProfile] = useState({
                                                fields: {},
                                                errors: {},
                                                success: false
-                                           })
+                                           });
+
+    const [loading, setLoading] = useState(false);
 
     const handleValidation = (e) => {
         let fields = profile.fields;
@@ -20,7 +25,7 @@ const Edit = ({setEdit}) => {
             errors["first_name"] = "Name field is required";
             errors["last_name"] = "Last Name field is required";
             errors["email"] = "Email field is required";
-            errors["mobile"] = "Mobile field is required";
+            errors["phone"] = "Phone field is required";
             errors["dob"] = "Date of birth field is required";
             errors["country"] = "Country field is required";
             errors["city"] = "City field is required";
@@ -39,12 +44,11 @@ const Edit = ({setEdit}) => {
         if (typeof fields["first_name"] !== "undefined") {
             if (!fields["first_name"].match(/^[a-zA-Z]+$/)) {
                 formIsValid = false;
-                errors["first_name"] = "First Name contains only letters";
+                errors["first_name"] = "First Name must contain only letters";
             }
         }
 
         //Last Name
-
         if (!fields["last_name"]) {
             formIsValid = false;
             errors["last_name"] = "Last Name field is required";
@@ -53,7 +57,7 @@ const Edit = ({setEdit}) => {
         if (typeof fields["last_name"] !== "undefined") {
             if (!fields["last_name"].match(/^[a-zA-Z]+$/)) {
                 formIsValid = false;
-                errors["last_name"] = "Last Name contains only letters";
+                errors["last_name"] = "Last Name must contain only letters";
             }
         }
 
@@ -71,7 +75,7 @@ const Edit = ({setEdit}) => {
                 !(
                     lastAtPos < lastDotPos &&
                     lastAtPos > 0 &&
-                    fields["email"].indexOf("@@") == -1 &&
+                    fields["email"].indexOf("@@") === -1 &&
                     lastDotPos > 2 &&
                     fields["email"].length - lastDotPos > 2
                 )
@@ -81,45 +85,35 @@ const Edit = ({setEdit}) => {
             }
         }
 
-        //Mobile
-        if (!fields["mobile"]) {
+        /* //Phone
+         if (!fields["phone"]) {
 
-            formIsValid = false;
-            errors["mobile"] = "Mobile number field is required";
-        } else {
+             formIsValid = false;
+             errors["phone"] = "Phone number field is required";
+         } else {
 
-            if (fields["mobile"].length !== 10) {
-                formIsValid = false;
-                errors["mobile"] = "Mobile number field is not valid";
-            }
-        }
+             if (fields["phone"].length < 10) {
+                 formIsValid = false;
+                 errors["phone"] = "Phone number field is not valid";
+             }
+         }*/
 
-        //DOB
         if (!fields["dob"]) {
 
             formIsValid = false;
             errors["dob"] = "Date of birth field is required";
         }
 
-        //DOB
         if (!fields["country"]) {
 
             formIsValid = false;
             errors["country"] = "Country field is required";
         }
 
-        //DOB
         if (!fields["city"]) {
 
             formIsValid = false;
             errors["city"] = "City field is required";
-        }
-
-        //DOB
-        if (!fields["bio"]) {
-
-            formIsValid = false;
-            errors["bio"] = "Bio field is required";
         }
 
         setProfile({errors: errors, fields: fields});
@@ -128,25 +122,43 @@ const Edit = ({setEdit}) => {
 
     const handleChange = (e) => {
         let fields = profile.fields;
-        fields[e.target.name] = e.target.value;
+        fields[e.target.name] = e.target.value.trim();
         setProfile({fields, success: false});
     }
 
-    const handlesubmit = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
+
+        const form = e.target;
+
+        for (let i = 0; i < profileFields.length; i++) {
+            const field = profileFields[i];
+            profile.fields[field] = form[field].value.trim();
+        }
+
+        setProfile({fields: profile.fields, success: false});
+
+
         if (handleValidation()) {
 
-            console.log('form submit success')
-            ProfileService().then(response => {
-                console.log(response)
-                profile.success = response
-            })
 
-        } else {
-            console.log(profile)
-            //alert("Form has errors.");
+            setLoading(true);
+
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData);
+
+            saveProfile(data).then((response) => {
+                setLoading(false);
+
+                onSave(data);
+
+            }).catch(err => {
+                setLoading(false);
+            });
+
+
         }
-    }
+    };
 
     return (
 
@@ -158,20 +170,20 @@ const Edit = ({setEdit}) => {
                 <div className="col-md-6 flex">
                     <Button
                         text="Back"
-                        extraClass="primary btn-border ml-auto"
+                        extraClass="primary btn-round text-white ml-auto"
                         icon={<i className="fas fa-arrow-alt-circle-left mr-2"></i>}
                         onClick={(e) => setEdit(false)}
                     />
                 </div>
             </div>
-
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div className="row mt-4 ply_infrm ">
                     <div className="col-md-6">
                         <div className="form-group">
                             <label>First Name</label>
                             <input name="first_name" type="text" onChange={handleChange}
-                                   placeholder="First Name" className="form-control"/>
+                                   placeholder="First Name" className="form-control"
+                                   defaultValue={userData?.first_name}/>
                             {(typeof profile.errors !== 'undefined' && profile.errors["first_name"] !== 'undefined') ?
                                 <Error message={profile.errors.first_name}/> : ''
                             }
@@ -182,6 +194,7 @@ const Edit = ({setEdit}) => {
                         <div className="form-group">
                             <label>Last Name</label>
                             <input name="last_name" type="text" onChange={handleChange}
+                                   defaultValue={userData?.last_name}
                                    placeholder="Last Name" className="form-control"/>
                             {(typeof profile.errors !== 'undefined' && profile.errors["last_name"] !== 'undefined') ?
                                 <Error message={profile.errors.last_name}/> : ''
@@ -192,7 +205,7 @@ const Edit = ({setEdit}) => {
                     <div className="col-md-6">
                         <div className="form-group">
                             <label>Email</label>
-                            <input name="email" type="email" onChange={handleChange}
+                            <input name="email" type="email" onChange={handleChange} defaultValue={userData?.email}
                                    placeholder="Your Email Address" className="form-control"/>
                             {(typeof profile.errors !== 'undefined' && profile.errors["email"] !== 'undefined') ?
                                 <Error message={profile.errors.email}/> : ''
@@ -202,11 +215,12 @@ const Edit = ({setEdit}) => {
 
                     <div className="col-md-6">
                         <div className="form-group">
-                            <label>Mobile</label>
-                            <input name="mobile" type="text" onChange={handleChange}
-                                   placeholder="Mobile" className="form-control"/>
-                            {(typeof profile.errors !== 'undefined' && profile.errors["mobile"] !== 'undefined') ?
-                                <Error message={profile.errors.mobile}/> : ''
+                            <label>Phone</label>
+                            <input disabled name="phone" type="text" onChange={handleChange}
+                                   defaultValue={userData?.phone_number}
+                                   placeholder="Phone" className="form-control"/>
+                            {(typeof profile.errors !== 'undefined' && profile.errors["phone"] !== 'undefined') ?
+                                <Error message={profile.errors.phone}/> : ''
                             }
                         </div>
                     </div>
@@ -214,7 +228,7 @@ const Edit = ({setEdit}) => {
                     <div className="col-md-6">
                         <div className="form-group">
                             <label>Date of Birth</label>
-                            <input name="dob" type="date" onChange={handleChange}
+                            <input name="dob" type="date" onChange={handleChange} defaultValue={formatDob(userData.dob)}
                                    placeholder="DOB" className="form-control"/>
                             {(typeof profile.errors !== 'undefined' && profile.errors["dob"] !== 'undefined') ?
                                 <Error message={profile.errors.dob}/> : ''
@@ -225,7 +239,7 @@ const Edit = ({setEdit}) => {
                     <div className="col-md-6">
                         <div className="form-group">
                             <label>Country</label>
-                            <input name="country" type="text" onChange={handleChange}
+                            <input name="country" type="text" onChange={handleChange} defaultValue={userData?.country}
                                    placeholder="Country" className="form-control"/>
                             {(typeof profile.errors !== 'undefined' && profile.errors["country"] !== 'undefined') ?
                                 <Error message={profile.errors.country}/> : ''
@@ -236,7 +250,7 @@ const Edit = ({setEdit}) => {
                     <div className="col-md-6">
                         <div className="form-group">
                             <label>City</label>
-                            <input name="city" type="text" onChange={handleChange}
+                            <input name="city" type="text" onChange={handleChange} defaultValue={userData?.city}
                                    placeholder="City" className="form-control"/>
                             {(typeof profile.errors !== 'undefined' && profile.errors["city"] !== 'undefined') ?
                                 <Error message={profile.errors.city}/> : ''
@@ -247,9 +261,10 @@ const Edit = ({setEdit}) => {
                     <div className="col-md-12">
                         <div className="form-group">
                             <label>Bio</label>
-                            <textarea name="bio" type="text" placeholder="Your Bio"
+                            <textarea name="bio" type="text" placeholder="Your Bio" defaultValue={userData?.bio}
                                       className="form-control" rows="4"
-                                      onChange={handleChange}></textarea>
+                                      onChange={handleChange}>
+                            </textarea>
                             {(typeof profile.errors !== 'undefined' && profile.errors["bio"] !== 'undefined') ?
                                 <Error message={profile.errors.bio}/> : ''
                             }
@@ -257,8 +272,8 @@ const Edit = ({setEdit}) => {
                     </div>
                     <div className="row">
                         <div className="col-md-4 ml-auto mr-auto text-center">
-                            <Button type="button" text="Update Profile" extraClass="primary btn-round text-white"
-                                    onClick={handlesubmit}/>
+                            <Button disabled={loading} type="submit" text="Update Profile"
+                                    extraClass="primary btn-round text-white"/>
                         </div>
                     </div>
                 </div>

@@ -18,6 +18,7 @@ const Onboarding = () => {
 
     const navigate = useNavigate();
 
+
     const [error, setError] = useState('');
     const handleSubmit = (e) => {
 
