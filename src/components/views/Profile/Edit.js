@@ -16,8 +16,6 @@ const Edit = ({setEdit, userData, onSave}) => {
 
     const [loading, setLoading] = useState(false);
 
-    const [loading, setLoading] = useState(true)
-
     const handleValidation = (e) => {
         setLoading(false);
         let fields = profile.fields;
