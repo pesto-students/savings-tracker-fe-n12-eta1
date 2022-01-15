@@ -23,9 +23,7 @@ const Profile = ({active}) => {
 
     return (
         <>
-            <DashboardBanner
-                image={banner}
-            />
+            
 
             <div className="main main-raised dashoard-container">
                 <div className="container">

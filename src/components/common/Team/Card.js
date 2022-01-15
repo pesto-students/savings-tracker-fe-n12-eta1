@@ -1,6 +1,6 @@
 import './card.css';
 
-const Card = ({image, title, profile, content}) => {
+const Card = ({image, title, profile, content,links}) => {
     return (
     <div className="col-md-4">
         <div className="team-player">
@@ -16,10 +16,9 @@ const Card = ({image, title, profile, content}) => {
                 <p className="card-description">{content}</p>
             </div>
             <div className="card-footer justify-content-center">
-                <a href="#twitter" className="btn btn-link btn-just-icon"><i className="fab fa-twitter"></i></a>
-                <a href="#instagram" className="btn btn-link btn-just-icon"><i className="fab fa-instagram"></i></a>
-                <a href="#facebook" className="btn btn-link btn-just-icon"><i className="fab fa-facebook-square"></i></a>
-                <a href="#linkdin" className="btn btn-link btn-just-icon"><i className="fab fa-linkedin"></i></a>
+            <a href={'mailto:'+links.email} className="btn btn-link btn-just-icon"><i className="fas fa-envelope-open-text"></i></a>
+                <a href={links.github} className="btn btn-link btn-just-icon"><i className="fab fa-github"></i></a>
+                <a href={links.linkedin} className="btn btn-link btn-just-icon"><i className="fab fa-linkedin"></i></a>
             </div>
             </div>
         </div> 
