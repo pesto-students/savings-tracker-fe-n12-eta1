@@ -1,14 +1,25 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import DashboardBanner from '../../common/DashboardBanner';
 import './index.css';
 import SideBar from '../../SideBar';
 import banner from './images/banner.png';
 import View from './View';
 import Edit from './Edit';
+import {getProfile} from "./api";
 
 const Profile = ({active}) => {
 
     const [edit, setEdit] = useState(false);
+    const [userData, setUserData] = useState({});
+
+    useEffect(() => {
+
+        getProfile().then(response => {
+            const user = response.data.user;
+            setUserData(user);
+        });
+
+    }, []);
 
     return (
         <>
@@ -21,16 +32,20 @@ const Profile = ({active}) => {
 
                         {
                             !edit &&
-                            <View
-                                setEdit={setEdit}
+                            <View userData={userData}
+                                  setEdit={setEdit}
                             />
                         }
 
                         {
                             edit &&
                             <Edit
+                                userData={userData}
                                 active={active}
                                 setEdit={setEdit}
+                                onSave={(data) => {
+                                    setUserData(data)
+                                }}
                             />
                         }
 

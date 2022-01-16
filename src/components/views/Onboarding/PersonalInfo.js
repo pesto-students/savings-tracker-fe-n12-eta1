@@ -1,6 +1,8 @@
 import Button from "../../common/Button";
+import {useSelector} from "react-redux";
 
 const PersonalInfo = (props) => {
+    const user = useSelector((state) => state.user);
 
     return (
         <>
@@ -32,8 +34,8 @@ const PersonalInfo = (props) => {
                 <div className="col-md-6">
                     <div className="form-group">
                         <label htmlFor="mobile" className="form-label">Mobile</label>
-                        <input type="tel" className="form-control" id="mobile"
-                               name="mobile"/>
+                        <input disabled type="tel" className="form-control" id="mobile"
+                               name="mobile" value={user?.phoneNumber}/>
                     </div>
                 </div>
             </div>

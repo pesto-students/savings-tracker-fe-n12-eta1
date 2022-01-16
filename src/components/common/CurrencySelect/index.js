@@ -5,8 +5,9 @@ import axios from 'axios';
 
 import './style.css';
 
-const CurrencySelect = ({name, onChange, value}) => {
+const CurrencySelect = ({name = 'currency', onChange, value}) => {
     const [options, setOptions] = useState([]);
+    const [selectValue, setSelectValue] = useState({label: '', value: ''});
 
     useEffect(() => {
 
@@ -15,13 +16,20 @@ const CurrencySelect = ({name, onChange, value}) => {
             const currenciesObject = response.data;
 
             const optionsArray = Object.keys(currenciesObject).map(key => {
-                return {label: currenciesObject[key], value: key}
+                return {label: currenciesObject[key] + ` - (${key})`, value: key}
             });
-
+            setSelectValue({label: currenciesObject[value] + ` - (${value})`, value: value});
             setOptions(optionsArray);
-        })
+        }).catch(err => {
+            //todo
+        });
 
     }, []);
+
+    useEffect(() => {
+        setSelectValue({label: options.find(option => option.value === value)?.label, value: value});
+    }, [value]);
+
 
     const customStyles = {
         option: (provided, state) => {
@@ -57,13 +65,14 @@ const CurrencySelect = ({name, onChange, value}) => {
     };
 
     function onSelect(option) {
+        setSelectValue({label: option.label, value: option.value});
         if (onChange) {
-            onChange(option.value);
+            onChange({target: {value: option.value, name: name}});
         }
     }
 
     return <Select options={options} styles={customStyles} name={name} onChange={onSelect}
-                   defaultInputValue={value}/>
+                   value={selectValue}/>
 };
 
 export default CurrencySelect;
