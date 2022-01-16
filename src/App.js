@@ -13,7 +13,7 @@ import Spinner from './components/common/Spinner';
 import {useDispatch} from 'react-redux';
 import Banner from './components/Banner/images/banner.jpg'
 import SignIn from "./components/views/Signin";
-
+import List from './components/views/Goals/List';
 import {auth} from './firebase';
 import axiosClient from "./axios";
 
@@ -45,7 +45,7 @@ function App() {
 
 
     return (
-        <div className="App" style={{ backgroundImage: `url("${Banner}")` }}>
+        <div className="App">
 
             {loading ? <Spinner/> : ''}
             {!loading &&
@@ -61,6 +61,15 @@ function App() {
                         element={
                             <GuardRoute>
                                 <Dashboard active="dashboard"/>
+                            </GuardRoute>
+                        }
+                    />
+
+                    <Route
+                        path="/goals"
+                        element={
+                            <GuardRoute>
+                                <List active="goals"/>
                             </GuardRoute>
                         }
                     />
