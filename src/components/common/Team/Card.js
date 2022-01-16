@@ -6,7 +6,7 @@ const Card = ({image, title, profile, content,links}) => {
         <div className="team-player">
             <div className="card card-plain">
             <div className="col-md-6 ml-auto mr-auto">
-                <img src={image} alt="Team Member" className="img-raised rounded-circle img-fluid"/>
+                <img src={image} alt="Team Member" className="img-raised rounded-circle img-fluid" style={{height:"170px"}}/>
             </div>
             <h4 className="card-title">{title}
                 <br/>
