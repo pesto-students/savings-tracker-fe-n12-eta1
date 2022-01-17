@@ -3,7 +3,6 @@ import DashboardBanner from '../../common/DashboardBanner';
 import './index.css';
 import banner from './images/banner.jpg';
 import SideBar from '../../SideBar';
-import Spinner from "../../common/Spinner";
 
 const Dashboard = ({active}) => {
 
