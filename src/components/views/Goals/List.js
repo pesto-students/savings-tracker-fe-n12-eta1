@@ -4,8 +4,9 @@ import {getGoals} from './Api'
 import SideBar from '../../SideBar';
 import alertService from '../../Alert';
 import Card from './Card.js';
+import DashboardBanner from '../../common/DashboardBanner';
 import Tabs from '../../common/Tabs/Tabs.js';
-
+import banner from './images/target.jpg';
 /*let goals_data = [
     {
         name: 'All',
@@ -59,6 +60,8 @@ const List = ({active}) => {
             console.log(response)
             state.goals_data = response.goals_data||null
             alertService.showSuccess(response.message);
+            state.loading = false
+
         }).catch((error) => {
             //setLoading(false);
             state.loading = false
@@ -68,6 +71,10 @@ const List = ({active}) => {
 
     return (
         <>
+
+            <DashboardBanner
+                image={banner}
+            />
         
             <div className="main main-raised dashoard-container">
                 <div className="container">
@@ -78,7 +85,6 @@ const List = ({active}) => {
                         <div className="col-md-9">
                             <h1 className="font_30"><i className="fas fa-bullseye mr-2"></i>Goals</h1>
                             <Tabs data={state.goals_data} loading={state.loading}/>
-                            
                         </div>
                     </div>
                 </div>
@@ -88,4 +94,3 @@ const List = ({active}) => {
 }
 
 export default List;
-/*<Card loading={state.loading} />*/
