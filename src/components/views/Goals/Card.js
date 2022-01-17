@@ -4,23 +4,16 @@ import React from 'react';
 import image from './images/target.jpg';
 import Skeleton from '../../common/Skeleton';
 import Paginate from '../../common/Paginate';
-const Card = ({loading}) => {
-    console.log(loading)
+const Card = (props) => {
+    
     const [colors, setColors] = useState(['cyan', 'red', 'blue', 'orange', 'yellow', 'green'])
-
-    return(
-        <>
-        {/* goal card */}
-        <div className="container">
-            <div className="row">
-            {loading && <Skeleton totalCollections="1" />}
-            { !loading &&
-                <>
+    var goal_cards = props.data.map((item, index) => {
+        return(       
                 <div className="col-12 box cyan mb-5">
-                    <h2>Car</h2>
-                    <p><b>Start Date :</b>22-04-2022</p>
-                    <p><b>End Date :</b>22-04-2023</p> 
-                    <p><b>Amount: 130,000</b></p>
+                    <h2>{item.title}</h2>
+                    <p><b>Start Date :</b>{item.start_date}</p>
+                    <p><b>End Date :</b>{item.end_date}</p> 
+                    <p><b>Amount: {item.amount}</b></p>
 
                     <div className="btn-group mr-5" role="group">
                         <a href="#">
@@ -29,34 +22,18 @@ const Card = ({loading}) => {
                     </div>
                     <img src={image} className="card-img float-right" alt="logo"/>
                 </div>
-
-                <div className="col-12 box yellow mb-5">
-                <h2>Home</h2>
-                <p><b>Start Date :</b>22-04-2022</p>
-                <p><b>End Date :</b>22-04-2023</p> 
-                <p><b>Amount: 130,000</b></p>
-
-                <div className="btn-group mr-5" role="group">
-                    <a href="#">
-                    <button type="button" className="btn btn-info">View</button>
-                    </a>
-                </div>
-                <img src={image} className="card-img float-right" alt="logo"/>
-                </div>
-
-                <div className="col-12 box red mb-5">
-                <h2>Home</h2>
-                <p><b>Start Date :</b>22-04-2022</p>
-                <p><b>End Date :</b>22-04-2023</p> 
-                <p><b>Amount: 130,000</b></p>
-
-                <div className="btn-group mr-5" role="group">
-                    <a href="#">
-                    <button type="button" className="btn btn-info">View</button>
-                    </a>
-                </div>
-                <img src={image} className="card-img float-right" alt="logo"/>
-                </div>
+            )
+        });
+    //console.log(goal_cards)    
+    return(
+        <>
+        {/* goal card */}
+        <div className="container">
+            <div className="row">
+            {props.loading && <Skeleton totalCollections="1" />}
+            { !props.loading &&
+                <>
+                { goal_cards }
 
                 <div className='col-3'>
                 <div className="form-group">
