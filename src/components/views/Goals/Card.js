@@ -9,7 +9,7 @@ const Card = (props) => {
     const [colors, setColors] = useState(['cyan', 'red', 'blue', 'orange', 'yellow', 'green'])
     var goal_cards = props.data.map((item, index) => {
         return(       
-                <div className="col-12 box cyan mb-5">
+                <div className="col-6 box cyan mb-5">
                     <h2>{item.title}</h2>
                     <p><b>Start Date :</b>{item.start_date}</p>
                     <p><b>End Date :</b>{item.end_date}</p> 
@@ -35,16 +35,18 @@ const Card = (props) => {
                 <>
                 { goal_cards }
 
-                <div className='col-3'>
-                <div className="form-group">
-                    <select className="form-control" id="">
+                <div className='col-6'>
+                <div className="form-group flex align-item-center">
+                    <label className='mr-2'>Showing</label>
+                    <select className="form-control width-25 mr-2" id="">
                     <option>3</option>
                     <option>5</option>
                     <option>10</option>
                     </select>
+                    <label>of 20 Records</label>
                 </div>
                 </div>
-                <div className='col-6 offset-3'>
+                <div className='col-6'>
                     <Paginate />
                 </div>
                 </>

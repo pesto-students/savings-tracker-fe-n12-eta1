@@ -1,11 +1,6 @@
 /* designing for tabs */
 @import "https://fonts.googleapis.com/css?family=Open+Sans";
 
-body {
-  background: #181818;
-  color: #F7F9F9;
-  font-family: 'Open Sans', sans-serif;
-}
 h1 {
   font-weight: 300;
 }

@@ -2,8 +2,20 @@ import './index.css';
 
 const Error = ({message}) => {
 
+    if (Array.isArray(message)) {
+
+        const errors = message;
+
+        return <ul className="text-danger mt-3 text-bold">
+            {errors.map(error => {
+                return <li key={error}>{error}</li>
+            })}
+        </ul>
+
+    }
+
     return (
-        
+
         <p className="alert-error">{message}</p>
     );
 }

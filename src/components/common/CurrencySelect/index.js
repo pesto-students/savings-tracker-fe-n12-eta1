@@ -5,9 +5,10 @@ import axios from 'axios';
 
 import './style.css';
 
+let defaultCurrency = {label: 'Indian Rupee - (INR)', value: 'INR'};
 const CurrencySelect = ({name = 'currency', onChange, value}) => {
     const [options, setOptions] = useState([]);
-    const [selectValue, setSelectValue] = useState({label: '', value: ''});
+    const [selectValue, setSelectValue] = useState(defaultCurrency);
 
     useEffect(() => {
 
@@ -18,7 +19,11 @@ const CurrencySelect = ({name = 'currency', onChange, value}) => {
             const optionsArray = Object.keys(currenciesObject).map(key => {
                 return {label: currenciesObject[key] + ` - (${key})`, value: key}
             });
-            setSelectValue({label: currenciesObject[value] + ` - (${value})`, value: value});
+            if (value) {
+                setSelectValue({label: currenciesObject[value] + ` - (${value})`, value: value});
+            } else {
+                setSelectValue(defaultCurrency)
+            }
             setOptions(optionsArray);
         }).catch(err => {
             //todo
@@ -27,7 +32,13 @@ const CurrencySelect = ({name = 'currency', onChange, value}) => {
     }, []);
 
     useEffect(() => {
-        setSelectValue({label: options.find(option => option.value === value)?.label, value: value});
+        if (value) {
+            setSelectValue({label: options.find(option => option.value === value)?.label, value: value});
+        }
+        else {
+            setSelectValue(defaultCurrency)
+
+        }
     }, [value]);
 
 
