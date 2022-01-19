@@ -26,7 +26,8 @@ const CurrencyForm = ({value, onSave}) => {
             setLoading(false);
         }).catch(error => {
             setLoading(false);
-            setErrors(error.response.data.errors)
+            const errors = error.response?.data?.errors || [error.message];
+            setErrors(errors)
 
         });
     };
