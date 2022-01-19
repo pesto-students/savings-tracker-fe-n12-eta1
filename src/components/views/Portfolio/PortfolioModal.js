@@ -9,7 +9,7 @@ import {formatDateSimple} from "../../common/utils";
 
 const PortfolioModal = ({show, handleClose, portfolio, onSubmitSuccess}) => {
 
-    const [serverError, setServerError] = useState('');
+    const [serverErrors, setServerErrors] = useState([]);
     const [loading, setLoading] = useState(false);
     const [frequency, setFrequency] = useState('Recurring');
 
@@ -31,7 +31,6 @@ const PortfolioModal = ({show, handleClose, portfolio, onSubmitSuccess}) => {
 
     const handleResponse = (response) => {
 
-        console.log(response);
         setLoading(false);
         if (onSubmitSuccess) {
             onSubmitSuccess();
@@ -40,9 +39,10 @@ const PortfolioModal = ({show, handleClose, portfolio, onSubmitSuccess}) => {
 
     };
 
-
-    const handleServerError = (err) => {
-        console.error(err)
+    const handleServerError = (error) => {
+        const errors = error.response?.data?.errors || [error.message];
+        setServerErrors(errors);
+        setLoading(false);
     };
 
     const handleFrequencyChange = (e) => {
@@ -98,13 +98,13 @@ const PortfolioModal = ({show, handleClose, portfolio, onSubmitSuccess}) => {
                     </div>
                     <div className="mb-3">
                         <label htmlFor="portfolio_amount" className="form-label">Amount</label>
-                        <input type="number" name="amount" min="1" className="form-control" id="portfolio_amount"
+                        <input required type="number" name="amount" min="1" className="form-control" id="portfolio_amount"
                                defaultValue={portfolio?.amount}
                                placeholder=""/>
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="portfolio_start_date" className="form-label">Start Date</label>
-                        <input type="date" name="start_date" className="form-control" id="portfolio_start_date"
+                        <label  htmlFor="portfolio_start_date" className="form-label">Start Date</label>
+                        <input required type="date" name="start_date" className="form-control" id="portfolio_start_date"
                                defaultValue={formatDateSimple(portfolio?.start_date)}
                         />
                     </div>
@@ -117,7 +117,7 @@ const PortfolioModal = ({show, handleClose, portfolio, onSubmitSuccess}) => {
                     </div>
                     <div className="mb-3">
                         <label htmlFor="portfolio_description" className="form-label">Description</label>
-                        <input type="text" className="form-control"
+                        <input required type="text" className="form-control"
                                id="portfolio_description" name="description"
                                defaultValue={portfolio?.description}
                         />
@@ -126,8 +126,9 @@ const PortfolioModal = ({show, handleClose, portfolio, onSubmitSuccess}) => {
                         <Button disabled={loading} type="submit" text="Save"/>
                         <Loader
                             visible={loading}/>
-                        {serverError && <Error message={serverError}/>}
+
                     </div>
+                    {serverErrors && <Error message={serverErrors}/>}
                 </div>
             </form>
         </Modal.Body>

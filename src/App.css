@@ -188,7 +188,9 @@ p {
     position: relative;
 }
 
+
 .icon-nav, .icon-portfolio {
+
     width: 20px;
 }
 .loader{
@@ -199,7 +201,6 @@ p {
     height: 100%;
     align-items: center;
 }
-
 .cursor-pointer{
     cursor: pointer;
 }
