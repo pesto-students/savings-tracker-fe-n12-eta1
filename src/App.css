@@ -188,7 +188,7 @@ p {
     position: relative;
 }
 
-.icon-nav {
+.icon-nav, .icon-portfolio {
     width: 20px;
 }
 .loader{

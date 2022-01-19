@@ -28,8 +28,8 @@ const PortfolioTable = ({portfolios, onEditInit, onDeleteInit}) => {
                 <td>
                     <i title={portfolio.type}>
 
-                        {portfolio.type === 'Income' ? <PlusCircleIcon className="icon text-success"/> :
-                            <MinusCircleIcon className="icon text-danger"/>}
+                        {portfolio.type === 'Income' ? <PlusCircleIcon className="icon icon-portfolio text-success"/> :
+                            <MinusCircleIcon className="icon icon-portfolio text-danger"/>}
                     </i>
                 </td>
                 <td>{portfolio.frequency}</td>
@@ -42,12 +42,12 @@ const PortfolioTable = ({portfolios, onEditInit, onDeleteInit}) => {
                         onEditInit(portfolio)
                     }}>
                         <PencilAltIcon
-                            className="icon text-gray"/>
+                            className="icon icon-portfolio text-gray"/>
                     </i>
                     <i title="Delete" className="ms-3 cursor-pointer" onClick={() => {
                         onDeleteInit(portfolio)
                     }}>
-                        <TrashIcon className="icon text-danger"/>
+                        <TrashIcon className="icon icon-portfolio text-danger"/>
                     </i>
                 </td>
             </tr>
