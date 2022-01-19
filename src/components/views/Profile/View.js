@@ -1,6 +1,6 @@
 import Button from '../../common/Button';
 
-import {formatDob} from './utils';
+import {formatDateSimple} from '../../common/utils';
 
 const View = ({active, setEdit, userData}) => {
 
@@ -54,7 +54,7 @@ const View = ({active, setEdit, userData}) => {
                     <b>Date of Birth</b>
                 </div>
                 <div className="col-md-6">
-                    {formatDob(userData.dob)}
+                    {formatDateSimple(userData.dob)}
                 </div>
             </div>
 
