@@ -2,7 +2,7 @@ import axiosClient from '../../../axios';
 
 import {auth} from '../../../firebase';
 
-const getGoals = (async (filterData}) => {
+const getGoals = (async (filterData) => {
     
     return auth.currentUser.getIdToken().then(token => {
         // console.log(token)
