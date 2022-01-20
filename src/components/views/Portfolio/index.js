@@ -10,7 +10,7 @@ import {getPortfolio, addPortfolio} from "./api";
 
 import PortfolioForm from './PortfolioModal';
 
-import PortfolioTable from "./Table";
+import PortfolioTable, {DemoTable} from "./PortfolioTable";
 import CurrencyForm from "./CurrencyForm";
 import TableSkeleton from "../../common/RectangularSkeleton";
 import DeleteModal from "./DeleteModal";
@@ -99,16 +99,17 @@ const Portfolio = ({active}) => {
                                         />}
                                 </div>
                             </div>
+                            {/*<DemoTable portfolios={portfolios}/>*/}
                             {/*Portfolio popup*/}
-                            <PortfolioForm portfolio={activePortfolio} show={showPortfolioModal}
-                                           handleClose={() => {
-                                               setShowPortfolioModal(false);
-                                               setActivePortfolio(null);
-                                           }}
-                                           onSubmitSuccess={() => {
-                                               getData()
-                                           }}
-                            />
+                            {showPortfolioModal && <PortfolioForm portfolio={activePortfolio} show={showPortfolioModal}
+                                                                  handleClose={() => {
+                                                                      setShowPortfolioModal(false);
+                                                                      setActivePortfolio(null);
+                                                                  }}
+                                                                  onSubmitSuccess={() => {
+                                                                      getData()
+                                                                  }}
+                            />}
                             <DeleteModal portfolio={activePortfolio} show={showDeleteModal} handleClose={() => {
                                 setShowDeleteModal(false);
                                 setActivePortfolio(null);

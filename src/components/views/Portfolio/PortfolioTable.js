@@ -1,12 +1,21 @@
 import {formatDateSimple} from "../../common/utils";
+import React from 'react'
 
 import {PlusCircleIcon, MinusCircleIcon, PencilAltIcon, TrashIcon} from '@heroicons/react/solid';
-
 
 const PortfolioTable = ({portfolios, onEditInit, onDeleteInit}) => {
 
     if (portfolios.length === 0) return <div>No Data</div>;
 
+    const frequency = ({frequency, frequency_type, frequency_unit}) => {
+
+        if (frequency === 'One Time') {
+            return frequency;
+        }
+
+        return frequency_unit + ' ' + frequency_type + (frequency_unit > 1 ? 's' : '');
+
+    };
 
     return <table className="table table-responsive">
         <thead>
@@ -32,7 +41,7 @@ const PortfolioTable = ({portfolios, onEditInit, onDeleteInit}) => {
                             <MinusCircleIcon className="icon icon-portfolio text-danger"/>}
                     </i>
                 </td>
-                <td>{portfolio.frequency}</td>
+                <td>{frequency(portfolio)}</td>
                 <td>{portfolio.amount}</td>
                 <td>{formatDateSimple(portfolio.start_date)}</td>
                 <td>{formatDateSimple(portfolio.end_date)}</td>
