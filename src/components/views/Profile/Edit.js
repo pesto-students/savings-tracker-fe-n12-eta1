@@ -67,7 +67,6 @@ const Edit = ({setEdit, userData, onSave}) => {
                 initialValues={initialValues}
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}
-                // enableReinitialize
             >
                 {({isValid, errors}) => (
                     <Form autoComplete="off">
@@ -145,7 +144,6 @@ const Edit = ({setEdit, userData, onSave}) => {
 
                             <div className="col-md-6">
                                 <div className="form-group">
-
                                     <label>City</label>
                                     <Field name="city" type="text"
                                            placeholder="City" className="form-control"/>
