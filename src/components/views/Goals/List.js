@@ -11,10 +11,10 @@ import banner from './images/target.jpg';
 
 const List = ({active}) => {
 
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
     const [page, setPage] = useState(1)
     const [perPage, setPerPage] = useState(6)
-    const [sortBy, setSortBy] = useState('asc')
+    const [sortBy, setSortBy] = useState('desc')
     const [orderBy, setOrderBy] = useState('start_date')
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
@@ -65,14 +65,15 @@ const List = ({active}) => {
 
             console.log(response)
 
-            setGoals(response.goals_data||null)
+            setGoals(response.data.goals || [])
 
-            alertService.showSuccess('goales fetch successfully');
+            alertService.showSuccess(response.message);
 
             setLoading(false);
 
         }).catch((error) => {
             //setLoading(false);
+            console.log(error)
             setLoading(false);
             alertService.showError(error.message);
         });

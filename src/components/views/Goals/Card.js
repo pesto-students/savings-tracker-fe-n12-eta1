@@ -13,14 +13,14 @@ import Button from '../../common/Button';
 import Swal from 'sweetalert2';
 
 const Card = (props) => {
-    
+    console.log(props)
     const [colors, setColors] = useState(['cyan', 'red', 'blue', 'orange', 'yellow', 'green'])
 
     const [edit, setEdit] = useState(false);
     const [goal, setGoal] = useState([]);
     const [add, setAdd] = useState(false);
 
-    var goal_cards = props.goals.length > 0?props.goals.map((item, index) => {
+    var goal_cards = props.goals.docs.length > 0?props.goals.docs.map((item, index) => {
 
     const CHART_DATA = {
         columns: [
@@ -96,7 +96,7 @@ const Card = (props) => {
                 <div className='col-12'>
                     <h2>{item.title}</h2> 
                     <p>{item.description}</p>
-                    <h4><b>₹ {item.amount}</b></h4>
+                    <h4><b>₹ {item.total_amount}</b></h4>
                 </div>
                 <div className='col-12'>
                     <BillboardChart 
@@ -109,7 +109,7 @@ const Card = (props) => {
                 </div>
             </div>
         )
-    }):<div className="col-12"><p className="text-black">No records found</p></div>;
+    }):<div className="col-12"><p className="text-black text-center">No records found</p></div>;
     //console.log(goal_cards)    
     return(
         <>
@@ -178,27 +178,23 @@ const Card = (props) => {
             <div className="row">
                 { goal_cards }
                 {
-                    props.goals.length > 0 &&
+                    props.goals.docs.length > 0 &&
                 <>
                 <div className='col-6'>
                     <div className="form-group flex align-item-center">
                         <label className='mr-2 pb-0'>Showing</label>
-                        <select className="form-control width-25 mr-2" id="">
-                        <option>6</option>
-                        <option>12</option>
-                        <option>18</option>
+                        <select onChange={(e) => props.setPerPage(e.target.value)} className="form-control width-25 mr-2" id="">
+                            <option value="6" selected={props.perPage===6?'selected':''}>6</option>
+                            <option value="12" selected={props.perPage===12?'selected':''}>12</option>
+                            <option value="18" selected={props.perPage===18?'selected':''}>18</option>
                         </select>
                         <label className='pb-0'>of 20 Records</label>
                     </div>
                 </div>
                 <div className='col-6'>
-                    <Paginate />
+                    <Paginate goals={props.goals} setPage={props.setPage} />
                 </div>
                 </>
-                }
-                {
-                    props.goals.length === 0 &&
-                <div className="col-12"><p className="text-center">No records found</p></div>
                 }
             </div>
 
