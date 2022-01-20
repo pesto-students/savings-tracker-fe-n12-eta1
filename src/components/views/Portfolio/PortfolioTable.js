@@ -3,6 +3,57 @@ import React from 'react'
 
 import {PlusCircleIcon, MinusCircleIcon, PencilAltIcon, TrashIcon} from '@heroicons/react/solid';
 
+import Table from "../../common/Table";
+import Button from "../../common/Button";
+
+
+const DemoTable = ({portfolios}) => {
+    const columns = React.useMemo(
+        () => [
+            {
+                "Header": "Date Added",
+                "accessor": "created_date"
+            },
+            {
+                "Header": "Type",
+                "accessor": "type"
+            }, {
+                "Header": "Frequency",
+                "accessor": "frequency"
+            }, {
+                "Header": "Amount",
+                "accessor": "amount"
+            },
+            {
+                "Header": "Start Date",
+                "accessor": "start_date"
+            },
+            {
+                "Header": "End Date",
+                "accessor": "end_date",
+                "Cell": function ({row, value}) {
+
+                    console.log(row);
+                    return <Button text="TEST"/>;
+                }
+            },
+            {
+                "Header": "Description",
+                "accessor": "description"
+            },
+        ],
+        []
+    );
+
+    const data = React.useMemo(() => portfolios, [portfolios]);
+
+    // console.log(data);
+
+    return <Table columns={columns} data={data}/>;
+}
+
+export {DemoTable}
+
 const PortfolioTable = ({portfolios, onEditInit, onDeleteInit}) => {
 
     if (portfolios.length === 0) return <div>No Data</div>;

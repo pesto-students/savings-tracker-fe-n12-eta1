@@ -99,7 +99,7 @@ const Portfolio = ({active}) => {
                                         />}
                                 </div>
                             </div>
-                            {/*<DemoTable portfolios={portfolios}/>*/}
+                            <DemoTable portfolios={portfolios}/>
                             {/*Portfolio popup*/}
                             {showPortfolioModal && <PortfolioForm portfolio={activePortfolio} show={showPortfolioModal}
                                                                   handleClose={() => {

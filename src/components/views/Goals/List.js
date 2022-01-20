@@ -13,7 +13,7 @@ const List = ({active}) => {
 
     const [loading, setLoading] = useState(true)
     const [page, setPage] = useState(1)
-    const [perPage, setPerPage] = useState(6)
+    const [perPage, setPerPage] = useState(6);
     const [sortBy, setSortBy] = useState('desc')
     const [orderBy, setOrderBy] = useState('start_date')
     const [startDate, setStartDate] = useState('')
@@ -23,40 +23,40 @@ const List = ({active}) => {
     const [goals, setGoals] = useState([])
     const [activeTab, setActiveTab] = useState('All')
     const [tabTitle, setTabtitle] = useState([
-                                                {
-                                                    name: 'All',
-                                                    text: 'Text 1'
-                                                },
-                                                {
-                                                    name: 'Recent',
-                                                    text: 'Text 2!'
-                                                },
-                                                {
-                                                    name: 'Active',
-                                                    text: 'Text 3 !'
-                                                },
-                                                {
-                                                    name: 'Achieved',
-                                                    text: 'Text 4!'
-                                                }
-                                            ])
+                                                 {
+                                                     name: 'All',
+                                                     text: 'Text 1'
+                                                 },
+                                                 {
+                                                     name: 'Recent',
+                                                     text: 'Text 2!'
+                                                 },
+                                                 {
+                                                     name: 'Active',
+                                                     text: 'Text 3 !'
+                                                 },
+                                                 {
+                                                     name: 'Achieved',
+                                                     text: 'Text 4!'
+                                                 }
+                                             ])
 
     useEffect(() => {
 
         setLoading(true);
         let filterData = {
-                page: page,
-                perPage: perPage,
-                searchData: {
-                    status: activeTab,
-                    sort_by: sortBy, //asc, desc
-                    order_by: orderBy, // can be created date, title, amount, status
-                    start_date: startDate,
-                    end_date: endDate,
-                    search: search,
+            page: page,
+            perPage: perPage,
+            searchData: {
+                status: activeTab,
+                sort_by: sortBy, //asc, desc
+                order_by: orderBy, // can be created date, title, amount, status
+                start_date: startDate,
+                end_date: endDate,
+                search: search,
 
-                }
             }
+        }
 
 
         console.log(filterData)
@@ -86,26 +86,28 @@ const List = ({active}) => {
             <DashboardBanner
                 image={banner}
             />
-        
+
             <div className="main main-raised dashoard-container">
                 <div className="container">
                     <div className="row">
                         <SideBar active={active}/>
-                        
-                        {loading && <Skeleton totalCollections="1" />}
-                        { !loading &&
+
+                        {loading && <Skeleton totalCollections="1"/>}
+                        {!loading &&
 
                         <div className="col-md-9">
                             <h1 className="font_30 mb-3"><i className="fas fa-bullseye mr-2"></i>Goals</h1>
-                            <Tabs 
+                            <Tabs
                                 tabTitle={tabTitle}
                                 setActiveTab={setActiveTab}
                                 activeTab={activeTab}
                             />
 
                             <Card
+
                                 loading={loading}
                                 goals={goals}
+                                perPage={perPage}
                                 setPage={setPage}
                                 setPerPage={setPerPage}
                                 setSortBy={setSortBy}
