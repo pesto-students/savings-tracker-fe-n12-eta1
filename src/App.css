@@ -11,8 +11,9 @@ body {
 .ml-auto, .mx-auto {
     margin-left: auto !important;
 }
+
 .mr-2, .mx-2 {
-  margin-right: 0.5rem!important;
+    margin-right: 0.5rem !important;
 }
 
 .mr-auto, .mx-auto {
@@ -72,20 +73,20 @@ body {
 }
 
 .dashoard-container {
-  padding: 50px;
-  /* min-height: 800px; */
+    padding: 50px;
+    /* min-height: 800px; */
 }
 
 label {
-  color: #464646;
-  font-size: 16px;
-  padding-bottom: 8px;
-  font-weight: 700;
+    color: #464646;
+    font-size: 16px;
+    padding-bottom: 8px;
+    font-weight: 700;
 }
 
 .font_30 {
 
-  font-size: 30px;
+    font-size: 30px;
     color: #464646;
 }
 
@@ -96,12 +97,12 @@ label {
 }
 
 .bg-gradient-primary:hover, button:hover {
-  color: white !important;
-  background: #9d132b;
+    color: white !important;
+    background: #9d132b;
 }
 
 .btn-border {
-  background: #dc2265;
+    background: #dc2265;
     color: #fff;
     border: none;
     height: 50px;
@@ -109,7 +110,6 @@ label {
     font-size: 14px;
     border-radius: 0px !important;
 }
-
 
 .h-20 {
     height: 20px;
@@ -188,12 +188,12 @@ p {
     position: relative;
 }
 
-
 .icon-nav, .icon-portfolio {
 
     width: 20px;
 }
-.loader{
+
+.loader {
     width: 100%;
     justify-content: center;
     opacity: 0.75;
@@ -201,9 +201,11 @@ p {
     height: 100%;
     align-items: center;
 }
-.cursor-pointer{
+
+.cursor-pointer {
     cursor: pointer;
 }
+
 .text-black {
     color: black;
 }
@@ -218,4 +220,8 @@ p {
 
 .bg-grey {
     background: #f7f9f9;
+}
+
+.pagination .page-item.disabled .page-link {
+    background: lightgrey;
 }
