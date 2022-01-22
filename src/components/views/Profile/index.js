@@ -6,10 +6,12 @@ import banner from './images/banner.png';
 import View from './View';
 import Edit from './Edit';
 import {getProfile} from "./api";
+import Spinner from "../../common/Spinner";
 
 const Profile = ({active}) => {
 
     const [edit, setEdit] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [userData, setUserData] = useState({});
 
     useEffect(() => {
@@ -17,6 +19,7 @@ const Profile = ({active}) => {
         getProfile().then(response => {
             const user = response.data.user;
             setUserData(user);
+            setLoading(false);
         });
 
     }, []);
@@ -32,23 +35,19 @@ const Profile = ({active}) => {
                     <div className="row">
                         <SideBar active={active}/>
 
+                        {loading && <Spinner/>}
                         {
-                            !edit &&
-                            <View userData={userData}
-                                  setEdit={setEdit}
-                            />
-                        }
-
-                        {
-                            edit &&
-                            <Edit
-                                userData={userData}
-                                active={active}
-                                setEdit={setEdit}
-                                onSave={(data) => {
-                                    setUserData(data)
-                                }}
-                            />
+                            edit ? <Edit
+                                    userData={userData}
+                                    active={active}
+                                    setEdit={setEdit}
+                                    onSave={(data) => {
+                                        setUserData(data)
+                                    }}
+                                /> :
+                                <View userData={userData}
+                                      setEdit={setEdit}
+                                />
                         }
 
                     </div>
