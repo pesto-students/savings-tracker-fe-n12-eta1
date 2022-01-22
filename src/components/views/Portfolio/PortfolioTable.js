@@ -4,7 +4,6 @@ import React from 'react'
 import {PlusCircleIcon, MinusCircleIcon, PencilAltIcon, TrashIcon} from '@heroicons/react/solid';
 
 import Table from "../../common/Table";
-import Button from "../../common/Button";
 
 const frequency = ({frequency, frequency_type, frequency_unit}) => {
 
@@ -17,7 +16,6 @@ const frequency = ({frequency, frequency_type, frequency_unit}) => {
 };
 
 const PortfolioTable = ({portfolios, onEditInit, onDeleteInit}) => {
-
 
 
     const columns = React.useMemo(
@@ -41,14 +39,16 @@ const PortfolioTable = ({portfolios, onEditInit, onDeleteInit}) => {
                     </i>
 
                 }
-            }, {
+            },
+            {
                 "Header": "Frequency",
                 "accessor": "frequency",
                 "Cell": function ({value, row}) {
                     return frequency(row.original)
 
                 }
-            }, {
+            },
+            {
                 "Header": "Amount",
                 "accessor": "amount"
             },
@@ -77,7 +77,6 @@ const PortfolioTable = ({portfolios, onEditInit, onDeleteInit}) => {
                 // "accessor": "description"
                 "Cell": function ({row}) {
                     return <>
-
                         <i title="Edit" className="cursor-pointer" onClick={() => {
                             onEditInit(row.original)
                         }}>

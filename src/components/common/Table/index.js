@@ -7,12 +7,21 @@ import {useSearchParams} from 'react-router-dom';
 function getInitialPageIndex(searchParams) {
     let page = searchParams.get('page');
 
-    if (isNaN(page)) {
+    if (!page || isNaN(page)) {
         return 0;
     }
 
     return Number(page) - 1;
+}
 
+function getInitialPageSize(searchParams) {
+    const size = searchParams.get('size');
+
+    if (!size || isNaN(size)) {
+        return null
+    }
+
+    return Number(size);
 
 }
 
@@ -49,7 +58,7 @@ function Table({columns, data, defaultPageSize = 5, selectOptions = [5, 10, 50]}
             data,
             initialState: {
                 pageIndex: getInitialPageIndex(searchParams),
-                pageSize: isNaN(searchParams.get('size')) ? defaultPageSize : Number(searchParams.get('size'))
+                pageSize: getInitialPageSize(searchParams) || defaultPageSize
             }
         },
         usePagination

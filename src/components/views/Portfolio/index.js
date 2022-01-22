@@ -51,6 +51,7 @@ const Portfolio = ({active}) => {
         }).catch(err => {
 
             setError(err.message);
+            setLoading(false);
         });
 
     };
