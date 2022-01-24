@@ -4,8 +4,11 @@ import Modal from 'react-bootstrap/Modal';
 import * as Yup from "yup";
 import Button from '../../common/Button';
 import Error from '../../common/Error';
+import {addGoal} from './Api'
+import alertService from '../../Alert';
+import Loader from "../../common/Loader";
 
-const AddGoal = ({add, setAdd}) => {
+const AddGoal = ({add, setAdd, onSubmitSuccess}) => {
 
     const [loading, setLoading] = useState(false);
 
@@ -13,7 +16,7 @@ const AddGoal = ({add, setAdd}) => {
         title: '',
         description: '',
         end_date: '',
-        amount: '',
+        total_amount: '',
       };
       
     const validationSchema = Yup.object().shape({
@@ -23,7 +26,7 @@ const AddGoal = ({add, setAdd}) => {
         description: Yup.string()
             .required("Goal desccription is required"),
         end_date: Yup.string().required("Deadline is required"),
-        amount: Yup.string().required("Amount is required"),
+        total_amount: Yup.string().required("Amount is required"),
     });
 
     const handleSubmit = async (_formInput) => {
@@ -31,9 +34,33 @@ const AddGoal = ({add, setAdd}) => {
 
         try{
             console.log(_formInput)
+            const formData = new FormData();
+
+            formData.append('total_amount', _formInput.total_amount);
+            formData.append('description', _formInput.description);
+            formData.append('title', _formInput.title);
+            formData.append('end_date', _formInput.end_date);
+
+            const data = Object.fromEntries(formData);
+
+            addGoal(data).then((response) => {
+
+                console.log(response)
+    
+                alertService.showSuccess(response.data.message);
+                
+                onSubmitSuccess();
+                setLoading(false);
+    
+            }).catch((error) => {
+                console.log(error)
+                setLoading(false);
+                alertService.showError(error.data.message);
+            });
 
         }
         catch(err){
+            console.log(err)
             setLoading(false)
         }
         
@@ -105,19 +132,20 @@ const AddGoal = ({add, setAdd}) => {
                     <div className="form-group">
 
                         <label>Amount</label>
-                        <Field name="amount" type="number"
-                            placeholder="Enter Amount" className="form-control"/>
+                        <Field name="total_amount" type="number"
+                            placeholder="Enter total_amount" className="form-control"/>
                         {
-                            errors.amount && <Error message={errors.amount}/>
+                            errors.total_amount && <Error message={errors.total_amount}/>
                         }
                     </div>
                 </div>
 
                 <div className="row">
                     <div className="col-md-6 ml-auto mr-auto text-center">
-                        <Button disabled={!isValid} type="submit" text="Update Goal"
+                        <Button disabled={!isValid} type="submit" text="Add Goal"
                                 extraClass="primary btn-round text-white"/>
-
+                        <Loader
+                            visible={loading}/>
                     </div>
                 </div>
             </Form>
