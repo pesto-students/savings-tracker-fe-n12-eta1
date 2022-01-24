@@ -10,7 +10,7 @@ import {getPortfolio, addPortfolio} from "./api";
 
 import PortfolioForm from './PortfolioModal';
 
-import PortfolioTable from "./Table";
+import PortfolioTable, {DemoTable} from "./PortfolioTable";
 import CurrencyForm from "./CurrencyForm";
 import TableSkeleton from "../../common/RectangularSkeleton";
 import DeleteModal from "./DeleteModal";
@@ -18,7 +18,7 @@ import DeleteModal from "./DeleteModal";
 
 const Portfolio = ({active}) => {
 
-    const [serverErrors, setServerErrors] = useState('');
+    const [error, setError] = useState('');
     const [loading, setLoading] = useState(true);
 
     const [portfolios, setPortfolios] = useState([]);
@@ -29,13 +29,13 @@ const Portfolio = ({active}) => {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     useEffect(() => {
-
         getData();
 
     }, []);
 
     const getData = () => {
 
+        setError('');
         setLoading(true);
 
         getPortfolio().then(response => {
@@ -50,7 +50,7 @@ const Portfolio = ({active}) => {
 
         }).catch(err => {
 
-
+            setError(err.message);
         });
 
     };
@@ -84,7 +84,8 @@ const Portfolio = ({active}) => {
                             </div>
                             <div className="row">
                                 <div className="col">
-                                    {loading ? <TableSkeleton/> :
+
+                                    {error ? <Error message={error}/> : loading ? <TableSkeleton/> :
                                         <PortfolioTable portfolios={portfolios}
                                                         onEditInit={(portfolio) => {
                                                             setActivePortfolio(portfolio);
@@ -98,16 +99,17 @@ const Portfolio = ({active}) => {
                                         />}
                                 </div>
                             </div>
+                            <DemoTable portfolios={portfolios}/>
                             {/*Portfolio popup*/}
-                            <PortfolioForm portfolio={activePortfolio} show={showPortfolioModal}
-                                           handleClose={() => {
-                                               setShowPortfolioModal(false);
-                                               setActivePortfolio(null);
-                                           }}
-                                           onSubmitSuccess={() => {
-                                               getData()
-                                           }}
-                            />
+                            {showPortfolioModal && <PortfolioForm portfolio={activePortfolio} show={showPortfolioModal}
+                                                                  handleClose={() => {
+                                                                      setShowPortfolioModal(false);
+                                                                      setActivePortfolio(null);
+                                                                  }}
+                                                                  onSubmitSuccess={() => {
+                                                                      getData()
+                                                                  }}
+                            />}
                             <DeleteModal portfolio={activePortfolio} show={showDeleteModal} handleClose={() => {
                                 setShowDeleteModal(false);
                                 setActivePortfolio(null);

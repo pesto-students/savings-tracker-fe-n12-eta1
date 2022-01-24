@@ -59,7 +59,7 @@ h1:last-of-type {
 
 
 .box p {
-    color: var(--grayishBlue);
+    color: black;
 }
 
 .box {
@@ -71,6 +71,10 @@ h1:last-of-type {
 
 .float-right {
     float: right;
+}
+
+.row{
+justify-content: space-between;
 }
 
 @media (max-width: 450px) {

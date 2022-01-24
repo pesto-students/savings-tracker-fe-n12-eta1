@@ -188,7 +188,9 @@ p {
     position: relative;
 }
 
-.icon-nav,.icon {
+
+.icon-nav, .icon-portfolio {
+
     width: 20px;
 }
 .loader{
@@ -199,7 +201,21 @@ p {
     height: 100%;
     align-items: center;
 }
-
 .cursor-pointer{
     cursor: pointer;
+}
+.text-black {
+    color: black;
+}
+
+.font-25 {
+    font-size: 25px;
+}
+
+.pb-0 {
+    padding-bottom: 0px;
+}
+
+.bg-grey {
+    background: #f7f9f9;
 }

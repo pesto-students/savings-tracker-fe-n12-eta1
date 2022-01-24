@@ -7,7 +7,7 @@ import Error from "../../common/Error";
 
 const DeleteModal = ({show, handleClose, portfolio, onSubmitSuccess}) => {
 
-    const [serverError, setServerError] = useState('');
+    const [serverErrors, setServerErrors] = useState('');
     const [loading, setLoading] = useState(false);
 
     const handleSubmit = (e) => {
@@ -16,8 +16,6 @@ const DeleteModal = ({show, handleClose, portfolio, onSubmitSuccess}) => {
         deletePortfolio(portfolio._id).then(handleResponse).catch(handleServerError)
     };
     const handleResponse = (response) => {
-
-        console.log(response);
         setLoading(false);
         if (onSubmitSuccess) {
             onSubmitSuccess();
@@ -26,10 +24,13 @@ const DeleteModal = ({show, handleClose, portfolio, onSubmitSuccess}) => {
 
     };
 
-    const handleServerError = (err) => {
-        console.error(err)
+
+    const handleServerError = (error) => {
+        const errors = error.response?.data?.errors || [error.message];
+        setServerErrors(errors);
         setLoading(false);
     };
+
 
     return <Modal show={show} onHide={handleClose} dialogClassName="modal-90w">
         <Modal.Header closeButton>
@@ -38,12 +39,12 @@ const DeleteModal = ({show, handleClose, portfolio, onSubmitSuccess}) => {
         <Modal.Body>
             <form onSubmit={handleSubmit} className="row">
                 <div className="col">
-                    <p>Are you sure you want to delete ?</p>
+                    <p>Are you sure you want to delete this item?</p>
                     <div className="d-flex">
                         <Button disabled={loading} type="submit" text="Delete"/>
                         <Loader
                             visible={loading}/>
-                        {serverError && <Error message={serverError}/>}
+                        {serverErrors && <Error message={serverErrors}/>}
                     </div>
                 </div>
             </form>
