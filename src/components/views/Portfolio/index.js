@@ -10,10 +10,10 @@ import {getPortfolio, addPortfolio} from "./api";
 
 import PortfolioForm from './PortfolioModal';
 
-import PortfolioTable, {DemoTable} from "./PortfolioTable";
+import PortfolioTable from "./PortfolioTable";
 import CurrencyForm from "./CurrencyForm";
-import TableSkeleton from "../../common/RectangularSkeleton";
 import DeleteModal from "./DeleteModal";
+import Spinner from "../../common/Spinner";
 
 
 const Portfolio = ({active}) => {
@@ -51,6 +51,7 @@ const Portfolio = ({active}) => {
         }).catch(err => {
 
             setError(err.message);
+            setLoading(false);
         });
 
     };
@@ -82,24 +83,18 @@ const Portfolio = ({active}) => {
                                             extraClass="primary btn-round text-white float-md-end"/>
                                 </div>
                             </div>
-                            <div className="row">
-                                <div className="col">
+                            {loading ? <Spinner/> : error ? <Error message={error}/> :
+                                <PortfolioTable portfolios={portfolios}
+                                                onEditInit={(portfolio) => {
+                                                    setActivePortfolio(portfolio);
+                                                    setShowPortfolioModal(true);
+                                                }}
+                                                onDeleteInit={(portfolio) => {
+                                                    setActivePortfolio(portfolio);
+                                                    setShowDeleteModal(true);
+                                                }}/>}
 
-                                    {error ? <Error message={error}/> : loading ? <TableSkeleton/> :
-                                        <PortfolioTable portfolios={portfolios}
-                                                        onEditInit={(portfolio) => {
-                                                            setActivePortfolio(portfolio);
-                                                            setShowPortfolioModal(true);
-                                                        }}
-                                                        onDeleteInit={(portfolio) => {
-                                                            setActivePortfolio(portfolio);
-                                                            setShowDeleteModal(true);
-                                                        }}
 
-                                        />}
-                                </div>
-                            </div>
-                            <DemoTable portfolios={portfolios}/>
                             {/*Portfolio popup*/}
                             {showPortfolioModal && <PortfolioForm portfolio={activePortfolio} show={showPortfolioModal}
                                                                   handleClose={() => {

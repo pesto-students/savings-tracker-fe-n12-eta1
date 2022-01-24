@@ -22,7 +22,7 @@ const CurrencyForm = ({value, onSave}) => {
         setLoading(true);
         const formData = new FormData(form);
         const data = Object.fromEntries(formData);
-        saveCurrency({}).then((response) => {
+        saveCurrency(data).then((response) => {
             setLoading(false);
         }).catch(error => {
             setLoading(false);

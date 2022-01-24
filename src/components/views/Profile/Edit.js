@@ -156,10 +156,8 @@ const Edit = ({setEdit, userData, onSave}) => {
                             <div className="col-md-12">
                                 <div className="form-group">
                                     <label>Bio</label>
-                                    <textarea name="bio" type="text" placeholder="Your Bio"
-                                              className="form-control" rows="4"
-                                    >
-                            </textarea>
+                                    <Field name="bio" component="textarea"
+                                           className="form-control"/>
                                 </div>
                             </div>
                             <div className="row">
