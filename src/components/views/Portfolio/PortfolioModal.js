@@ -18,6 +18,8 @@ const PortfolioModal = ({show, handleClose, portfolio, onSubmitSuccess}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const form = e.target;
+        setServerErrors([]);
+
 
         form.setAttribute('data-submit-attempted', '1');
 

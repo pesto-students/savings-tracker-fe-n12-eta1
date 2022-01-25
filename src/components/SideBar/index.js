@@ -24,6 +24,11 @@ const SideBar = ({active = 'dashboard'}) => {
                         <p><i className="fas fa-users-cog mr-2"></i> Portfolio </p>
                     </Link>
                 </div>
+                <div className={active === 'subscription' ? 'dash_bord active' : 'dash_bord'}>
+                    <Link to="/subscription">
+                        <p><i className="fas fa-credit-card mr-2"></i> Subscription </p>
+                    </Link>
+                </div>
                 <div className={active === 'profile' ? 'dash_bord active' : 'dash_bord'}>
                     <Link to="/profile">
                         <p><i className="fa fa-user mr-2"></i> Profile</p>

@@ -11,11 +11,10 @@ import GuardRoute from './GuardRoute';
 import {useEffect, useState} from 'react';
 import Spinner from './components/common/Spinner';
 import {useDispatch} from 'react-redux';
-import Banner from './components/Banner/images/banner.jpg'
 import SignIn from "./components/views/Signin";
 import List from './components/views/Goals/List';
 import {auth} from './firebase';
-import axiosClient from "./axios";
+import Subscription from "./components/views/Subscription";
 
 function App() {
 
@@ -31,11 +30,11 @@ function App() {
         auth.onAuthStateChanged(function (user) {
             dispatch({type: 'AUTH', payload: user});
 
-           /* if (user) {
-                user.getIdToken().then(token => {
-                    console.log(token);
-                });
-            }*/
+            /* if (user) {
+                 user.getIdToken().then(token => {
+                     console.log(token);
+                 });
+             }*/
             setLoading(false);
 
         });
@@ -81,6 +80,14 @@ function App() {
                         element={
                             <GuardRoute>
                                 <Portfolio active="portfolio"/>
+                            </GuardRoute>
+                        }
+                    />
+                    <Route
+                        path="/subscription"
+                        element={
+                            <GuardRoute>
+                                <Subscription active="subscription"/>
                             </GuardRoute>
                         }
                     />
