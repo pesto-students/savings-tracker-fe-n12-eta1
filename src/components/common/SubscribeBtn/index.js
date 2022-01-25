@@ -33,7 +33,7 @@ const SubscribeBtn = ({onSuccess, className = ''}) => {
             const {user} = data;
 
             const prefill = {
-                "name": user.name,
+                "name": user.first_name + ' ' + user.last_name,
                 "email": user.email,
                 "contact": user.phone_number
             };
@@ -95,15 +95,14 @@ const SubscribeBtn = ({onSuccess, className = ''}) => {
         setLoading(false);
     };
 
-    return <div className={"d-inline-block" + ' ' + className}>
-        <div className="d-flex">
+    return <span className={"d-inline-block" + ' ' + className}>
+        <span className="d-flex">
             <Button disabled={loading} onClick={handleSubmit} text="Subscribe"/>
-            <Loader
-                visible={loading}/>
-        </div>
+            <Loader visible={loading}/>
+        </span>
         {serverErrors && <Error message={serverErrors}/>}
 
-    </div>
+    </span>
 };
 
 

@@ -35,15 +35,15 @@ const CancelSubscriptionBtn = ({onSuccess, className = ''}) => {
         setLoading(false);
     };
 
-    return <div className={"d-inline-block" + ' ' + className}>
-        <div className="d-flex">
+    return <span className={"d-inline-block" + ' ' + className}>
+        <span className="d-flex">
             <Button disabled={loading} onClick={handleSubmit} text="Cancel Subscription"/>
             <Loader
                 visible={loading}/>
-        </div>
+        </span>
         {serverErrors && <Error message={serverErrors}/>}
 
-    </div>
+    </span>
 };
 
 
