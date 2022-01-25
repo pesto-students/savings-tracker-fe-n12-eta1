@@ -62,32 +62,37 @@ const Subscription = ({active}) => {
                                     <h1 className="font_30"><i className="fa fa-credit-card mr-2"></i>Subscription</h1>
                                 </div>
                             </div>
-                            <div className="row">
-                                <div className="col">
-                                    <h3 className="fs-3">Status</h3>
-                                    {loading && <Spinner/>}
-                                    {!loading && (subscriptionActive ?
 
-                                            <p>Your Subscription is active <CancelSubscriptionBtn className="ms-3"
-                                                                                                  onSuccess={() => getInitialData()}/>
-                                            </p>
-                                            :
-                                            <p>Your Subscription is not active <SubscribeBtn className="ms-3"
-                                                                                             onSuccess={() => getInitialData()}/>
-                                            </p>
-                                    )}
-                                </div>
-                            </div>
-                            {!loading && <div className="row mt-3">
-                                <div className="col">
-                                    <h3 className="fs-3">Transactions</h3>
-                                    <TransactionsTable transactions={transactions}/>
-                                </div>
-                            </div>}
+                            {serverErrors ? <div className="row">
+                                    <div className="col"><Error message={serverErrors}/></div>
+                                </div> :
+                                <>
 
-                            {serverErrors && <div className="row">
-                                <div className="col"><Error message={serverErrors}/></div>
-                            </div>}
+                                    <div className="row">
+                                        <div className="col">
+                                            <h3 className="fs-3">Status</h3>
+                                            {loading && <Spinner/>}
+                                            {!loading && (subscriptionActive ?
+
+                                                    <div>Your Subscription is active <CancelSubscriptionBtn
+                                                        className="ms-3"
+                                                        onSuccess={() => getInitialData()}/>
+                                                    </div>
+                                                    :
+                                                    <div>Your Subscription is not active <SubscribeBtn className="ms-3"
+                                                                                                       onSuccess={() => getInitialData()}/>
+                                                    </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                    {!loading && <div className="row mt-3">
+                                        <div className="col">
+                                            <h3 className="fs-3">Transactions</h3>
+                                            <TransactionsTable transactions={transactions}/>
+                                        </div>
+                                    </div>}
+                                </>
+                            }
 
                         </div>
                     </div>
