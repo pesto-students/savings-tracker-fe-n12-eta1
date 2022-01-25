@@ -16,7 +16,7 @@ import alertService from '../../Alert';
 import {deleteGoal} from './Api.js'
 
 const Card = (props) => {
-    console.log(props)
+  
     const [colors, setColors] = useState(['cyan', 'red', 'blue', 'orange', 'yellow', 'green'])
 
     const [loading, setEdit] = useState(false);
@@ -25,7 +25,6 @@ const Card = (props) => {
     const [add, setAdd] = useState(false);
 
     let navigate = useNavigate();
-
     var goal_cards = props.goals.docs.length > 0 ? props.goals.docs.map((item, index) => {
         
         const CHART_DATA = {
@@ -100,7 +99,7 @@ const Card = (props) => {
                     if (result.value) {
                         deleteGoal(goal._id).then((response) => {
 
-                            console.log(response)
+                            //console.log(response)
                             
                             if(response.success === false){
                                 setLoading(false)
@@ -111,7 +110,7 @@ const Card = (props) => {
                             setLoading(false);
                 
                         }).catch((error) => {
-                            console.log(error)
+                            //console.log(error)
                             setLoading(false);
                             alertService.showError(error.data.message);
                         });
@@ -120,7 +119,7 @@ const Card = (props) => {
             }
             catch(error){
                 //setLoading(false);
-                console.log(error)
+                //console.log(error)
                 setLoading(false);
                 alertService.showError(error.data.message);
             }

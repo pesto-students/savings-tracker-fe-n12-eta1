@@ -1,37 +1,13 @@
 import {useState} from 'react'
-import TabHeader from '../../common/Tabs/TabHeader'
-import TabContent from '../../common/Tabs/TabContent'
-import './index.css'
-
-
-
-const Tabs =(props)=> {
-    
-    const [state,setState] = useState({
-        activeTab: 0,
-        data: props.data
-    })
-    
-    const changeTabOnClick = (index) =>{
-        setState({
-            activeTab: index
-        });
-    }
-
-    
+import './index.css';
+const Tabs =({tabTitle, activeTab, setActiveTab})=> {
+    let tabs = tabTitle.map((item, index) => {
+        return <li key={index} className={(activeTab === item.name ? 'active' : '')}>
+                    <a onClick={(e) => setActiveTab(item.name)} ><span>{item.name}</span></a>
+                </li>
+    });
     return (
-        <div className="tabs-body">
-            <TabHeader data={state.data}
-                            click={changeTabOnClick}
-                            activeId={state.activeTab} />
-            <TabContent data={state.data} loading={props.loading}
-                            activeId={state.activeTab} />
-        </div>
+        <ul className="tabs-header">{tabs}</ul>
     )
-    
 }
-
-
-
-
 export default Tabs
