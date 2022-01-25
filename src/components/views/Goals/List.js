@@ -8,6 +8,7 @@ import Card from './Card.js';
 import DashboardBanner from '../../common/DashboardBanner';
 import Tabs from '../../common/Tabs/Tabs.js';
 import banner from './images/target.jpg';
+import { ToastContainer } from 'react-toastify';
 
 const List = ({active}) => {
 
@@ -32,17 +33,24 @@ const List = ({active}) => {
                                                      text: 'Text 2!'
                                                  },
                                                  {
-                                                     name: 'Active',
+                                                     name: 'active',
                                                      text: 'Text 3 !'
                                                  },
                                                  {
-                                                     name: 'Achieved',
+                                                     name: 'achieved',
                                                      text: 'Text 4!'
                                                  }
                                              ])
 
     useEffect(() => {
 
+        getGoalsData();
+        
+    }, [activeTab, page, perPage, sortBy, orderBy, searchBtn, search])
+
+
+    const getGoalsData = () => {
+     
         setLoading(true);
         let filterData = {
             page: page,
@@ -67,7 +75,7 @@ const List = ({active}) => {
 
             setGoals(response.data.goals || [])
 
-            alertService.showSuccess(response.message);
+            // alertService.showSuccess(response.data.message);
 
             setLoading(false);
 
@@ -75,10 +83,9 @@ const List = ({active}) => {
             //setLoading(false);
             console.log(error)
             setLoading(false);
-            alertService.showError(error.message);
+            alertService.showError(error.data.message);
         });
-    }, [activeTab, page, perPage, sortBy, orderBy, searchBtn])
-
+    }
 
     return (
         <>
@@ -86,6 +93,8 @@ const List = ({active}) => {
             <DashboardBanner
                 image={banner}
             />
+
+            <ToastContainer />
 
             <div className="main main-raised dashoard-container">
                 <div className="container">
@@ -108,14 +117,22 @@ const List = ({active}) => {
                                 loading={loading}
                                 goals={goals}
                                 perPage={perPage}
+                                orderBy={orderBy}
+                                sortBy={sortBy}
+                                search={search}
+                                start_date={startDate}
+                                end_date={endDate}
+                                setStartDate={setStartDate}
+                                setEndDate={setEndDate}
                                 setPage={setPage}
                                 setPerPage={setPerPage}
                                 setSortBy={setSortBy}
                                 setOrderBy={setOrderBy}
                                 setSearch={setSearch}
-                                setStartDate={setStartDate}
-                                setEndDate={setEndDate}
                                 setSearchBtn={setSearchBtn}
+                                onSubmitSuccess={() => {
+                                    getGoalsData()
+                                }}
                             />
                         </div>
                         }
