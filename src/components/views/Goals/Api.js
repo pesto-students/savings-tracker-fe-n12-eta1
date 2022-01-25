@@ -5,8 +5,6 @@ import {auth} from '../../../firebase';
 const getGoals = (async (filterData) => {
     
     return auth.currentUser.getIdToken().then(token => {
-        // console.log(token)
-
         const config = {
             headers: {'X-Auth-Token': token},
             params: filterData
@@ -30,7 +28,6 @@ const addGoal = (data) => {
 }
 
 const updateGoal = (goalID, data) => {
-    console.log(goalID)
     try {
         return auth.currentUser.getIdToken().then(token => {
             return axiosClient.put('/api/goals/' + goalID, data, {headers: {'X-Auth-Token': token}});
@@ -42,7 +39,6 @@ const updateGoal = (goalID, data) => {
 }
 
 const deleteGoal = (goalId) => {
-    console.log(goalId)
     return auth.currentUser.getIdToken().then(token => {
         return axiosClient.delete('/api/goals/' + goalId, {headers: {'X-Auth-Token': token}});
     });
