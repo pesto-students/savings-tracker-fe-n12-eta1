@@ -42,10 +42,11 @@ const Dashboard = ({active}) => {
             <DashboardBanner
                 image={banner}
             />
-            
+
             <div className="main main-raised dashoard-container">
                 <div className="container">
                     <div className="row">
+
                         <SideBar active={active} />
                         <div className="col-md-9">
                         <h1 className="font_30"><i className="fa fa-home mr-2"></i>Dashboard</h1>
@@ -103,6 +104,7 @@ const Dashboard = ({active}) => {
                                         </div>
                                         <div className="col-4 d-flex">
                                         <i className="fa fa-dollar-sign mt-auto text-primary font_30"></i>
+
                                         </div>
                                     </div>
                                 </div>
@@ -115,10 +117,8 @@ const Dashboard = ({active}) => {
                             </div>
                         }
                     </div>
-                    
                 </div>
             </div>
-        </div>
 
         </>
     );

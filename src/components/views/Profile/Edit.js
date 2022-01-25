@@ -25,9 +25,6 @@ const Edit = ({setEdit, userData, onSave}) => {
 
     const handleSubmit = async (_formInput) => {
 
-
-        console.log(_formInput)
-
         setLoading(true);
 
         // const formData = new FormData(_formInput);
