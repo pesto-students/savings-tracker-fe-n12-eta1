@@ -2,10 +2,13 @@ import {useState} from 'react';
 import { Formik, Form, Field } from "formik";
 import Modal from 'react-bootstrap/Modal';
 import * as Yup from "yup";
+import {updateGoal} from './Api'
 import Button from '../../common/Button';
 import Error from '../../common/Error';
+import alertService from '../../Alert';
+import Loader from "../../common/Loader";
 
-const EditGoal = ({edit, setEdit, goal}) => {
+const EditGoal = ({edit, setEdit, goal, onSubmitSuccess}) => {
 
     const [loading, setLoading] = useState(false);
 
@@ -13,7 +16,7 @@ const EditGoal = ({edit, setEdit, goal}) => {
         title: goal?.title || '',
         description: goal?.description || '',
         end_date: goal?.end_date || '',
-        amount: goal?.amount || '',
+        total_amount: goal?.total_amount || '',
       };
       
     const validationSchema = Yup.object().shape({
@@ -23,7 +26,7 @@ const EditGoal = ({edit, setEdit, goal}) => {
         description: Yup.string()
             .required("Goal desccription is required"),
         end_date: Yup.string().required("Deadline is required"),
-        amount: Yup.string().required("Amount is required"),
+        total_amount: Yup.string().required("Amount is required"),
     });
 
     const handleSubmit = async (_formInput) => {
@@ -31,9 +34,33 @@ const EditGoal = ({edit, setEdit, goal}) => {
 
         try{
             console.log(_formInput)
+            const formData = new FormData();
+
+            formData.append('total_amount', _formInput.total_amount);
+            formData.append('description', _formInput.description);
+            formData.append('title', _formInput.title);
+            formData.append('end_date', _formInput.end_date);
+
+            const data = Object.fromEntries(formData);
+
+            updateGoal(goal._id, data).then((response) => {
+
+                console.log(response)
+    
+                alertService.showSuccess(response.data.message);
+                
+                onSubmitSuccess();
+                setLoading(false);
+    
+            }).catch((error) => {
+                console.log(error)
+                setLoading(false);
+                alertService.showError(error.data.message);
+            });
 
         }
         catch(err){
+            console.log(err)
             setLoading(false)
         }
         
@@ -105,10 +132,10 @@ const EditGoal = ({edit, setEdit, goal}) => {
                     <div className="form-group">
 
                         <label>Amount</label>
-                        <Field name="amount" type="number"
+                        <Field name="total_amount" type="number"
                             placeholder="Enter Amount" className="form-control"/>
                         {
-                            errors.amount && <Error message={errors.amount}/>
+                            errors.total_amount && <Error message={errors.total_amount}/>
                         }
                     </div>
                 </div>
@@ -117,7 +144,8 @@ const EditGoal = ({edit, setEdit, goal}) => {
                     <div className="col-md-6 ml-auto mr-auto text-center">
                         <Button disabled={!isValid} type="submit" text="Update Goal"
                                 extraClass="primary btn-round text-white"/>
-
+                        <Loader
+                            visible={loading}/>
                     </div>
                 </div>
             </Form>
