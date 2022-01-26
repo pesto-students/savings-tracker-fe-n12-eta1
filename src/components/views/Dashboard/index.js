@@ -4,8 +4,10 @@ import './index.css';
 import banner from './images/banner.jpg';
 import SideBar from '../../SideBar';
 import {getDashboardData} from './api'
-//import PieChart from '../../common/Graphs/index';
+import PieChart from '../../common/Graphs/piechart';
 import LineChart from '../../common/Graphs/index'
+import Skeleton from '../../common/Skeleton';
+import CurrencyForm from "../Portfolio/CurrencyForm";
 
 /*const columns=  [
     ["Expenses", 1.4, 1.5, 1.5, 1.3, 1.5, 1.3, 1.6, 1.0, 1.3, 1.4, 1.0, 1.5, 1.0, 1.4, 1.3, 1.4, 1.5, 1.0, 1.5, 1.1, 1.8, 1.3, 1.5, 1.2, 1.3, 1.4, 1.4, 1.7, 1.5, 1.0, 1.1, 1.0, 1.2, 1.6, 1.5, 1.6, 1.5, 1.3, 1.3, 1.3, 1.2, 1.4, 1.2, 1.0, 1.3, 1.2, 1.3, 1.3, 1.1, 1.3],
@@ -17,9 +19,12 @@ const Dashboard = ({active}) => {
     const [dashboard,setDashboard] = useState('')
     const [total,setTotal] = useState(0)
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(true)
+    const [currency, setCurrency] = useState('');
 
     useEffect(() => {
-             getData() 
+        setLoading(true)
+        getData() 
     }, []);
 
     const getData = () => {
@@ -29,10 +34,12 @@ const Dashboard = ({active}) => {
             var total = goals.map(goal => goal.count).reduce((acc, goal) => goal + acc);
             setDashboard(response.data.dashboard)  
             setTotal(total)
-            console.log(response.data.dashboard.chart_data) 
+            setLoading(false) 
+            setCurrency(response.data.currency);
         }).catch(err => {
 
             setError(err.message);
+            setLoading(false)
         });
           
     }
@@ -46,79 +53,91 @@ const Dashboard = ({active}) => {
             <div className="main main-raised dashoard-container">
                 <div className="container">
                     <div className="row">
+                       
                         <SideBar active={active} />
                         <div className="col-md-9">
-                        <h1 className="font_30"><i className="fa fa-home mr-2"></i>Dashboard</h1>
-        
-                        <div className="row mt-5">
-                        <div className="col-md-3 col-lg-3 col-6 mb-4 mb-lg-0">
-                                <div className="dashboard_div active">
-                                    <div className="row h-100">
-                                        <div className="col-8 pr-0 d-flex align-content-center">
-                                            <div>
-                                                <h1 className="mb-0">{total}</h1>
-                                                <p className="mb-0">Total Goals</p>
+                            <h1 className="font_30"><i className="fa fa-home mr-2"></i>Dashboard</h1>
+                            <h3>Currency</h3>
+                            <CurrencyForm value={currency}/>
+                            {loading && <Skeleton totalCollections="1"/>}
+                            {!loading && 
+                            
+                            <div className="row mt-5">
+                                <div className="col-md-3 col-lg-3 col-6 mb-4 mb-lg-0">
+                                    <div className="dashboard_div">
+                                        <div className="row h-100">
+                                            <div className="col-8 pr-0 d-flex align-content-center">
+                                                <div>
+                                                    <h1 className="mb-0">{total}</h1>
+                                                    <p className="mb-0">Total Goals</p>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className="col-4 d-flex">
-                                        <i className="fa fa-bullseye mt-auto text-white font_30" aria-hidden="true"></i>
+                                            <div className="col-4 d-flex">
+                                            <i className="fa fa-clock mt-auto text-primary font_30" aria-hidden="true"></i>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            { dashboard.goals && dashboard.goals.map((item,index)=>{ 
-                                
-                                return (
-                                    item._id!=null &&
-                                    <div className="col-md-3 col-lg-3 col-6 mb-4 mb-lg-0">
-                                        <div className="dashboard_div">
-                                            <div className="row h-100">
-                                                <div className="col-8 pr-0 d-flex align-content-center">
-                                                    <div>
-                                                        <h1 className="mb-0">{item.count}</h1>
-                                                        <p className="mb-0">{item._id} Goals</p>
+                                { dashboard.goals && dashboard.goals.map((item,index)=>{ 
+                                    
+                                    return (
+                                        item._id!=null &&
+                                        <div className="col-md-3 col-lg-3 col-6 mb-4 mb-lg-0">
+                                            <div className="dashboard_div">
+                                                <div className="row h-100">
+                                                    <div className="col-8 pr-0 d-flex align-content-center">
+                                                        <div>
+                                                            <h1 className="mb-0">{item.count}</h1>
+                                                            <p className="mb-0">{item._id} Goals</p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-4 d-flex">
+                                                    <i className="fa fa-clock mt-auto text-primary font_30" aria-hidden="true"></i>
                                                     </div>
                                                 </div>
-                                                <div className="col-4 d-flex">
-                                                <i className="fa fa-clock mt-auto text-primary font_30" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                        
+                                    )
+                                    
+                                })}
+                                
+                                { dashboard.salary &&
+                                <div className="col-md-3 col-lg-3 col-6 mb-4 mb-lg-0">
+                                    <div className="dashboard_div">
+                                        <div className="row h-100">
+                                            <div className="col-8 pr-0 d-flex align-content-center">
+                                                <div>
+                                                    <h1 className="mb-0">{dashboard.salary}</h1>
+                                                    <p className="mb-0">Income</p>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    
-                                )
-                                
-                            })}
-                            
-                            { dashboard.salary &&
-                            <div className="col-md-3 col-lg-3 col-6 mb-4 mb-lg-0">
-                                <div className="dashboard_div">
-                                    <div className="row h-100">
-                                        <div className="col-8 pr-0 d-flex align-content-center">
-                                            <div>
-                                                <h1 className="mb-0">{dashboard.salary}</h1>
-                                                <p className="mb-0">Income</p>
+                                            <div className="col-4 d-flex">
+                                            {currency}
                                             </div>
                                         </div>
-                                        <div className="col-4 d-flex">
-                                        <i className="fa fa-dollar-sign mt-auto text-primary font_30"></i>
-                                        </div>
                                     </div>
+                                </div>
+                                }
+                            </div>
+                            }
+                            {dashboard.chart_data && 
+                            <div className="row mt-5">
+                                <div className="col-6">
+                                    <LineChart columns={dashboard.chart_data}/>
+                                </div>
+                                <div className="col-6">
+                                    <PieChart columns={dashboard.chart_data}/>
                                 </div>
                             </div>
                             }
+                        
                         </div>
-                        {dashboard.chart_data && 
-                            <div className="col-md-9">
-                                <LineChart columns={dashboard.chart_data}/>
-                            </div>
-                        }
-                    </div>
                     
+                    </div>
                 </div>
             </div>
-        </div>
 
         </>
     );

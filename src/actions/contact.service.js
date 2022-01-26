@@ -1,15 +1,12 @@
-import axios from 'axios'
+import axiosClient from "../axios";
 
 const apiUrl = process.env.REACT_APP_API_URL+"/api/notifications/"
 
-const ContactService = () => {
+const ContactService = (data) => {
     try {
-        return axios.post(apiUrl+'submit-contact')
-            .then(response => {
-                //console.log("in fn",res.data.results)
-                //const response = res;
-                return (response)
-            })
+        console.log(data)
+        //return axios.post(apiUrl+'submit-contact',data)
+        return axiosClient.post(apiUrl+'submit-contact',data)
     } catch (e) {
         return {error: e.message}
     }

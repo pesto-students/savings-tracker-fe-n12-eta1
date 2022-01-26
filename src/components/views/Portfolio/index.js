@@ -42,10 +42,8 @@ const Portfolio = ({active}) => {
 
             let data = response.data;
             const portfolio = data.portfolios;
-
             setPortfolios(portfolio);
             setCurrency(data.currency);
-
             setLoading(false);
 
         }).catch(err => {

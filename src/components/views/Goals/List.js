@@ -29,15 +29,15 @@ const List = ({active}) => {
                                                      text: 'Text 1'
                                                  },
                                                  {
-                                                     name: 'recent',
+                                                     name: 'Recent',
                                                      text: 'Text 2!'
                                                  },
                                                  {
-                                                     name: 'active',
+                                                     name: 'Active',
                                                      text: 'Text 3 !'
                                                  },
                                                  {
-                                                     name: 'achieved',
+                                                     name: 'Achieved',
                                                      text: 'Text 4!'
                                                  }
                                              ])
@@ -47,7 +47,6 @@ const List = ({active}) => {
         getGoalsData();
         
     }, [activeTab, page, perPage, sortBy, orderBy, searchBtn, search])
-
 
     const getGoalsData = () => {
      

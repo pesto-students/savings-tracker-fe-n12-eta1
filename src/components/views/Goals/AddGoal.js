@@ -45,10 +45,8 @@ const AddGoal = ({add, setAdd, onSubmitSuccess}) => {
 
             addGoal(data).then((response) => {
 
-                console.log(response)
-    
-                alertService.showSuccess(response.data.message);
-                
+                //console.log(response) 
+                alertService.showSuccess(response.data.message);              
                 onSubmitSuccess();
                 setLoading(false);
     

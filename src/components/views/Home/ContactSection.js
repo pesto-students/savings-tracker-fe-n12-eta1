@@ -5,6 +5,9 @@ import ContactService from '../../../actions/contact.service.js'
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import Spinner from '../../common/Spinner';
+import alertService from '../../Alert';
+import Loader from "../../common/Loader";
+
 
 const ContactSection = () => {
 
@@ -16,32 +19,32 @@ const ContactSection = () => {
         email: '',
         message: ''
       };
-
-      
+    
     const validationSchema = Yup.object().shape({
         name: Yup.string()
-            .required("Name is required")
+            .required("* Name is required")
             .max(30, "Name should be of less than 30 characters"),
         email: Yup.string()
             .email("Please enter valid email")
-            .required("Email Address is required"),
-        message: Yup.string().required("Message is required"),
+            .required("* Email Address is required"),
+        message: Yup.string().required("* Message is required"),
     });
 
     const contactSubmit = (_formInput) => {
         setLoading(true)
-        console.log(_formInput);
-
+        
         try{
-            ContactService().then(response => {
-                console.log(response);
+            ContactService(_formInput).then(response => {
+                console.log(response.data.message);
                 setSuccess(true);
+                alertService.showSuccess(response.data.message);
+                setLoading(false);
             })
-            setLoading(false);
+            
         }
-        catch(err){
-            console.log(err)
+        catch(error){
             setLoading(false);
+            alertService.showError(error.data.message);
         };
     };
 
@@ -49,7 +52,7 @@ const ContactSection = () => {
 
         <div className="section section-contacts" id="contact-section">
             <div className="row">
-            {loading?<Spinner visible={loading}/>:''}
+            {/*loading?<Spinner visible={loading}/>:''*/}
                 <div className="col-md-8 ml-auto mr-auto">
                     <h2 className="text-center title">Reach US</h2>
 
@@ -103,16 +106,19 @@ const ContactSection = () => {
                         <div className="row">
                             <div className="col-md-4 ml-auto mr-auto text-center">
                             <Button disabled={!isValid} type="submit" text="Send Message" extraClass="primary btn-round text-white"/>
-
+                            <Loader
+                            visible={loading}/>
+                            
                             </div>
+                            {success ?
+                    <span style={{color: "green"}}>Thanks for contacting us, we will reach you soon.</span> : ''
+                }
                         </div>
                     </Form>
                 )}
                 </Formik>
                 </div>
-                {success ?
-                    <span style={{color: "green"}}>Thanks for contacting us, we will reach you soon.</span> : ''
-                }
+                
             </div>
         </div>
     );

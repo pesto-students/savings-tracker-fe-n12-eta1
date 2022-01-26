@@ -18,7 +18,6 @@ import {deleteGoal} from './Api.js'
 const Card = (props) => {
   
     const [colors, setColors] = useState(['cyan', 'red', 'blue', 'orange', 'yellow', 'green'])
-
     const [loading, setEdit] = useState(false);
     const [edit, setLoading] = useState(false);
     const [goal, setGoal] = useState([]);

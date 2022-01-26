@@ -31,11 +31,11 @@ function App() {
         auth.onAuthStateChanged(function (user) {
             dispatch({type: 'AUTH', payload: user});
 
-           /* if (user) {
+            if (user) {
                 user.getIdToken().then(token => {
                     console.log(token);
                 });
-            }*/
+            }
             setLoading(false);
 
         });
