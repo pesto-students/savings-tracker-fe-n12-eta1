@@ -21,7 +21,7 @@ const List = ({active}) => {
     const [endDate, setEndDate] = useState('')
     const [search, setSearch] = useState('')
     const [searchBtn, setSearchBtn] = useState(false)
-    const [goals, setGoals] = useState([])
+    const [goals, setGoals] = useState('')
     const [activeTab, setActiveTab] = useState('All')
     const [tabTitle, setTabtitle] = useState([
                                                  {
@@ -29,7 +29,7 @@ const List = ({active}) => {
                                                      text: 'Text 1'
                                                  },
                                                  {
-                                                     name: 'Recent',
+                                                     name: 'recent',
                                                      text: 'Text 2!'
                                                  },
                                                  {
@@ -66,24 +66,13 @@ const List = ({active}) => {
             }
         }
 
-
-        console.log(filterData)
-
         getGoals(filterData).then((response) => {
-
-            console.log(response)
-
             setGoals(response.data.goals || [])
-
-            // alertService.showSuccess(response.data.message);
-
             setLoading(false);
 
         }).catch((error) => {
-            //setLoading(false);
-            console.log(error)
             setLoading(false);
-            alertService.showError(error.data.message);
+            alertService.showError(error/*.data.message*/);
         });
     }
 
@@ -111,29 +100,30 @@ const List = ({active}) => {
                                 setActiveTab={setActiveTab}
                                 activeTab={activeTab}
                             />
+                            {goals &&
+                                <Card
 
-                            <Card
-
-                                loading={loading}
-                                goals={goals}
-                                perPage={perPage}
-                                orderBy={orderBy}
-                                sortBy={sortBy}
-                                search={search}
-                                start_date={startDate}
-                                end_date={endDate}
-                                setStartDate={setStartDate}
-                                setEndDate={setEndDate}
-                                setPage={setPage}
-                                setPerPage={setPerPage}
-                                setSortBy={setSortBy}
-                                setOrderBy={setOrderBy}
-                                setSearch={setSearch}
-                                setSearchBtn={setSearchBtn}
-                                onSubmitSuccess={() => {
-                                    getGoalsData()
-                                }}
-                            />
+                                    loading={loading}
+                                    goals={goals}
+                                    perPage={perPage}
+                                    orderBy={orderBy}
+                                    sortBy={sortBy}
+                                    search={search}
+                                    start_date={startDate}
+                                    end_date={endDate}
+                                    setStartDate={setStartDate}
+                                    setEndDate={setEndDate}
+                                    setPage={setPage}
+                                    setPerPage={setPerPage}
+                                    setSortBy={setSortBy}
+                                    setOrderBy={setOrderBy}
+                                    setSearch={setSearch}
+                                    setSearchBtn={setSearchBtn}
+                                    onSubmitSuccess={() => {
+                                        getGoalsData()
+                                    }}
+                                />
+                            }
                         </div>
                         }
                     </div>
