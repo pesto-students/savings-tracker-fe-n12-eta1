@@ -2,8 +2,11 @@ import {useState, useEffect} from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Button from '../../common/Button/index.js';
-import {omit} from 'lodash'
 import {useNavigate} from "react-router-dom";
+
+import PhoneInput from "react-phone-number-input";
+import "react-phone-number-input/style.css";
+
 
 import Error from '../../common/Error/index.js';
 
@@ -13,67 +16,129 @@ import {auth} from '../../../firebase';
 import './index.css';
 import Loader from "../../common/Loader";
 import {getUserStatus} from "./api";
+import {useDispatch} from "react-redux";
+import OTPResendButton from "./otp-timer";
 
 let authConfirmationResult;
 
 const SignIn = ({show, setShow}) => {
 
     const navigate = useNavigate();
-
-    useEffect(() => {
-        setStep(1);
-
-        if (!window.recaptchaVerifier) {
-            window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {'size': 'invisible'}, auth);
-        }
-
-
-    }, []);
-
-
+    const dispatch = useDispatch();
     const [error, setError] = useState();
 
     const [step, setStep] = useState(1);
-
+    const [phoneNumber, setPhoneNumber] = useState('');
     const [loading, setLoading] = useState(false);
+    const [otpTimer, setOtpTimer] = useState(0);
+
+    useEffect(() => {
+        // setStep(1);
+
+        let btn = document.getElementById('signin-btn');
+
+        if (btn && show) {
+
+            window.recaptchaVerifier = new RecaptchaVerifier(
+                btn,
+                {
+                    'size': 'invisible',
+                    /*'callback': function (response) {
+                        console.log(phoneNumber);
+                        sendOTP();
+                    }*/
+                },
+                auth
+            );
+
+            try {
+                window.recaptchaVerifier.render().then((widgetId) => {
+                    // window.recaptchaWidgetId = widgetId;
+                });
+            }
+            catch (e) {
+
+            }
+        } else {
+            /* try {
+                 window.recaptchaVerifier?.clear();
+
+             }
+             catch (e) {
+
+             }*/
+            // window.grecaptcha?.reset(window.recaptchaWidgetId)
+        }
+
+        return () => {
+            // window.recaptchaVerifier?.clear();
+
+            // window.grecaptcha?.reset(window.recaptchaWidgetId)
+        }
+    }, [show]);
 
 
     const sendOTP = (e) => {
-        e.preventDefault();
+        if (e) {
+            e.preventDefault();
+        }
         setError('');
-        setLoading(true);
 
-        const form = e.target.form;
-        const mobileNumber = form.mobile.value;
+        if (phoneNumber === '') {
+            setError('Please enter a phone number');
+            return;
+        }
 
-        signInWithPhoneNumber(auth, mobileNumber, window.recaptchaVerifier)
-            .then((confirmationResult) => {
+        window.recaptchaVerifier.verify().then(function () {
 
-                authConfirmationResult = confirmationResult;
+            startOTPTimer();
 
-                setStep(2);
+            setLoading(true);
+
+            signInWithPhoneNumber(auth, phoneNumber, window.recaptchaVerifier)
+                .then((confirmationResult) => {
+
+                    authConfirmationResult = confirmationResult;
+
+                    setStep(2);
+                    setLoading(false);
+
+                }).catch((error) => {
+
+                setError('Please use a valid phone number with the Country code.');
                 setLoading(false);
+            });
 
-            }).catch((error) => {
-
-            console.error(error);
-            setError('Please use a valid phone number with the Country code.');
+        }).catch((err) => {
+            setError(err.message);
             setLoading(false);
-            window.grecaptcha?.reset();
         });
 
 
     };
 
+    const startOTPTimer = () => {
+        setOtpTimer(() => 30);
+    };
+
     const verifyOTP = (e) => {
         e.preventDefault();
         setError('');
-        setLoading(true);
         const form = e.target.form;
         const otp = form.otp.value;
 
+        if (otp === '') {
+            setError('Please enter OTP');
+            return;
+        }
+
+        setLoading(true);
+
         authConfirmationResult.confirm(otp).then((result) => {
             // User signed in successfully. Redirect
+
+            dispatch({type: 'LOADING', payload: true});
+
 
             getUserStatus().then((response => {
 
@@ -85,6 +150,9 @@ const SignIn = ({show, setShow}) => {
                 setStep(1);
                 setShow(false);
                 setLoading(false);
+
+                dispatch({type: 'LOADING', payload: false});
+
 
             })).catch(err => {
                 setError('Server Error. Please try again');
@@ -123,43 +191,58 @@ const SignIn = ({show, setShow}) => {
                     <Form>
 
                         {
-                            step && step === 1 &&
-                            <>
+
+                            <div className={step && step === 1 ? '' : 'd-none'}>
                                 <Form.Group className="mb-3" controlId="formBasicEmail">
-                                    <Form.Label>Mobile Number</Form.Label>
-                                    <Form.Control type="tel" name="mobile" placeholder="Enter Mobile Number"
-                                                  className={error ? 'is-invalid' : 'is-valid'}/>
+                                    <Form.Label>Mobile Number <span className="text-danger">*</span></Form.Label>
+                                    <PhoneInput
+                                        numberInputProps={{
+                                            className: 'form-control ' + (error ? 'is-invalid' : ''),
+                                            disabled: loading
+                                        }}
+                                        value={phoneNumber}
+                                        onChange={(val) => {
+                                            setPhoneNumber(() => val);
+                                        }}
+                                        defaultCountry="IN"
+                                    />
                                     <Form.Text className="text-muted">
-                                        We'll never share your number with anyone else.
+                                        We'll never share your number with anyone.
                                     </Form.Text>
 
                                 </Form.Group>
                                 <div className="d-flex">
-                                    <Button disabled={loading} text="Sign In" extraClass="primary btn-round text-white"
-                                            onClick={sendOTP}/>
+                                    <Button onClick={sendOTP} id="signin-btn" disabled={loading} text="Sign In"
+                                            extraClass="primary btn-round text-white"
+                                    />
                                     <Loader visible={loading}/></div>
 
-                            </>
+
+                            </div>
                         }
                         {
-                            step && step === 2 &&
-                            <>
+
+                            <div className={step && step === 2 ? '' : 'd-none'}>
                                 <Form.Group className="mb-3" controlId="formBasicPassword">
-                                    <Form.Label>Enter OTP</Form.Label>
+                                    <Form.Label>Enter OTP <span className="text-danger">*</span></Form.Label>
                                     <Form.Control type="text" name="otp" placeholder="OTP"/>
 
                                 </Form.Group>
                                 <div className="d-flex">
-
+                                    <Button text='Go Back' extraClass="info me-3" onClick={() => setStep(1)}/>
                                     <Button text="Verify" extraClass="primary btn-round text-white"
                                             onClick={verifyOTP}/>
                                     <Loader visible={loading}/>
 
                                 </div>
+                                {step === 2 && <OTPResendButton count={otpTimer} onClick={sendOTP} onDone={() => {
+                                }}/>}
 
-                            </>
+
+                            </div>
 
                         }
+                        <p className="text-black-50 mt-3"><span className="text-danger">*</span> required field</p>
                         {error &&
                         <Error message={error}/>
                         }
