@@ -1,7 +1,12 @@
 const formatDateSimple = (dateStr) => {
     if (dateStr) {
         const date = new Date(dateStr);
-        return date.toISOString().split('T')[0];
+
+        if (isNaN(date.getTime())) {
+            return '--';
+        }
+
+        return date.toJSON().slice(0, 10).split('-').reverse().join('/')
     }
     return '';
 };
