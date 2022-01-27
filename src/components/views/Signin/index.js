@@ -33,7 +33,6 @@ const SignIn = ({show, setShow}) => {
     const [otpTimer, setOtpTimer] = useState(0);
 
     useEffect(() => {
-        // setStep(1);
 
         let btn = document.getElementById('signin-btn');
 
@@ -43,10 +42,6 @@ const SignIn = ({show, setShow}) => {
                 btn,
                 {
                     'size': 'invisible',
-                    /*'callback': function (response) {
-                        console.log(phoneNumber);
-                        sendOTP();
-                    }*/
                 },
                 auth
             );
@@ -59,22 +54,9 @@ const SignIn = ({show, setShow}) => {
             catch (e) {
 
             }
-        } else {
-            /* try {
-                 window.recaptchaVerifier?.clear();
-
-             }
-             catch (e) {
-
-             }*/
-            // window.grecaptcha?.reset(window.recaptchaWidgetId)
         }
 
-        return () => {
-            // window.recaptchaVerifier?.clear();
 
-            // window.grecaptcha?.reset(window.recaptchaWidgetId)
-        }
     }, [show]);
 
 
@@ -99,7 +81,6 @@ const SignIn = ({show, setShow}) => {
                 .then((confirmationResult) => {
 
                     authConfirmationResult = confirmationResult;
-
                     setStep(2);
                     setLoading(false);
 
@@ -230,7 +211,7 @@ const SignIn = ({show, setShow}) => {
                                 </Form.Group>
                                 <div className="d-flex">
                                     <Button text='Go Back' extraClass="info me-3" onClick={() => setStep(1)}/>
-                                    <Button text="Verify" extraClass="primary btn-round text-white"
+                                    <Button disabled={loading} text="Verify" extraClass="primary btn-round text-white"
                                             onClick={verifyOTP}/>
                                     <Loader visible={loading}/>
 

@@ -5,7 +5,13 @@ import {
 import './index.css';
 import logo from '../../logo.png';
 
+import {useLocation} from "react-router-dom";
+
+
 const Footer = () => {
+
+    const location = useLocation().pathname;
+
 
     return (
         <>
@@ -27,26 +33,19 @@ const Footer = () => {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to="/#team-section">About Us</Link>
-
-                                        {/* <a href="/#team-section">
-                                            About Us
-                                        </a>*/}
+                                        <Link to="/#team-section" reloadDocument={location === '/'}>About Us</Link>
                                     </li>
                                     <li>
-                                        <a href="/#contact-section">
+                                        <Link to="/#contact-section" reloadDocument={location === '/'}>
                                             Contact Us
-                                        </a>
+                                        </Link>
                                     </li>
                                 </ul>
                             </nav>
                         </div>
                         <div className="col-md-6">
                             <div className="copyright">
-                                ©
-                                <script>
-                                    document.write(new Date().getFullYear())
-                                </script>All rights reserved. Copyright © 2022 Savings Tracker.
+                                All rights reserved. Copyright © {new Date().getFullYear()} Savings Tracker.
                             </div>
                         </div>
                     </div>
