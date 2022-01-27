@@ -13,38 +13,11 @@ import {signOut} from "../../auth";
 import {MailIcon, HomeIcon, ChartPieIcon} from '@heroicons/react/outline'
 
 
-const Header = ({setShow}) => {
+const Header = ({setShowSignIn, setShowDummyCredentials}) => {
 
     const location = useLocation().pathname;
 
-    const hash = useLocation().hash;
-    const ref = React.createRef();
-    console.log(hash);
-
     const user = useSelector((state) => state.user);
-    useEffect(() => {
-        
-        if(hash === '#contact-section'){
-            var contactID = hash.substring(1);
-            const element = document.getElementById(contactID);
-
-             if (element) {
-                element.scrollIntoView({
-                   behavior: 'smooth'
-                });
-             }
-        }
-        else if(hash === '#team-section'){
-            var aboutID = hash.substring(1);
-            const element = document.getElementById(aboutID);
-
-             if (element) {
-                element.scrollIntoView({
-                   behavior: 'smooth'
-                });
-             }
-        }
-    }, [])
 
     return (
         <>
@@ -84,11 +57,13 @@ const Header = ({setShow}) => {
                                 </li>
                                 }
 
-                                <li className={location === 'home' ? 'nav-item pr-2' : 'nav-item pr-2'}>
-                                    <a className="nav-link flex align-item-center" href="/#contact-section">
+                                <li id="contact-us-item"
+                                    className={location === 'home' ? 'nav-item pr-2' : 'nav-item pr-2'}>
+                                    <Link reloadDocument={location === '/'} className="nav-link flex align-item-center"
+                                          to="/#contact-section">
                                         <MailIcon className="icon-nav mr-4p"/>
                                         <span>Contact Us</span>
-                                    </a>
+                                    </Link>
                                 </li>
 
 
@@ -96,10 +71,17 @@ const Header = ({setShow}) => {
                                     {user ?
                                         <Button text="Sign Out" extraClass="primary btn-round text-white"
                                                 onClick={signOut}/> :
-                                        <Button text="Sign In" extraClass="primary btn-round text-white"
-                                                onClick={() => {
-                                                    setShow(true)
-                                                }}/>}
+                                        <>
+                                            <Button text="Sign In" extraClass="primary btn-round text-white"
+                                                    onClick={() => {
+                                                        setShowSignIn(true)
+                                                    }}/>
+                                            <Button text="Dummy Credentials" extraClass="info ms-3 btn-round text-white"
+                                                    onClick={() => {
+                                                        setShowDummyCredentials(true)
+                                                    }}/>
+                                        </>
+                                    }
 
                                 </li>
                             </ul>

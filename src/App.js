@@ -11,10 +11,11 @@ import GuardRoute from './GuardRoute';
 import {useEffect, useState} from 'react';
 import Spinner from './components/common/Spinner';
 import {useDispatch, useSelector} from 'react-redux';
-import SignIn from "./components/views/Signin";
+import SignInModal from "./components/views/Signin";
 import List from './components/views/Goals/List';
 import {auth} from './firebase';
 import Subscription from "./components/views/Subscription";
+import DummyCredentialsModal from "./components/DummyCredentialsModal";
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
     const [loading, setLoading] = useState(true);
 
     const [showSignIn, setShowSignIn] = useState(false);
+    const [showDummyCredentials, setShowDummyCredentials] = useState(false);
 
     useEffect(() => {
 
@@ -53,7 +55,7 @@ function App() {
 
             {APP_LOADING ? <Spinner/> :
                 <Router>
-                    <Header setShow={setShowSignIn}
+                    <Header setShowSignIn={setShowSignIn} setShowDummyCredentials={setShowDummyCredentials}
                     />
                     <Routes>
                         <Route path="/" element={<Home setShow={setShowSignIn}/>}/>
@@ -112,10 +114,11 @@ function App() {
                             }
                         />
                     </Routes>
-                    <SignIn
+                    <SignInModal
                         show={showSignIn}
                         setShow={setShowSignIn}
                     />
+                    <DummyCredentialsModal show={showDummyCredentials} setShow={setShowDummyCredentials}/>
                     <Footer/>
                 </Router>
             }

@@ -10,4 +10,18 @@ const formatDateSimple = (dateStr) => {
     }
     return '';
 };
-export {formatDateSimple};
+
+const formatDateYYYYMMDD = (dateStr) => {
+    if (dateStr) {
+        const date = new Date(dateStr);
+
+        if (isNaN(date.getTime())) {
+            return '--';
+        }
+
+        return date.toISOString().split('T')[0];
+    }
+    return '';
+};
+
+export {formatDateSimple,formatDateYYYYMMDD};

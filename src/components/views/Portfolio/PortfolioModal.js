@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 import {addPortfolio, updatePortfolio} from "./api";
 import Loader from "../../common/Loader";
 import Error from "../../common/Error";
-import {formatDateSimple} from "../../common/utils";
+import {formatDateYYYYMMDD} from "../../common/utils";
 import {validatePortfolioFormFields} from "./utils";
 
 
@@ -76,7 +76,7 @@ const PortfolioModal = ({show, handleClose, portfolio, onSubmitSuccess}) => {
     const renderFrequencyFields = () => {
         return <>
             <div className="col-md-6 mb-sm-3">
-                <label htmlFor="portfolio_frequency_type" className="form-label">Frequency Type</label>
+                <label htmlFor="portfolio_frequency_type" className="form-label">Frequency Type <span className="text-danger">*</span></label>
                 <select name="frequency_type" className="form-control" defaultValue={portfolio?.frequency_type}
                         id="portfolio_frequency_type">
                     <option value="Day">Day</option>
@@ -85,7 +85,7 @@ const PortfolioModal = ({show, handleClose, portfolio, onSubmitSuccess}) => {
                 </select>
             </div>
             <div className="col-md-6 mb-sm-3">
-                <label htmlFor="portfolio_frequency_unit" className="form-label">Frequency Unit</label>
+                <label htmlFor="portfolio_frequency_unit" className="form-label">Frequency Unit <span className="text-danger">*</span></label>
                 <input onChange={handleChange} type="number" name="frequency_unit" min="1" className="form-control"
                        id="portfolio_frequency_unit"
                        defaultValue={portfolio?.frequency_unit}
@@ -104,7 +104,7 @@ const PortfolioModal = ({show, handleClose, portfolio, onSubmitSuccess}) => {
             <form onSubmit={handleSubmit} className="row">
                 <div className="col-md-6 mb-sm-3">
                     <div>
-                        <label htmlFor="" className="form-label">Type</label>
+                        <label htmlFor="" className="form-label">Type <span className="text-danger">*</span></label>
                     </div>
                     <div className="form-check form-check-inline">
                         <input className="form-check-input" type="radio"
@@ -121,7 +121,7 @@ const PortfolioModal = ({show, handleClose, portfolio, onSubmitSuccess}) => {
                 </div>
                 <div className="col-md-6 mb-sm-3">
                     <div>
-                        <label htmlFor="" className="form-label">Frequency</label>
+                        <label htmlFor="" className="form-label">Frequency <span className="text-danger">*</span></label>
                     </div>
                     <div className="form-check form-check-inline">
                         <input onClick={handleFrequencyChange} className="form-check-input" type="radio"
@@ -142,7 +142,7 @@ const PortfolioModal = ({show, handleClose, portfolio, onSubmitSuccess}) => {
                 {frequency === 'Recurring' && renderFrequencyFields()}
 
                 <div className="col-md-6 mb-sm-3">
-                    <label htmlFor="portfolio_amount" className="form-label">Amount</label>
+                    <label htmlFor="portfolio_amount" className="form-label">Amount <span className="text-danger">*</span></label>
                     <input onChange={handleChange} type="number" name="amount" min="1" className="form-control"
                            id="portfolio_amount"
                            defaultValue={portfolio?.amount}
@@ -151,7 +151,7 @@ const PortfolioModal = ({show, handleClose, portfolio, onSubmitSuccess}) => {
 
                 </div>
                 <div className="col-md-6 mb-sm-3">
-                    <label htmlFor="portfolio_description" className="form-label">Description</label>
+                    <label htmlFor="portfolio_description" className="form-label">Description <span className="text-danger">*</span></label>
                     <input onChange={handleChange} type="text" className="form-control"
                            id="portfolio_description" name="description"
                            defaultValue={portfolio?.description}/>
@@ -160,10 +160,10 @@ const PortfolioModal = ({show, handleClose, portfolio, onSubmitSuccess}) => {
 
 
                 <div className="col-md-6 mb-sm-3">
-                    <label htmlFor="portfolio_start_date" className="form-label">Start Date</label>
+                    <label htmlFor="portfolio_start_date" className="form-label">Start Date <span className="text-danger">*</span></label>
                     <input onChange={handleChange} type="date" name="start_date" className="form-control"
                            id="portfolio_start_date"
-                           defaultValue={formatDateSimple(portfolio?.start_date)}/>
+                           defaultValue={formatDateYYYYMMDD(portfolio?.start_date)}/>
                     {errors.start_date && <Error message={errors.start_date}/>}
 
                 </div>
@@ -172,7 +172,7 @@ const PortfolioModal = ({show, handleClose, portfolio, onSubmitSuccess}) => {
                     <input onChange={handleChange} disabled={frequency === 'One Time'} type="date"
                            className="form-control"
                            id="portfolio_end_date" name="end_date"
-                           defaultValue={formatDateSimple(portfolio?.end_date)}/>
+                           defaultValue={formatDateYYYYMMDD(portfolio?.end_date)}/>
                     {errors.end_date && <Error message={errors.end_date}/>}
 
                 </div>
@@ -183,6 +183,7 @@ const PortfolioModal = ({show, handleClose, portfolio, onSubmitSuccess}) => {
                             visible={loading}/>
 
                     </div>
+                    <p className="text-black-50 mt-3"><span className="text-danger">*</span> required field</p>
                     {serverErrors && <Error message={serverErrors}/>}
                 </div>
             </form>

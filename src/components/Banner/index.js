@@ -23,7 +23,7 @@ const Banner = ({show, setShow}) => {
                                 <br/>We are there to help you
                             </p>
                             {user ? <Link to="/dashboard"
-                                          className="btn btn-primary btn-round text-white shadow glob-btn bg-gradient-primary">Dashboard</Link>
+                                          className="btn btn-primary btn-round text-white shadow glob-btn">Dashboard</Link>
                                 :
                                 <Button text="Get Started" extraClass="primary btn-round text-white"
                                         onClick={() => setShow(true)}/>}
