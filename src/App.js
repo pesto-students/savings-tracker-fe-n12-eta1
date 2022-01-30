@@ -16,6 +16,7 @@ import List from './components/views/Goals/List';
 import {auth} from './firebase';
 import Subscription from "./components/views/Subscription";
 import DummyCredentialsModal from "./components/DummyCredentialsModal";
+import {ToastContainer} from "react-toastify";
 
 function App() {
 
@@ -34,11 +35,11 @@ function App() {
         auth.onAuthStateChanged(function (user) {
             dispatch({type: 'AUTH', payload: user});
 
-            /* if (user) {
-                 user.getIdToken().then(token => {
-                     console.log(token);
-                 });
-             }*/
+          /*  if (user) {
+                user.getIdToken().then(token => {
+                    console.log(token);
+                });
+            }*/
 
             dispatch({type: 'LOADING', payload: false});
 
@@ -54,73 +55,76 @@ function App() {
         <div className="App">
 
             {APP_LOADING ? <Spinner/> :
-                <Router>
-                    <Header setShowSignIn={setShowSignIn} setShowDummyCredentials={setShowDummyCredentials}
-                    />
-                    <Routes>
-                        <Route path="/" element={<Home setShow={setShowSignIn}/>}/>
-                        <Route path="/home" element={<Home setShow={setShowSignIn}/>}/>
+                <>
+                    <Router>
+                        <Header setShowSignIn={setShowSignIn} setShowDummyCredentials={setShowDummyCredentials}
+                        />
+                        <Routes>
+                            <Route path="/" element={<Home setShow={setShowSignIn}/>}/>
+                            <Route path="/home" element={<Home setShow={setShowSignIn}/>}/>
 
-                        <Route
-                            path="/dashboard"
-                            element={
-                                <GuardRoute>
-                                    <Dashboard active="dashboard"/>
-                                </GuardRoute>
-                            }
-                        />
+                            <Route
+                                path="/dashboard"
+                                element={
+                                    <GuardRoute>
+                                        <Dashboard active="dashboard"/>
+                                    </GuardRoute>
+                                }
+                            />
 
-                        <Route
-                            path="/goals"
-                            element={
-                                <GuardRoute>
-                                    <List active="goals"/>
-                                </GuardRoute>
-                            }
-                        />
+                            <Route
+                                path="/goals"
+                                element={
+                                    <GuardRoute>
+                                        <List active="goals"/>
+                                    </GuardRoute>
+                                }
+                            />
 
-                        <Route
-                            path="/portfolio"
-                            element={
-                                <GuardRoute>
-                                    <Portfolio active="portfolio"/>
-                                </GuardRoute>
-                            }
-                        />
-                        <Route
-                            path="/subscription"
-                            element={
-                                <GuardRoute>
-                                    <Subscription active="subscription"/>
-                                </GuardRoute>
-                            }
-                        />
+                            <Route
+                                path="/portfolio"
+                                element={
+                                    <GuardRoute>
+                                        <Portfolio active="portfolio"/>
+                                    </GuardRoute>
+                                }
+                            />
+                            <Route
+                                path="/subscription"
+                                element={
+                                    <GuardRoute>
+                                        <Subscription active="subscription"/>
+                                    </GuardRoute>
+                                }
+                            />
 
-                        <Route
-                            path="/onboarding"
-                            element={
-                                <GuardRoute>
-                                    <Onboarding active="onboarding"/>
-                                </GuardRoute>
-                            }
-                        />
+                            <Route
+                                path="/onboarding"
+                                element={
+                                    <GuardRoute>
+                                        <Onboarding active="onboarding"/>
+                                    </GuardRoute>
+                                }
+                            />
 
-                        <Route
-                            path="/profile"
-                            element={
-                                <GuardRoute>
-                                    <Profile active="profile"/>
-                                </GuardRoute>
-                            }
+                            <Route
+                                path="/profile"
+                                element={
+                                    <GuardRoute>
+                                        <Profile active="profile"/>
+                                    </GuardRoute>
+                                }
+                            />
+                        </Routes>
+                        <SignInModal
+                            show={showSignIn}
+                            setShow={setShowSignIn}
                         />
-                    </Routes>
-                    <SignInModal
-                        show={showSignIn}
-                        setShow={setShowSignIn}
-                    />
-                    <DummyCredentialsModal show={showDummyCredentials} setShow={setShowDummyCredentials}/>
-                    <Footer/>
-                </Router>
+                        <DummyCredentialsModal show={showDummyCredentials} setShow={setShowDummyCredentials}/>
+                        <Footer/>
+                    </Router>
+                    <ToastContainer/>
+                </>
             }
         </div>
     );

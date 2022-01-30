@@ -14,6 +14,7 @@ const TransactionsTable = ({transactions}) => {
             <tr>
                 <th>Created On</th>
                 <th>Status</th>
+                <th>Amount</th>
                 <th>Cancelled On</th>
             </tr>
             </thead>
@@ -22,8 +23,9 @@ const TransactionsTable = ({transactions}) => {
 
                 return <tr key={transaction._id}
                            className={transaction.status === 'active' ? 'bg-success text-white' : ''}>
-                    <td>{formatDateSimple(transaction.createdAt)}</td>
+                    <td>{formatDateSimple(transaction.paid_on)}</td>
                     <td>{transaction.status}</td>
+                    <td>{transaction.currency} {transaction.amount}</td>
                     <td>{formatDateSimple(transaction.cancelled_on)}</td>
                 </tr>
             })

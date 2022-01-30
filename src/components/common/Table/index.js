@@ -1,7 +1,9 @@
 import React, {useEffect} from 'react'
-import {useTable, usePagination} from 'react-table'
+import {useTable, usePagination, useSortBy, useGlobalFilter} from 'react-table'
 import ReactPaginate from "react-paginate";
 import {useSearchParams} from 'react-router-dom';
+import {ChevronDownIcon, ChevronUpIcon} from "@heroicons/react/outline";
+import SearchForm from "./SearchForm";
 
 
 function getInitialPageIndex(searchParams) {
@@ -25,10 +27,36 @@ function getInitialPageSize(searchParams) {
 
 }
 
-function Table({columns, data, defaultPageSize = 5, selectOptions = [5, 10, 50]}) {
+
+const showSortIcons = (isSorted, isSortedDesc) => {
+
+    let upIconClass = '', downIconClass = '';
+
+
+    if (isSorted) {
+
+        if (isSortedDesc) {
+            downIconClass = 'text-black';
+            upIconClass = 'text-black-50';
+        } else {
+            downIconClass = 'text-black-50';
+            upIconClass = 'text-black';
+        }
+
+    } else {
+        upIconClass = downIconClass = 'text-black-50';
+
+    }
+
+    return <span className="d-inline-flex flex-column ms-1">
+        <ChevronUpIcon className={"icon-table " + upIconClass}/>
+        <ChevronDownIcon className={"icon-table " + downIconClass}/>
+    </span>
+};
+
+function Table({columns, data, defaultPageSize = 5, selectOptions = [5, 10, 50], filter = false}) {
 
     const [searchParams, setSearchParams] = useSearchParams();
-
 
     const {
         getTableProps,
@@ -46,6 +74,8 @@ function Table({columns, data, defaultPageSize = 5, selectOptions = [5, 10, 50]}
         state,
         rows,
 
+        setGlobalFilter,
+
         gotoPage,
         pageCount,
 
@@ -59,12 +89,16 @@ function Table({columns, data, defaultPageSize = 5, selectOptions = [5, 10, 50]}
             initialState: {
                 pageIndex: getInitialPageIndex(searchParams),
                 pageSize: getInitialPageSize(searchParams) || defaultPageSize
-            }
+            },
+            // disableGlobalFilter: !filter
         },
+        useGlobalFilter,
+        useSortBy,
         usePagination
     );
 
-    const {pageIndex, pageSize} = state;
+
+    const {pageIndex, pageSize, globalFilter} = state;
 
     useEffect(() => {
         setSearchParams({page: pageIndex + 1, size: pageSize});
@@ -73,14 +107,23 @@ function Table({columns, data, defaultPageSize = 5, selectOptions = [5, 10, 50]}
     return (
         <>
             <div className="row">
-                <div className="col">
+                <div className="col-12 mb-3">
+                    <SearchForm onSubmit={setGlobalFilter} onKeyUp={setGlobalFilter}/>
+                </div>
+                <div className="col-12">
                     <div className="table-responsive">
                         <table className="table" {...getTableProps()}>
                             <thead>
                             {headerGroups.map(headerGroup => (
                                 <tr {...headerGroup.getHeaderGroupProps()}>
                                     {headerGroup.headers.map(column => (
-                                        <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+                                        <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+
+                                            <span className="d-flex align-items-center">
+                                            {column.render('Header')}
+                                                {column.disableSortBy || showSortIcons(column.isSorted, column.isSortedDesc)}
+                                            </span>
+                                        </th>
                                     ))}
                                 </tr>
                             ))}
@@ -103,15 +146,20 @@ function Table({columns, data, defaultPageSize = 5, selectOptions = [5, 10, 50]}
             </div>
             <div className="row">
                 <div className="col-md-6">
-                    <div className="form-group flex align-item-center">
-                        <label className="mr-2 pb-0">Show</label>
-                        <select defaultValue={pageSize} className="form-control form-select w-25 mx-3"
-                                onChange={(e) => setPageSize(Number(e.target.value))}>
-                            {selectOptions.map(option => <option key={option} value={option}>{option}</option>)}
-                        </select>
+
+                    <div className="row mb-3 row-cols-auto g-3 align-items-center justify-content-center justify-content-md-start">
+                        <label>Show</label>
+                        <div className="col">
+                            <select defaultValue={pageSize} className="form-control form-select"
+                                    onChange={(e) => setPageSize(Number(e.target.value))}>
+                                {selectOptions.map(option => <option key={option} value={option}>{option}</option>)}
+                            </select>
+                        </div>
+
                         <label className="pb-0">of {rows.length}</label></div>
+
                 </div>
-                <div className="col-md-6">
+                <div className="col-md-6 d-sm-block d-flex justify-content-center justify-content-sm-end">
                     <ReactPaginate
                         breakLabel="..."
                         nextLabel="Next"
@@ -126,7 +174,7 @@ function Table({columns, data, defaultPageSize = 5, selectOptions = [5, 10, 50]}
                         pageCount={pageCount}
                         previousLabel="Prev"
                         renderOnZeroPageCount={null}
-                        className="pagination"
+                        className="pagination "
                         pageClassName="page-item"
                         activeClassName="active"
                         pageLinkClassName="page-link"

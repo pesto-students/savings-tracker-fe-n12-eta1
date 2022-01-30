@@ -1,7 +1,7 @@
 import {formatDateSimple} from "../../common/utils";
 import React from 'react'
 
-import {PlusCircleIcon, MinusCircleIcon, PencilAltIcon, TrashIcon} from '@heroicons/react/solid';
+import {TrendingDownIcon, TrendingUpIcon, PencilAltIcon, TrashIcon} from '@heroicons/react/solid';
 
 import Table from "../../common/Table";
 
@@ -14,6 +14,7 @@ const frequency = ({frequency, frequency_type, frequency_unit}) => {
     return frequency_unit + ' ' + frequency_type + (frequency_unit > 1 ? 's' : '');
 
 };
+
 
 const PortfolioTable = ({portfolios, onEditInit, onDeleteInit}) => {
 
@@ -34,19 +35,16 @@ const PortfolioTable = ({portfolios, onEditInit, onDeleteInit}) => {
                 "Cell": function ({value}) {
                     return <i title={value}>
 
-                        {value === 'Income' ? <PlusCircleIcon className="icon icon-portfolio text-success"/> :
-                            <MinusCircleIcon className="icon icon-portfolio text-danger"/>}
+                        {value === 'Income' ? <TrendingDownIcon className="icon icon-portfolio text-success"/> :
+                            <TrendingUpIcon className="icon icon-portfolio text-danger"/>}
                     </i>
 
                 }
             },
             {
                 "Header": "Frequency",
-                "accessor": "frequency",
-                "Cell": function ({value, row}) {
-                    return frequency(row.original)
-
-                }
+                "accessor": "frequency_display",
+                "disableSortBy": true,
             },
             {
                 "Header": "Amount",
@@ -57,16 +55,16 @@ const PortfolioTable = ({portfolios, onEditInit, onDeleteInit}) => {
                 "accessor": "start_date",
                 "Cell": function ({value}) {
                     return formatDateSimple(value);
-
                 }
+
             },
             {
                 "Header": "End Date",
                 "accessor": "end_date",
                 "Cell": function ({value}) {
                     return formatDateSimple(value);
-
                 }
+
             },
             {
                 "Header": "Description",
@@ -74,7 +72,8 @@ const PortfolioTable = ({portfolios, onEditInit, onDeleteInit}) => {
             },
             {
                 "Header": "Action",
-                // "accessor": "description"
+                "disableSortBy": true,
+                "disableGlobalFilter": true,
                 "Cell": function ({row}) {
                     return <>
                         <i title="Edit" className="cursor-pointer" onClick={() => {
@@ -96,7 +95,14 @@ const PortfolioTable = ({portfolios, onEditInit, onDeleteInit}) => {
     );
 
 
-    const data = React.useMemo(() => portfolios, [portfolios]);
+    const data = React.useMemo(() => portfolios.map(portfolio => {
+        return {
+            ...portfolio,
+            // end_date_display: formatDateSimple(portfolio.end_date),
+            // start_date_display: formatDateSimple(portfolio.start_date),
+            frequency_display: frequency(portfolio),
+        }
+    }), [portfolios]);
 
     return <Table columns={columns} data={data}/>;
 }
