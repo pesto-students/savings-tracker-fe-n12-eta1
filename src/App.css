@@ -228,3 +228,7 @@ p {
 .pagination .page-item.disabled .page-link {
     background: lightgrey;
 }
+
+.capitalize {
+    text-transform: capitalize;
+}
