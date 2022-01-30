@@ -8,7 +8,6 @@ import Card from './Card.js';
 import DashboardBanner from '../../common/DashboardBanner';
 import Tabs from '../../common/Tabs/Tabs.js';
 import banner from './images/target.jpg';
-import { ToastContainer } from 'react-toastify';
 
 const List = ({active}) => {
 
@@ -82,9 +81,6 @@ const List = ({active}) => {
             <DashboardBanner
                 image={banner}
             />
-
-            <ToastContainer />
-
             <div className="main main-raised dashoard-container">
                 <div className="container">
                     <div className="row">

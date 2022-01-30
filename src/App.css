@@ -188,6 +188,14 @@ p {
     width: 20px;
 }
 
+.icon-table {
+    width: 10px;
+}
+
+.icon-lg{
+    width:30px;
+}
+
 .loader {
     width: 100%;
     justify-content: center;

@@ -15,7 +15,6 @@ import CurrencyForm from "./CurrencyForm";
 import DeleteModal from "./DeleteModal";
 import Spinner from "../../common/Spinner";
 
-
 const Portfolio = ({active}) => {
 
     const [error, setError] = useState('');
@@ -23,6 +22,8 @@ const Portfolio = ({active}) => {
 
     const [portfolios, setPortfolios] = useState([]);
     const [currency, setCurrency] = useState('');
+
+
     const [activePortfolio, setActivePortfolio] = useState(null);
 
     const [showPortfolioModal, setShowPortfolioModal] = useState(false);
@@ -72,15 +73,15 @@ const Portfolio = ({active}) => {
                             <h3>Currency</h3>
                             <CurrencyForm value={currency}/>
 
-                            <div className="row">
-                                <div className="col-sm-9 col-md-6">
+                            <div className="row mb-3 justify-content-start">
+                                <div className=" col-md-5">
                                     <h3>Income/Expenses</h3>
                                 </div>
-                                <div className="col-sm-3 col-md-6">
+                                <div className=" col-md-4">
                                     <Button onClick={() => {
                                         setShowPortfolioModal(true)
                                     }} type="submit" text="Add New"
-                                            extraClass="primary btn-round text-white float-md-end"/>
+                                            extraClass="primary btn-round text-white"/>
                                 </div>
                             </div>
                             {loading ? <Spinner/> : error ? <Error message={error}/> :
