@@ -24,8 +24,9 @@ const PortfolioTable = ({portfolios, onEditInit, onDeleteInit}) => {
             {
                 "Header": "Date Added",
                 "accessor": "created_date",
-                "Cell": function ({value}) {
+                "sortType": "datetime",
 
+                "Cell": function ({value}) {
                     return formatDateSimple(value);
                 }
             },
@@ -53,6 +54,7 @@ const PortfolioTable = ({portfolios, onEditInit, onDeleteInit}) => {
             {
                 "Header": "Start Date",
                 "accessor": "start_date",
+                "sortType": "datetime",
                 "Cell": function ({value}) {
                     return formatDateSimple(value);
                 }
@@ -61,6 +63,7 @@ const PortfolioTable = ({portfolios, onEditInit, onDeleteInit}) => {
             {
                 "Header": "End Date",
                 "accessor": "end_date",
+                "sortType": "datetime",
                 "Cell": function ({value}) {
                     return formatDateSimple(value);
                 }
@@ -98,8 +101,9 @@ const PortfolioTable = ({portfolios, onEditInit, onDeleteInit}) => {
     const data = React.useMemo(() => portfolios.map(portfolio => {
         return {
             ...portfolio,
-            // end_date_display: formatDateSimple(portfolio.end_date),
-            // start_date_display: formatDateSimple(portfolio.start_date),
+            created_date: new Date(portfolio.created_date),
+            end_date: new Date(portfolio.end_date),
+            start_date: new Date(portfolio.start_date),
             frequency_display: frequency(portfolio),
         }
     }), [portfolios]);

@@ -86,6 +86,13 @@ function Table({columns, data, defaultPageSize = 5, selectOptions = [5, 10, 50],
         {
             columns,
             data,
+            sortTypes: {
+                alphanumeric: (rowA, rowB, columnId, desc) => {
+                    const valueA = rowA.values[columnId].toLowerCase();
+                    const valueB = rowB.values[columnId].toLowerCase();
+                    return valueB.localeCompare(valueA) > 0 ? -1 : 1;
+                }
+            },
             initialState: {
                 pageIndex: getInitialPageIndex(searchParams),
                 pageSize: getInitialPageSize(searchParams) || defaultPageSize
@@ -147,7 +154,8 @@ function Table({columns, data, defaultPageSize = 5, selectOptions = [5, 10, 50],
             <div className="row">
                 <div className="col-md-6">
 
-                    <div className="row mb-3 row-cols-auto g-3 align-items-center justify-content-center justify-content-md-start">
+                    <div
+                        className="row mb-3 row-cols-auto g-3 align-items-center justify-content-center justify-content-md-start">
                         <label>Show</label>
                         <div className="col">
                             <select defaultValue={pageSize} className="form-control form-select"
