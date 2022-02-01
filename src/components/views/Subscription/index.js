@@ -12,7 +12,7 @@ import Spinner from "../../common/Spinner";
 import {Tabs, Tab} from "react-bootstrap";
 
 
-import {LightBulbIcon} from '@heroicons/react/outline';
+import {LightningBoltIcon} from '@heroicons/react/solid';
 import {formatDateSimple} from "../../common/utils";
 
 
@@ -26,9 +26,9 @@ function add1YearToDate(date) {
 
 const Subscription = ({active}) => {
 
-    const [mostRecentTransaction, setMostRecentTransaction] = useState(null);
+    const [mostRecentSubscriptions, setMostRecentSubscriptions] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [transactions, setTransactions] = useState([]);
+    const [subscriptions, setSubscriptions] = useState([]);
 
     const [serverErrors, setServerErrors] = useState(false);
 
@@ -43,10 +43,10 @@ const Subscription = ({active}) => {
         setLoading(true);
         getSubscriptionStatus().then(({data}) => {
 
-            setTransactions(data.transactions);
+            setSubscriptions(data.subscriptions);
 
-            if (data.transactions.length > 0) {
-                setMostRecentTransaction(data.transactions[0]);
+            if (data.subscriptions.length > 0) {
+                setMostRecentSubscriptions(data.subscriptions[0]);
             }
 
             setLoading(false);
@@ -89,21 +89,21 @@ const Subscription = ({active}) => {
                                          tabClassName={"text-primary " + (tabKey === 'status' ? 'fw-bold' : '')}>
                                         <div className="row">
                                             <div className="col">
-                                                <h3 className="fs-3">Status {!loading && (mostRecentTransaction?.status === 'active' ?
-                                                    <LightBulbIcon
-                                                        className="icon-lg text-success"/> : <LightBulbIcon
+                                                <h3 className="fs-3">Status {!loading && (mostRecentSubscriptions?.status === 'active' ?
+                                                    <LightningBoltIcon
+                                                        className="icon-lg text-success"/> : <LightningBoltIcon
                                                         className="icon-lg text-danger"/>)}</h3>
                                                 {loading && <Spinner/>}
-                                                {!loading && (mostRecentTransaction?.status === 'active' ?
+                                                {!loading && (mostRecentSubscriptions?.status === 'active' ?
 
                                                         <div>
                                                             <div>Your Subscription is active
-                                                                since <b>{formatDateSimple(mostRecentTransaction.paid_on)}</b>
+                                                                since <b>{formatDateSimple(mostRecentSubscriptions.paid_on)}</b>
                                                                 <CancelSubscriptionBtn
                                                                     className="ms-3"
                                                                     onSuccess={getInitialData}/></div>
                                                             <div>Next charge
-                                                                on <b>{formatDateSimple(add1YearToDate(mostRecentTransaction.paid_on))}</b>
+                                                                on <b>{formatDateSimple(add1YearToDate(mostRecentSubscriptions.paid_on))}</b>
                                                             </div>
                                                         </div>
                                                         :
@@ -115,14 +115,14 @@ const Subscription = ({active}) => {
                                             </div>
                                         </div>
                                     </Tab>
-                                    <Tab eventKey="transactions"
-                                         title={"Transactions" + (loading ? '' : ` (${transactions.length})`)}
-                                         tabClassName={"text-primary " + (tabKey === 'transactions' ? 'fw-bold' : '')}>
+                                    <Tab eventKey="subscriptions"
+                                         title={"History" + (loading ? '' : ` (${subscriptions.length})`)}
+                                         tabClassName={"text-primary " + (tabKey === 'subscriptions' ? 'fw-bold' : '')}>
 
                                         {!loading && <div className="row mt-3">
                                             <div className="col">
-                                                <h3 className="fs-3">Transactions</h3>
-                                                <TransactionsTable transactions={transactions}/>
+                                                <h3 className="fs-3">Subscriptions</h3>
+                                                <TransactionsTable subscriptions={subscriptions}/>
                                             </div>
                                         </div>}
                                     </Tab>

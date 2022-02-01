@@ -19,7 +19,7 @@ const CancelSubscriptionBtn = ({onSuccess, className = ''}) => {
 
         Swal.fire({
                       title: "Confirm",
-                      text: "Are you sure want to unsubscribe? There is no refund applicable.",
+                      text: "Are you sure want to cancel? There is no refund applicable.",
                       icon: "warning",
                       confirmButtonText: 'Yes',
                       confirmButtonColor: '#d71616',
