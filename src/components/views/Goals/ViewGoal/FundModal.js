@@ -1,14 +1,13 @@
 import Modal from 'react-bootstrap/Modal'
 import Button from "../../../common/Button";
 import {useEffect, useState} from "react";
-import {addFund, updateFund} from "./api";
+import {addFund, updateFund} from "../../Funds/api";
 import Loader from "../../../common/Loader";
 import Error from "../../../common/Error";
 import {formatDateSimple} from "../../../common/utils";
 import {validateFundFormFields} from "./utils";
 
-
-const FundModal = ({show, handleClose, fund, onSubmitSuccess}) => {
+const FundModal = ({show, handleClose, fund,goalId, onSubmitSuccess}) => {
 
     const [serverErrors, setServerErrors] = useState([]);
     const [errors, setErrors] = useState({});
@@ -32,11 +31,11 @@ const FundModal = ({show, handleClose, fund, onSubmitSuccess}) => {
         const formData = new FormData(form);
         const data = Object.fromEntries(formData);
 
-        if (portfolio) {
-            updateFund(portfolio._id, data).then(handleResponse).catch(handleServerError)
+        if (fund) {
+            updateFund(goalId,fund._id, data).then(handleResponse).catch(handleServerError)
         }
         else {
-            addFund(data).then(handleResponse).catch(handleServerError)
+            addFund(data,goalId).then(handleResponse).catch(handleServerError)
         }
     };
 
@@ -62,22 +61,18 @@ const FundModal = ({show, handleClose, fund, onSubmitSuccess}) => {
         setLoading(false);
     };
 
-    const handleFrequencyChange = (e) => {
-        setFrequency(e.target.value);
-    };
-
     useEffect(() => {
-        setFrequency(portfolio?.frequency || 'Recurring');
-    }, [portfolio]);
+        //setFrequency(fund?.frequency || 'Recurring');
+    }, [fund]);
 
 
     return <Modal size="lg" show={show} onHide={handleClose} dialogClassName="modal-90w">
         <Modal.Header closeButton>
-            <Modal.Title>{portfolio ? 'Edit' : 'Add'}</Modal.Title>
+            <Modal.Title>{fund ? 'Edit' : 'Add'}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
             <form onSubmit={handleSubmit} className="row">
-            <input type="hidden" name="goal_id" value={}/>
+            <input type="hidden" name="goal_id" value=""/>
                 <div className="col-md-6 mb-sm-3">
                     <label htmlFor="fund_type" className="form-label">Fund Type</label>
                     <select name="fund_type" className="form-control" defaultValue={fund?.fund_type}

@@ -13,6 +13,7 @@ import { ToastContainer } from 'react-toastify';
 const List = ({active}) => {
 
     const [loading, setLoading] = useState(true)
+    const [currency, setCurrency] = useState('');
     const [page, setPage] = useState(1)
     const [perPage, setPerPage] = useState(6);
     const [sortBy, setSortBy] = useState('desc')
@@ -64,10 +65,13 @@ const List = ({active}) => {
 
             }
         }
+        
 
         getGoals(filterData).then((response) => {
             setGoals(response.data.goals || [])
             setLoading(false);
+            console.log(response.data)
+            setCurrency(response.data.currency);
 
         }).catch((error) => {
             setLoading(false);
@@ -104,6 +108,7 @@ const List = ({active}) => {
 
                                     loading={loading}
                                     goals={goals}
+                                    currency={currency}
                                     perPage={perPage}
                                     orderBy={orderBy}
                                     sortBy={sortBy}

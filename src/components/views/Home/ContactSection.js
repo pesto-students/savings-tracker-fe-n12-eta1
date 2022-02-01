@@ -35,10 +35,13 @@ const ContactSection = () => {
         
         try{
             ContactService(_formInput).then(response => {
-                console.log(response.data.message);
-                setSuccess(true);
-                alertService.showSuccess(response.data.message);
-                setLoading(false);
+                /*console.log(response.data.message);
+                if(response.data.success){*/
+                    setSuccess(true);
+                    alertService.showSuccess(response.data.message);
+                    setLoading(false);
+                /*}*/
+                
             })
             
         }

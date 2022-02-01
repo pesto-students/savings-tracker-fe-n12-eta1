@@ -15,8 +15,8 @@ const validateFundFormFields = (form) => {
 
     if (submitAttempted || fund_type.getAttribute('data-touched') === '1') {
 
-        if (description.value === '') {
-            errors['description'] = 'Description is required';
+        if (fund_type.value === '') {
+            errors['fund_type'] = 'Fund Type is required';
         }
     }
 

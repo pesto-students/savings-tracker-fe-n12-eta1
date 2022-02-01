@@ -1,21 +1,9 @@
-import {formatDateSimple} from "../../common/utils";
+import {formatDateSimple} from "../../../common/utils";
 import React from 'react'
-
 import {PlusCircleIcon, MinusCircleIcon, PencilAltIcon, TrashIcon} from '@heroicons/react/solid';
+import Table from "../../../common/Table";
 
-import Table from "../../common/Table";
-
-const frequency = ({frequency, frequency_type, frequency_unit}) => {
-
-    if (frequency === 'One Time') {
-        return frequency;
-    }
-
-    return frequency_unit + ' ' + frequency_type + (frequency_unit > 1 ? 's' : '');
-
-};
-
-const FundTable = ({portfolios, onEditInit, onDeleteInit}) => {
+const FundTable = ({funds, onEditInit, onDeleteInit}) => {
 
 
     const columns = React.useMemo(
@@ -30,7 +18,7 @@ const FundTable = ({portfolios, onEditInit, onDeleteInit}) => {
             },
             {
                 "Header": "Type",
-                "accessor": "type",
+                "accessor": "fund_type",
                 "Cell": function ({value}) {
                     return <i title={value}>
 
@@ -39,15 +27,7 @@ const FundTable = ({portfolios, onEditInit, onDeleteInit}) => {
                     </i>
 
                 }
-            },
-            {
-                "Header": "Frequency",
-                "accessor": "frequency",
-                "Cell": function ({value, row}) {
-                    return frequency(row.original)
-
-                }
-            },
+            },          
             {
                 "Header": "Amount",
                 "accessor": "amount"
@@ -59,19 +39,7 @@ const FundTable = ({portfolios, onEditInit, onDeleteInit}) => {
                     return formatDateSimple(value);
 
                 }
-            },
-            {
-                "Header": "End Date",
-                "accessor": "end_date",
-                "Cell": function ({value}) {
-                    return formatDateSimple(value);
-
-                }
-            },
-            {
-                "Header": "Description",
-                "accessor": "description"
-            },
+            },                 
             {
                 "Header": "Action",
                 // "accessor": "description"
@@ -90,13 +58,13 @@ const FundTable = ({portfolios, onEditInit, onDeleteInit}) => {
                         </i>
                     </>
                 }
-            },
+            }
         ],
         [onEditInit, onDeleteInit]
     );
 
 
-    const data = React.useMemo(() => portfolios, [portfolios]);
+    const data = React.useMemo(() => funds, [funds]);
 
     return <Table columns={columns} data={data}/>;
 }

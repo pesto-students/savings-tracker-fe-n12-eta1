@@ -2,12 +2,11 @@ import axiosClient from '../../../axios';
 
 import {auth} from '../../../firebase';
 
-const getFunds = (async (filterData) => {
+const getFunds = (async (goalID) => {
     
     return auth.currentUser.getIdToken().then(token => {
         const config = {
-            headers: {'X-Auth-Token': token},
-            params: filterData
+            headers: {'X-Auth-Token': token}
         };
         
         return axiosClient.get(process.env.REACT_APP_API_URL+'/api/funds/'+ goalID, config );
@@ -15,7 +14,7 @@ const getFunds = (async (filterData) => {
     });
 });
 
-const addFund = (data) => {
+const addFund = (data,goalID) => {
 
     try {
         return auth.currentUser.getIdToken().then(token => {
@@ -38,9 +37,9 @@ const updateFund = (goalID,fundId, data) => {
 
 }
 
-const deleteFund = (goalId,fundId) => {
+const deleteFund = (goalID,fundId) => {
     return auth.currentUser.getIdToken().then(token => {
-        return axiosClient.delete(process.env.REACT_APP_API_URL+'/api/funds/' + goalId+'/'+fundId+'/delete', {headers: {'X-Auth-Token': token}});
+        return axiosClient.delete(process.env.REACT_APP_API_URL+'/api/funds/' + goalID+'/'+fundId+'/delete', {headers: {'X-Auth-Token': token}});
     });
 }
 

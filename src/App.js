@@ -14,6 +14,7 @@ import {useDispatch} from 'react-redux';
 import Banner from './components/Banner/images/banner.jpg'
 import SignIn from "./components/views/Signin";
 import List from './components/views/Goals/List';
+import ViewGoal from "./components/views/Goals/ViewGoal/index"
 import {auth} from './firebase';
 import axiosClient from "./axios";
 
@@ -99,6 +100,14 @@ function App() {
                         element={
                             <GuardRoute>
                                 <Profile active="profile"/>
+                            </GuardRoute>
+                        }
+                    />
+                    <Route
+                        path="/goals/goal/:goalId"
+                        element={
+                            <GuardRoute>
+                                <ViewGoal active="goals"/>
                             </GuardRoute>
                         }
                     />

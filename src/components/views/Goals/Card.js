@@ -146,7 +146,7 @@ const Card = (props) => {
                 <div className='col-12'>
                     <h2>{item.title}</h2>
                     <p>{item.description}</p>
-                    <h4><b>₹ {item.total_amount}</b></h4>
+                    <h4><b>{props.currency+" "+item.total_amount}</b></h4>
                 </div>
                 <div className='col-12'>
                     <BillboardChart

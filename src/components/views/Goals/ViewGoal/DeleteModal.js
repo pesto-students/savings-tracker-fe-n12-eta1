@@ -1,11 +1,11 @@
 import {useEffect, useState} from "react";
-import {deleteFund} from "./api";
+import {deleteFund} from "../../Funds/api";
 import Modal from "react-bootstrap/Modal";
-import Button from "../../common/Button";
-import Loader from "../../common/Loader";
-import Error from "../../common/Error";
+import Button from "../../../common/Button";
+import Loader from "../../../common/Loader";
+import Error from "../../../common/Error";
 
-const DeleteModal = ({show, handleClose, portfolio, onSubmitSuccess}) => {
+const DeleteModal = ({show, handleClose, fund, onSubmitSuccess}) => {
 
     const [serverErrors, setServerErrors] = useState('');
     const [loading, setLoading] = useState(false);
@@ -13,7 +13,7 @@ const DeleteModal = ({show, handleClose, portfolio, onSubmitSuccess}) => {
     const handleSubmit = (e) => {
         setLoading(true);
         e.preventDefault();
-        deleteFund(portfolio._id).then(handleResponse).catch(handleServerError)
+        deleteFund(fund._id).then(handleResponse).catch(handleServerError)
     };
     const handleResponse = (response) => {
         setLoading(false);

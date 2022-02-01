@@ -57,13 +57,12 @@ const Dashboard = ({active}) => {
                         <SideBar active={active} />
                         <div className="col-md-9">
                             <h1 className="font_30"><i className="fa fa-home mr-2"></i>Dashboard</h1>
-                            <h3>Currency</h3>
-                            <CurrencyForm value={currency}/>
+                            <h3>{currency}</h3>
                             {loading && <Skeleton totalCollections="1"/>}
                             {!loading && 
                             
                             <div className="row mt-5">
-                                <div className="col-md-3 col-lg-3 col-6 mb-4 mb-lg-0">
+                                <div className="col-md-3 col-lg-3 col-6 mb-4 mb-lg-0" style={{display:"none"}}>
                                     <div className="dashboard_div">
                                         <div className="row h-100">
                                             <div className="col-8 pr-0 d-flex align-content-center">
@@ -123,14 +122,19 @@ const Dashboard = ({active}) => {
                             </div>
                             }
                             {dashboard.chart_data && 
-                            <div className="row mt-5">
-                                <div className="col-6">
-                                    <LineChart columns={dashboard.chart_data}/>
+
+                                
+                                <div className="row mt-5">
+                                    <h4 style={{marginLeft:"300px"}}>Income Vs Expense</h4>
+                                    <div className="col-6">
+                                        <LineChart columns={dashboard.chart_data}/>
+                                    </div>
+                                    <div className="col-6">
+                                        <PieChart columns={dashboard.chart_data}/>
+                                    </div>
                                 </div>
-                                <div className="col-6">
-                                    <PieChart columns={dashboard.chart_data}/>
-                                </div>
-                            </div>
+
+                            
                             }
                         
                         </div>
