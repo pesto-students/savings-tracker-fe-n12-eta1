@@ -55,84 +55,85 @@ const Dashboard = ({active}) => {
                 <div className="container">
                     <div className="row">
                        
-                        
+                        <SideBar active={active} />
                         <div className="col-md-9">
                             <h1 className="font_30"><i className="fa fa-home mr-2"></i>Dashboard</h1>
                             <h3>{currency}</h3>
                             {loading && <Skeleton totalCollections="1"/>}
-                            {!loading &&                     
+                            {!loading && 
+                            
 
-                                <div className="row mt-5">
-                                    <div className="col-md-3 col-lg-3 col-6 mb-4 mb-lg-0">
-                                        <div className="dashboard_div active">
+                            <div className="row mt-5">
+                                <div className="col-md-3 col-lg-3 col-6 mb-4 mb-lg-0">
+                                    <div className="dashboard_div active">
 
-                                            <div className="row h-100">
-                                                <div className="col-8 pr-0 d-flex align-content-center">
-                                                    <div>
-                                                        <h1 className="mb-0">{total}</h1>
-                                                        <p className="mb-0">Total Goals</p>
-                                                    </div>
+                                        <div className="row h-100">
+                                            <div className="col-8 pr-0 d-flex align-content-center">
+                                                <div>
+                                                    <h1 className="mb-0">{total}</h1>
+                                                    <p className="mb-0">Total Goals</p>
                                                 </div>
-                                                <div className="col-4 d-flex">
-                                                <i className="fa fa-clock mt-auto text-primary font_30" aria-hidden="true"></i>
-                                                    <i className="fa fa-bullseye mt-auto text-white font_30"
-                                                    aria-hidden="true"></i>
+                                            </div>
+                                            <div className="col-4 d-flex">
+                                            <i className="fa fa-clock mt-auto text-primary font_30" aria-hidden="true"></i>
+                                                <i className="fa fa-bullseye mt-auto text-white font_30"
+                                                   aria-hidden="true"></i>
 
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
-
-
-                                    {dashboard.goals && dashboard.goals.map((item, index) => {
-
-                                        return (
-                                            item._id != null &&
-
-                                            <div className="col-md-3 col-lg-3 col-6 mb-4 mb-lg-0">
-                                                <div className="dashboard_div">
-                                                    <div className="row h-100">
-                                                        <div className="col-8 pr-0 d-flex align-content-center">
-                                                            <div>
-                                                                <h1 className="mb-0">{item.count}</h1>
-                                                                <p className="mb-0">{item._id} Goals</p>
-                                                            </div>
-                                                        </div>
-                                                        <div className="col-4 d-flex">
-
-                                                        <i className="fa fa-clock mt-auto text-primary font_30" aria-hidden="true"></i>
-                                                            <i className="fa fa-clock mt-auto text-primary font_30"
-                                                            aria-hidden="true"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            
-                                        )
-                                        
-                                    })}
-                                    
-                                    <div className="col-md-3 col-lg-3 col-6 mb-4 mb-lg-0">
-                                        <div className="dashboard_div">
-                                            <div className="row h-100">
-                                                <div className="col-8 pr-0 d-flex align-content-center">
-                                                    <div>
-                                                        <h1 className="mb-0">{dashboard.salary}</h1>
-                                                        <p className="mb-0">Income</p>
-                                                    </div>
-                                                </div>
-                                                <div className="col-4 d-flex">
-
-                                                {currency}
-                                                    <i className="fa fa-dollar-sign mt-auto text-primary font_30"></i>
-
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
                                 </div>
+
+
+                                {dashboard.goals && dashboard.goals.map((item, index) => {
+
+                                    return (
+                                        item._id != null &&
+
+                                        <div className="col-md-3 col-lg-3 col-6 mb-4 mb-lg-0">
+                                            <div className="dashboard_div">
+                                                <div className="row h-100">
+                                                    <div className="col-8 pr-0 d-flex align-content-center">
+                                                        <div>
+                                                            <h1 className="mb-0">{item.count}</h1>
+                                                            <p className="mb-0">{item._id} Goals</p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-4 d-flex">
+
+                                                    <i className="fa fa-clock mt-auto text-primary font_30" aria-hidden="true"></i>
+                                                        <i className="fa fa-clock mt-auto text-primary font_30"
+                                                           aria-hidden="true"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    )
+                                    
+                                })}
+                                
+                                <div className="col-md-3 col-lg-3 col-6 mb-4 mb-lg-0">
+                                    <div className="dashboard_div">
+                                        <div className="row h-100">
+                                            <div className="col-8 pr-0 d-flex align-content-center">
+                                                <div>
+                                                    <h1 className="mb-0">{dashboard.salary}</h1>
+                                                    <p className="mb-0">Income</p>
+                                                </div>
+                                            </div>
+                                            <div className="col-4 d-flex">
+
+                                            {currency}
+                                                <i className="fa fa-dollar-sign mt-auto text-primary font_30"></i>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
                             }
                             
                             { dashboard.chart_data && 
