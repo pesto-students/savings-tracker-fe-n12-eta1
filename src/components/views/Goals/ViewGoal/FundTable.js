@@ -10,7 +10,7 @@ const FundTable = ({funds, onEditInit, onDeleteInit}) => {
         () => [
             {
                 "Header": "Date Added",
-                "accessor": "created_date",
+                "accessor": "created_at",
                 "Cell": function ({value}) {
 
                     return formatDateSimple(value);
@@ -18,23 +18,16 @@ const FundTable = ({funds, onEditInit, onDeleteInit}) => {
             },
             {
                 "Header": "Type",
-                "accessor": "fund_type",
-                "Cell": function ({value}) {
-                    return <i title={value}>
-
-                        {value === 'Income' ? <PlusCircleIcon className="icon icon-portfolio text-success"/> :
-                            <MinusCircleIcon className="icon icon-portfolio text-danger"/>}
-                    </i>
-
-                }
+                "accessor": "fund_type"
+                
             },          
             {
                 "Header": "Amount",
                 "accessor": "amount"
             },
             {
-                "Header": "Start Date",
-                "accessor": "start_date",
+                "Header": "Last Updated",
+                "accessor": "updated_at",
                 "Cell": function ({value}) {
                     return formatDateSimple(value);
 

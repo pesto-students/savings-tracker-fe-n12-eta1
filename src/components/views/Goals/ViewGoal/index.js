@@ -11,6 +11,7 @@ import FundTable from "./FundTable";
 import DeleteModal from "./DeleteModal";
 import Spinner from "../../../common/Spinner";
 import { useParams } from 'react-router-dom';
+import {formatDateSimple} from "../../../common/utils";
 
 const ViewGoal = ({active}) => {
     const { goalId } = useParams();
@@ -75,8 +76,8 @@ const ViewGoal = ({active}) => {
                                 <div className="col-sm-9 col-md-6">
                                     <h2>{goal.title}</h2>
                                     <p>Total amount to pay: {goal.total_amount}</p>
-                                    <p>Start Date: {goal.start_date}</p>
-                                    <p>End Date: {goal.end_date}</p>
+                                    <p>Start Date: {formatDateSimple(goal.start_date)}</p>
+                                    <p>End Date: {formatDateSimple(goal.end_date)}</p>
                                 </div>
                                 <div className="col-sm-3 col-md-6">
                                     <Button onClick={() => {

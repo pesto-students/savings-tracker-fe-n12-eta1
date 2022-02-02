@@ -9,7 +9,7 @@ const getGoals = (async (filterData) => {
             params: filterData
         };
         
-        return axiosClient.get(process.env.REACT_APP_API_URL+'/api/goals/', config );
+        return axiosClient.get(process.env.REACT_APP_API_URL+'/api/goals', config );
 
     });
 });
@@ -30,7 +30,7 @@ const addGoal = (data) => {
 
     try {
         return auth.currentUser.getIdToken().then(token => {
-            return axiosClient.post(process.env.REACT_APP_API_URL+'/api/goals/', data, {headers: {'X-Auth-Token': token}});
+            return axiosClient.post(process.env.REACT_APP_API_URL+'/api/goals', data, {headers: {'X-Auth-Token': token}});
         });
     } catch (e) {
         return {error: e.message}

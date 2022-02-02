@@ -93,14 +93,14 @@ const FundModal = ({show, handleClose, fund,goalId, onSubmitSuccess}) => {
 
                 </div>                
 
-                <div className="col-md-6 mb-sm-3">
+                {/* <div className="col-md-6 mb-sm-3">
                     <label htmlFor="created_at" className="form-label">Start Date</label>
                     <input onChange={handleChange} type="date" name="created_at" className="form-control"
                            id="created_at"
                            defaultValue={formatDateSimple(fund?.created_at)}/>
                     {errors.created_at && <Error message={errors.created_at}/>}
 
-                </div>
+                </div> */}
                 
                 <div>
                     <div className="d-flex">
