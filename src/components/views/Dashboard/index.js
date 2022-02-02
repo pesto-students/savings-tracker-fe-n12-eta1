@@ -16,32 +16,40 @@ import CurrencyForm from "../Portfolio/CurrencyForm";
 
 const Dashboard = ({active}) => {
     let goals = []
-    const [dashboard,setDashboard] = useState('')
-    const [total,setTotal] = useState(0)
+    const [dashboard, setDashboard] = useState('')
+    const [total, setTotal] = useState(0)
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(true)
     const [currency, setCurrency] = useState('');
 
     useEffect(() => {
+<<<<<<< HEAD
         setLoading(true)
         getData() 
+=======
+        getData()
+>>>>>>> origin/feature/goals-bug-fixes
     }, []);
 
     const getData = () => {
         setError('');
-        getDashboardData().then(response=>{
+        getDashboardData().then(response => {
             goals = response.data.dashboard.goals
             var total = goals.map(goal => goal.count).reduce((acc, goal) => goal + acc);
-            setDashboard(response.data.dashboard)  
+            setDashboard(response.data.dashboard)
             setTotal(total)
+<<<<<<< HEAD
             setLoading(false) 
             setCurrency(response.data.currency);
+=======
+            console.log(response.data.dashboard.chart_data)
+>>>>>>> origin/feature/goals-bug-fixes
         }).catch(err => {
 
             setError(err.message);
             setLoading(false)
         });
-          
+
     }
 
     return (
@@ -49,10 +57,11 @@ const Dashboard = ({active}) => {
             <DashboardBanner
                 image={banner}
             />
-            
+
             <div className="main main-raised dashoard-container">
                 <div className="container">
                     <div className="row">
+<<<<<<< HEAD
                        
                         <SideBar active={active} />
                         <div className="col-md-9">
@@ -64,6 +73,16 @@ const Dashboard = ({active}) => {
                             <div className="row mt-5">
                                 <div className="col-md-3 col-lg-3 col-6 mb-4 mb-lg-0" style={{display:"none"}}>
                                     <div className="dashboard_div">
+=======
+
+                        <SideBar active={active}/>
+                        <div className="col-md-9">
+                            <h1 className="font_30"><i className="fa fa-home mr-2"></i>Dashboard</h1>
+
+                            <div className="row mt-5">
+                                <div className="col-md-3 col-lg-3 col-6 mb-4 mb-lg-0">
+                                    <div className="dashboard_div active">
+>>>>>>> origin/feature/goals-bug-fixes
                                         <div className="row h-100">
                                             <div className="col-8 pr-0 d-flex align-content-center">
                                                 <div>
@@ -72,16 +91,28 @@ const Dashboard = ({active}) => {
                                                 </div>
                                             </div>
                                             <div className="col-4 d-flex">
+<<<<<<< HEAD
                                             <i className="fa fa-clock mt-auto text-primary font_30" aria-hidden="true"></i>
+=======
+                                                <i className="fa fa-bullseye mt-auto text-white font_30"
+                                                   aria-hidden="true"></i>
+>>>>>>> origin/feature/goals-bug-fixes
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
+<<<<<<< HEAD
                                 { dashboard.goals && dashboard.goals.map((item,index)=>{ 
                                     
                                     return (
                                         item._id!=null &&
+=======
+                                {dashboard.goals && dashboard.goals.map((item, index) => {
+
+                                    return (
+                                        item._id != null &&
+>>>>>>> origin/feature/goals-bug-fixes
                                         <div className="col-md-3 col-lg-3 col-6 mb-4 mb-lg-0">
                                             <div className="dashboard_div">
                                                 <div className="row h-100">
@@ -92,17 +123,31 @@ const Dashboard = ({active}) => {
                                                         </div>
                                                     </div>
                                                     <div className="col-4 d-flex">
+<<<<<<< HEAD
                                                     <i className="fa fa-clock mt-auto text-primary font_30" aria-hidden="true"></i>
+=======
+                                                        <i className="fa fa-clock mt-auto text-primary font_30"
+                                                           aria-hidden="true"></i>
+>>>>>>> origin/feature/goals-bug-fixes
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+<<<<<<< HEAD
                                         
                                     )
                                     
                                 })}
                                 
                                 { dashboard.salary &&
+=======
+
+                                    )
+
+                                })}
+
+                                {dashboard.salary &&
+>>>>>>> origin/feature/goals-bug-fixes
                                 <div className="col-md-3 col-lg-3 col-6 mb-4 mb-lg-0">
                                     <div className="dashboard_div">
                                         <div className="row h-100">
@@ -113,13 +158,19 @@ const Dashboard = ({active}) => {
                                                 </div>
                                             </div>
                                             <div className="col-4 d-flex">
+<<<<<<< HEAD
                                             {currency}
+=======
+                                                <i className="fa fa-dollar-sign mt-auto text-primary font_30"></i>
+
+>>>>>>> origin/feature/goals-bug-fixes
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 }
                             </div>
+<<<<<<< HEAD
                             }
                             {dashboard.chart_data && 
 
@@ -143,13 +194,19 @@ const Dashboard = ({active}) => {
                 </div>
             </div>
 
+=======
+                            {dashboard.chart_data &&
+                            <div className="col-md-9">
+                                <LineChart columns={dashboard.chart_data}/>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+>>>>>>> origin/feature/goals-bug-fixes
         </>
     );
 };
 
 export default Dashboard
-/*
-<div className="col-md-9">
-                            <PieChart columns={columns}/>
-                        </div>
-*/

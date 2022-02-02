@@ -28,7 +28,7 @@ h1 {
 .tabs-header li {
 display: table-cell;
 text-align: center;
-color: #b6d6d6;
+color: #000000;
 cursor: pointer;
 }
 .tabs-header li > a {

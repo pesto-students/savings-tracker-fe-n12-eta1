@@ -3,7 +3,6 @@ import Button from '../../common/Button';
 import {getGoals} from './Api'
 import SideBar from '../../SideBar';
 import alertService from '../../Alert';
-import Skeleton from '../../common/Skeleton';
 import Card from './Card.js';
 import DashboardBanner from '../../common/DashboardBanner';
 import Tabs from '../../common/Tabs/Tabs.js';
@@ -93,9 +92,6 @@ const List = ({active}) => {
                     <div className="row">
                         <SideBar active={active}/>
 
-                        {loading && <Skeleton totalCollections="1"/>}
-                        {!loading &&
-
                         <div className="col-md-9">
                             <h1 className="font_30 mb-3"><i className="fas fa-bullseye mr-2"></i>Goals</h1>
                             <Tabs
@@ -129,7 +125,7 @@ const List = ({active}) => {
                                 />
                             }
                         </div>
-                        }
+                    
                     </div>
                 </div>
             </div>

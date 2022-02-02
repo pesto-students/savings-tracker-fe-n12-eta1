@@ -12,6 +12,7 @@ const DeleteModal = ({show, handleClose, portfolio, onSubmitSuccess}) => {
 
     const handleSubmit = (e) => {
         setLoading(true);
+        setServerErrors([]);
         e.preventDefault();
         deletePortfolio(portfolio._id).then(handleResponse).catch(handleServerError)
     };
