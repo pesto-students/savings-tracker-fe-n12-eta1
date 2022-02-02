@@ -64,8 +64,8 @@ const Dashboard = ({active}) => {
                             
 
                             <div className="row mt-5">
-                                <div className="col-md-3 col-lg-3 col-6 mb-4 mb-lg-0">
-                                    <div className="dashboard_div active">
+                                <div className="col-md-3 col-lg-3 col-6 mb-4 mb-lg-0" style={{display:"none"}}>
+                                    <div className="dashboard_div">
 
                                         <div className="row h-100">
                                             <div className="col-8 pr-0 d-flex align-content-center">
@@ -75,9 +75,7 @@ const Dashboard = ({active}) => {
                                                 </div>
                                             </div>
                                             <div className="col-4 d-flex">
-                                            <i className="fa fa-clock mt-auto text-primary font_30" aria-hidden="true"></i>
-                                                <i className="fa fa-bullseye mt-auto text-white font_30"
-                                                   aria-hidden="true"></i>
+                                            <i className="fa fa-clock mt-auto text-primary font_30" aria-hidden="true"></i>                                
 
                                             </div>
                                         </div>
@@ -102,8 +100,7 @@ const Dashboard = ({active}) => {
                                                     <div className="col-4 d-flex">
 
                                                     <i className="fa fa-clock mt-auto text-primary font_30" aria-hidden="true"></i>
-                                                        <i className="fa fa-clock mt-auto text-primary font_30"
-                                                           aria-hidden="true"></i>
+                                                        
                                                     </div>
                                                 </div>
                                             </div>
