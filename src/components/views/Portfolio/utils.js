@@ -39,9 +39,7 @@ const validatePortfolioFormFields = (form) => {
 
         if (submitAttempted || end_date.getAttribute('data-touched') === '1') {
 
-            if (end_date.value === '') {
-                errors['end_date'] = 'End Date is required';
-            } else if ((new Date(start_date.value).getTime() > (new Date(end_date.value).getTime()))) {
+            if (end_date.value !== '' && (new Date(start_date.value).getTime() > (new Date(end_date.value).getTime()))) {
                 errors['end_date'] = 'End Date cannot be before Start Date';
             }
         }

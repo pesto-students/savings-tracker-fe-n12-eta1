@@ -1,18 +1,6 @@
 /* designing for tabs */
-@import "https://fonts.googleapis.com/css?family=Open+Sans";
 
-h1 {
-  font-weight: 300;
-}
 
-.title {
-  margin-bottom: 25px;
-  color: #AEB6BF;
-  font-size: 18px;
-}
-.title span {
-  color: #5DADE2;
-}
 .content {
   width: 640px;
   margin:  45px auto;

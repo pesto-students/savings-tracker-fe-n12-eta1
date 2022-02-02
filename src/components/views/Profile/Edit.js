@@ -6,11 +6,13 @@ import {validationSchema} from "./utils";
 import Spinner from '../../common/Spinner';
 import {saveProfile} from "./api";
 import {formatDateSimple} from "../../common/utils";
+import Alert from "../../Alert";
 
 
 const Edit = ({setEdit, userData, onSave}) => {
 
     const [loading, setLoading] = useState(false);
+    const [serverErrors, setServerErrors] = useState([]);
 
     const initialValues = {
         first_name: userData?.first_name || '',
@@ -26,18 +28,17 @@ const Edit = ({setEdit, userData, onSave}) => {
     const handleSubmit = async (_formInput) => {
 
         setLoading(true);
-
-        // const formData = new FormData(_formInput);
-        // const data = Object.fromEntries(formData);
+        setServerErrors([]);
 
         saveProfile(_formInput).then((response) => {
-            console.log(response)
             setLoading(false);
-
+            Alert.showSuccess('Saved');
             onSave(_formInput);
 
-        }).catch(err => {
-            console.log(err)
+        }).catch(error => {
+
+            const errors = error.response?.data?.errors || [error.message];
+            setServerErrors(errors);
             setLoading(false);
         });
 
@@ -168,6 +169,9 @@ const Edit = ({setEdit, userData, onSave}) => {
                     </Form>
                 )}
             </Formik>
+            {serverErrors && <div className="row">
+                <div className="col"><Error message={serverErrors}/></div>
+            </div>}
         </div>
     );
 }

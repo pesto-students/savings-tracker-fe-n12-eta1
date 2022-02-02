@@ -1,7 +1,7 @@
 import {formatDateSimple} from "../../common/utils";
 import React from 'react'
 
-import {PlusCircleIcon, MinusCircleIcon, PencilAltIcon, TrashIcon} from '@heroicons/react/solid';
+import {TrendingDownIcon, TrendingUpIcon, PencilAltIcon, TrashIcon} from '@heroicons/react/solid';
 
 import Table from "../../common/Table";
 
@@ -15,6 +15,7 @@ const frequency = ({frequency, frequency_type, frequency_unit}) => {
 
 };
 
+
 const PortfolioTable = ({portfolios, onEditInit, onDeleteInit}) => {
 
 
@@ -23,8 +24,9 @@ const PortfolioTable = ({portfolios, onEditInit, onDeleteInit}) => {
             {
                 "Header": "Date Added",
                 "accessor": "created_date",
-                "Cell": function ({value}) {
+                "sortType": "datetime",
 
+                "Cell": function ({value}) {
                     return formatDateSimple(value);
                 }
             },
@@ -34,19 +36,16 @@ const PortfolioTable = ({portfolios, onEditInit, onDeleteInit}) => {
                 "Cell": function ({value}) {
                     return <i title={value}>
 
-                        {value === 'Income' ? <PlusCircleIcon className="icon icon-portfolio text-success"/> :
-                            <MinusCircleIcon className="icon icon-portfolio text-danger"/>}
+                        {value === 'Income' ? <TrendingDownIcon className="icon icon-portfolio text-success"/> :
+                            <TrendingUpIcon className="icon icon-portfolio text-danger"/>}
                     </i>
 
                 }
             },
             {
                 "Header": "Frequency",
-                "accessor": "frequency",
-                "Cell": function ({value, row}) {
-                    return frequency(row.original)
-
-                }
+                "accessor": "frequency_display",
+                "disableSortBy": true,
             },
             {
                 "Header": "Amount",
@@ -55,18 +54,20 @@ const PortfolioTable = ({portfolios, onEditInit, onDeleteInit}) => {
             {
                 "Header": "Start Date",
                 "accessor": "start_date",
+                "sortType": "datetime",
                 "Cell": function ({value}) {
                     return formatDateSimple(value);
-
                 }
+
             },
             {
                 "Header": "End Date",
                 "accessor": "end_date",
+                "sortType": "datetime",
                 "Cell": function ({value}) {
                     return formatDateSimple(value);
-
                 }
+
             },
             {
                 "Header": "Description",
@@ -74,7 +75,8 @@ const PortfolioTable = ({portfolios, onEditInit, onDeleteInit}) => {
             },
             {
                 "Header": "Action",
-                // "accessor": "description"
+                "disableSortBy": true,
+                "disableGlobalFilter": true,
                 "Cell": function ({row}) {
                     return <>
                         <i title="Edit" className="cursor-pointer" onClick={() => {
@@ -96,7 +98,15 @@ const PortfolioTable = ({portfolios, onEditInit, onDeleteInit}) => {
     );
 
 
-    const data = React.useMemo(() => portfolios, [portfolios]);
+    const data = React.useMemo(() => portfolios.map(portfolio => {
+        return {
+            ...portfolio,
+            created_date: new Date(portfolio.created_date),
+            end_date: new Date(portfolio.end_date),
+            start_date: new Date(portfolio.start_date),
+            frequency_display: frequency(portfolio),
+        }
+    }), [portfolios]);
 
     return <Table columns={columns} data={data}/>;
 }

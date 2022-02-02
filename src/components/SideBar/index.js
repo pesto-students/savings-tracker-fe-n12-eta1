@@ -36,7 +36,7 @@ const SideBar = ({active = 'dashboard'}) => {
                 </div>
                 <div className={active === 'logout' ? 'dash_bord active' : 'dash_bord'}>
                     <Link to="/logout">
-                        <p><i className="fas fa-sign-out-alt mr-2"></i> Logout</p>
+                        <p><i className="fas fa-sign-out-alt mr-2"></i> Sign out</p>
                     </Link>
                 </div>
 

@@ -27,7 +27,9 @@ const EditGoal = ({edit, setEdit, goal, onSubmitSuccess}) => {
             .required("Goal desccription is required")
             .max(500, "Goal desccription should be of less than 500 characters"),
         end_date: Yup.string().required("Deadline is required"),
-        total_amount: Yup.string().required("Amount is required"),
+        total_amount: Yup.number()
+        .integer()
+        .min(1000).required("Amount is required"),
     });
 
     const handleSubmit = async (_formInput) => {
