@@ -38,7 +38,7 @@ const Row = ({subscription}) => {
             <td>{subscription.status}</td>
             <td>{formatDateSimple(subscription.cancelled_on)}</td>
             <td><Button disabled={!subscription.payments || subscription.payments.length === 0}
-                        onClick={() => setExpanded(!expanded)} text={'Show'}/></td>
+                        onClick={() => setExpanded(!expanded)} text={expanded?'Hide':'Show'}/></td>
         </tr>
         {expanded && < tr>
             < td colSpan="4" className="p-0"><PaymentsTable payments={subscription.payments}/></td>

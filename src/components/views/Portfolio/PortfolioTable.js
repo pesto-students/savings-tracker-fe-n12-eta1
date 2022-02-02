@@ -16,7 +16,7 @@ const frequency = ({frequency, frequency_type, frequency_unit}) => {
 };
 
 
-const PortfolioTable = ({portfolios, onEditInit, onDeleteInit}) => {
+const PortfolioTable = ({currency, portfolios, onEditInit, onDeleteInit}) => {
 
 
     const columns = React.useMemo(
@@ -49,7 +49,9 @@ const PortfolioTable = ({portfolios, onEditInit, onDeleteInit}) => {
             },
             {
                 "Header": "Amount",
-                "accessor": "amount"
+                "accessor": "amount",
+                "Cell": ({value}) => `${currency}  ${value}`
+
             },
             {
                 "Header": "Start Date",

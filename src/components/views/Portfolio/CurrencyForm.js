@@ -56,7 +56,7 @@ const CurrencyForm = ({value, onSave}) => {
 
     return <form onSubmit={handleCurrencySubmit}>
         <div className="row">
-            <div className="col-6 col-md-5">
+            <div className="col-7 col-md-5">
                 <div className="form-group">
                     <CurrencySelect value={value}/>
                     {errors.length > 0 && <Error message={errors}/>}

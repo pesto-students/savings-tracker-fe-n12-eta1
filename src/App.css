@@ -72,10 +72,7 @@ body {
     z-index: 999;
 }
 
-.dashoard-container {
-    padding: 50px;
-    /* min-height: 800px; */
-}
+
 
 label {
     color: #464646;
@@ -183,8 +180,11 @@ p {
     position: relative;
 }
 
-.icon-nav, .icon-portfolio {
+li.active .icon-nav {
+    color: #e0296a;
+}
 
+.icon-nav, .icon-portfolio {
     width: 20px;
 }
 
@@ -192,8 +192,8 @@ p {
     width: 10px;
 }
 
-.icon-lg{
-    width:30px;
+.icon-lg {
+    width: 30px;
 }
 
 .loader {
