@@ -24,35 +24,36 @@ const Header = ({setShowSignIn, setShowDummyCredentials}) => {
             <header className="w-100 fixed">
 
                 <nav
-                    className="navbar py-0 navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg blur border-radius-xl shadow my-3 mx-7"
+                    className="navbar py-0 navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg blur border-radius-xl shadow my-3 mx-md-5 mx-3"
                     color-on-scroll="100" id="sectionsNav">
-                    <div className="container">
+                    <div className="container-fluid">
                         <div className="navbar-translate">
-                            <Link className="nav-link navbar-brand" to="/">
+                            <Link className="nav-link navbar-brand px-0" to="/">
                                 <img src={logo} className="App-logo" alt="logo"/>
                             </Link>
-                            <button className="navbar-toggler" type="button" data-toggle="collapse"
+                            {/*<button className="navbar-toggler" type="button" data-toggle="collapse"
                                     aria-expanded="false" aria-label="Toggle navigation">
                                 <span className="sr-only">Toggle navigation</span>
                                 <span className="navbar-toggler-icon"></span>
                                 <span className="navbar-toggler-icon"></span>
                                 <span className="navbar-toggler-icon"></span>
-                            </button>
+                            </button>*/}
                         </div>
-                        <div className="collapse navbar-collapse">
-                            <ul className="navbar-nav ml-auto nav-ul">
-                                <li className={(location === '/' ? 'active ' : '') + 'nav-item pr-2'}>
+                        {/*<div className="collapse navbar-collapse">*/}
+                        <div className="">
+                            <ul className="navbar-nav ml-auto nav-ul flex-row">
+                                <li className={(location === '/' ? 'active ' : '') + 'nav-item pe-sm-2 pe-md-3 pe-1'}>
                                     <Link className="nav-link flex align-item-center" to="/">
                                         <HomeIcon className="icon-nav mr-4p"/>
-                                        <span>Home</span>
+                                        <span className="d-none d-sm-inline">Home</span>
                                     </Link>
                                 </li>
                                 {user && location === '/' &&
-                                <li className="nav-item pr-2">
+                                <li className="nav-item pe-sm-2 pe-md-3 pe-1">
                                     <Link to="/dashboard" className="nav-link flex align-item-center">
 
                                         <ChartPieIcon className="icon-nav mr-4p"/>
-                                        <span>Dashboard</span>
+                                        <span className="d-none d-sm-inline">Dashboard</span>
                                     </Link>
                                 </li>
                                 }
@@ -62,7 +63,7 @@ const Header = ({setShowSignIn, setShowDummyCredentials}) => {
                                     <Link reloadDocument={location === '/'} className="nav-link flex align-item-center"
                                           to="/#contact-section">
                                         <MailIcon className="icon-nav mr-4p"/>
-                                        <span>Contact Us</span>
+                                        <span className="d-none d-sm-inline">Contact Us</span>
                                     </Link>
                                 </li>
 

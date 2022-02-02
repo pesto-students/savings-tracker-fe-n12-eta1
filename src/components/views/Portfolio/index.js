@@ -83,7 +83,7 @@ const Portfolio = ({active}) => {
                                 </div>
                             </div>
                             {loading ? <Spinner/> : error ? <Error message={error}/> :
-                                <PortfolioTable portfolios={portfolios}
+                                <PortfolioTable currency={currency} portfolios={portfolios}
                                                 onEditInit={(portfolio) => {
                                                     setActivePortfolio(portfolio);
                                                     setShowPortfolioModal(true);

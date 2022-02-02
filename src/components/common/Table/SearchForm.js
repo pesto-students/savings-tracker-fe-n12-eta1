@@ -3,7 +3,7 @@ import {SearchIcon} from "@heroicons/react/solid/esm";
 
 const SearchForm = ({onKeyUp}) => {
     return <form className="row justify-content-start">
-        <div className="col-5">
+        <div className="col-7 col-sm-5">
             <label className="visually-hidden">Search</label>
             <div className="input-group">
                 <input autoComplete="off" onKeyUp={(e) => onKeyUp(e.target.value.trim())} name="search" type="text"
