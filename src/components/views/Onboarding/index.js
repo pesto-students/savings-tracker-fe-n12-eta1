@@ -18,8 +18,8 @@ const Onboarding = () => {
 
     const navigate = useNavigate();
 
-
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
     const handleSubmit = (e) => {
 
         e.preventDefault();
@@ -27,13 +27,16 @@ const Onboarding = () => {
         const formData = new FormData(e.target);
         const values = Object.fromEntries(formData);
 
+        setLoading(true);
+
         postToApi(values).then((response) => {
 
-            //navigate to dashboard or goals page
             navigate('/dashboard');
+            setLoading(false);
 
         }).catch((error) => {
-            setError(error.message)
+            setError(error.message);
+            setLoading(false);
         });
 
     };
@@ -47,10 +50,12 @@ const Onboarding = () => {
 
                     <PersonalInfo/>
                     <LocationInfo/>
-                    <FinancialInfo/>
+                    <FinancialInfo loading={loading}/>
 
                 </StepWizard>
                 <Error error={error}/>
+                <p className="text-black-50 mt-3"><span className="text-danger">*</span> required field</p>
+
             </form>
 
         </div>

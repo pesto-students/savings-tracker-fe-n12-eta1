@@ -5,7 +5,7 @@ import Error from '../../common/Error';
 import {validationSchema} from "./utils";
 import Spinner from '../../common/Spinner';
 import {saveProfile} from "./api";
-import {formatDateSimple} from "../../common/utils";
+import {formatDateSimple, formatDateYYYYMMDD} from "../../common/utils";
 import Alert from "../../Alert";
 
 
@@ -19,7 +19,7 @@ const Edit = ({setEdit, userData, onSave}) => {
         last_name: userData?.last_name || '',
         email: userData?.email || '',
         phone_number: userData?.phone_number || '',
-        dob: formatDateSimple(userData?.dob) || '',
+        dob: formatDateYYYYMMDD(userData?.dob) || '',
         country: userData?.country || '',
         city: userData?.city || '',
         bio: userData?.bio || '',
@@ -95,7 +95,7 @@ const Edit = ({setEdit, userData, onSave}) => {
                             <div className="col-md-6">
                                 <div className="form-group">
 
-                                    <label>Email</label>
+                                    <label>Email <span className='text-danger'>*</span></label>
                                     <Field name="email" type="email"
                                            placeholder="Your Email Address" className="form-control"/>
                                     {
@@ -107,7 +107,7 @@ const Edit = ({setEdit, userData, onSave}) => {
                             <div className="col-md-6">
                                 <div className="form-group">
 
-                                    <label>Phone</label>
+                                    <label>Phone <span className='text-danger'>*</span></label>
                                     <Field disabled name="phone_number" type="text"
                                            placeholder="Phone" className="form-control"/>
                                     {
@@ -119,7 +119,7 @@ const Edit = ({setEdit, userData, onSave}) => {
                             <div className="col-md-6">
                                 <div className="form-group">
 
-                                    <label>Date of Birth</label>
+                                    <label>Date of Birth <span className='text-danger'>*</span></label>
                                     <Field name="dob" type="date"
                                            placeholder="DOB" className="form-control"/>
                                     {
@@ -131,7 +131,7 @@ const Edit = ({setEdit, userData, onSave}) => {
                             <div className="col-md-6">
                                 <div className="form-group">
 
-                                    <label>Country</label>
+                                    <label>Country <span className='text-danger'>*</span></label>
                                     <Field name="country" type="text"
                                            placeholder="Country" className="form-control"/>
                                     {
@@ -142,7 +142,7 @@ const Edit = ({setEdit, userData, onSave}) => {
 
                             <div className="col-md-6">
                                 <div className="form-group">
-                                    <label>City</label>
+                                    <label>City <span className='text-danger'>*</span></label>
                                     <Field name="city" type="text"
                                            placeholder="City" className="form-control"/>
                                     {

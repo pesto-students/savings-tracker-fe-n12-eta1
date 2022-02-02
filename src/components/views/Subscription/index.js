@@ -97,14 +97,16 @@ const Subscription = ({active}) => {
                                                 {!loading && (mostRecentSubscriptions?.status === 'active' ?
 
                                                         <div>
-                                                            <div>Your Subscription is active
-                                                                since <b>{formatDateSimple(mostRecentSubscriptions.paid_on)}</b>
+                                                            <div>
+                                                                <p className="d-md-inline">Your Subscription is active
+                                                                    since <b>{formatDateSimple(mostRecentSubscriptions.paid_on)}</b>
+                                                                </p>
                                                                 <CancelSubscriptionBtn
-                                                                    className="ms-3"
+                                                                    className="ms-md-3 mb-3"
                                                                     onSuccess={getInitialData}/></div>
-                                                            <div>Next charge
+                                                            <p>Next charge
                                                                 on <b>{formatDateSimple(add1YearToDate(mostRecentSubscriptions.paid_on))}</b>
-                                                            </div>
+                                                            </p>
                                                         </div>
                                                         :
                                                         <div>Your Subscription is not active <SubscribeBtn
