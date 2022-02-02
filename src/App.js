@@ -30,20 +30,11 @@ function App() {
 
         auth.onAuthStateChanged(function (user) {
             dispatch({type: 'AUTH', payload: user});
-
-<<<<<<< HEAD
-            if (user) {
-                user.getIdToken().then(token => {
-                    console.log(token);
-                });
-            }
-=======
             /* if (user) {
                  user.getIdToken().then(token => {
                      console.log(token);
                  });
              }*/
->>>>>>> origin/feature/goals-bug-fixes
             setLoading(false);
 
         });
