@@ -24,9 +24,12 @@ const EditGoal = ({edit, setEdit, goal, onSubmitSuccess}) => {
             .required("Goal title is required")
             .max(30, "Goal title should be of less than 30 characters"),
         description: Yup.string()
-            .required("Goal desccription is required"),
+            .required("Goal desccription is required")
+            .max(500, "Goal desccription should be of less than 500 characters"),
         end_date: Yup.string().required("Deadline is required"),
-        total_amount: Yup.string().required("Amount is required"),
+        total_amount: Yup.number()
+        .integer()
+        .min(1000).required("Amount is required"),
     });
 
     const handleSubmit = async (_formInput) => {
@@ -96,7 +99,7 @@ const EditGoal = ({edit, setEdit, goal, onSubmitSuccess}) => {
 
                         <label>Goal Title</label>
                         <Field name="title" type="text"
-                            placeholder="Enter Goal Title" className="form-control"/>
+                            placeholder="Enter Goal Title" className="form-control capitalize"/>
                         {
                             errors.title && <Error message={errors.title}/>
                         }
@@ -107,7 +110,7 @@ const EditGoal = ({edit, setEdit, goal, onSubmitSuccess}) => {
                     <div className="form-group">
                         <label>description</label>
                         <Field as="textarea" name="description" type="text" placeholder="Enter Goal description"
-                                    className="form-control" rows="4"
+                                    className="form-control capitalize" rows="4"
                                 />
                         {
                             errors.description && <Error message={errors.description}/>

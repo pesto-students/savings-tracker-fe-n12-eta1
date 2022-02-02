@@ -1,21 +1,22 @@
 import {useEffect, useState} from 'react';
-import Button from '../../common/Button';
-import Error from '../../common/Error';
-import SideBar from '../../SideBar';
-import DashboardBanner from '../../common/DashboardBanner';
-import banner from './images/banner.jpg';
+import Button from '../../../common/Button';
+import Error from '../../../common/Error';
+import SideBar from '../../../SideBar';
+import DashboardBanner from '../../../common/DashboardBanner';
+import banner from '../images/target.jpg';
 import {getFunds, addFund} from "../../Funds/api";
+import {getGoal} from "../Api"
 import FundForm from './FundModal';
 import FundTable from "./FundTable";
 import DeleteModal from "./DeleteModal";
-import Spinner from "../../common/Spinner";
+import Spinner from "../../../common/Spinner";
+import { useParams } from 'react-router-dom';
 
-
-const ViewGoal = ({active,goal}) => {
-
+const ViewGoal = ({active}) => {
+    const { goalId } = useParams();
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(true);
-
+    const [goal, setGoal] = useState('');
     const [funds, setFunds] = useState([]);
     const [activeFund, setActiveFund] = useState(null);
 
@@ -31,20 +32,29 @@ const ViewGoal = ({active,goal}) => {
 
         setError('');
         setLoading(true);
-
-        getFunds().then(response => {
+        getGoal(goalId).then(response => {
 
             let data = response.data;
-            const funds = data.funds;
+            setGoal(data.goal);
+            getFunds(goalId).then(fund_response => {
 
-            setFunds(funds);
-            setLoading(false);
+                let data = fund_response.data;
+                const funds = data.funds;   
+                setFunds(funds);
+                setLoading(false);
+    
+            }).catch(err => {   
+                setError(err.message);
+                setLoading(false);
+            });
 
         }).catch(err => {
 
             setError(err.message);
             setLoading(false);
         });
+
+        
 
     };
 
@@ -61,11 +71,10 @@ const ViewGoal = ({active,goal}) => {
 
                         <div className="col-md-9">
                             <h1 className="font_30"><i className="fas fa-users-cog mr-2"></i>Goal Details</h1>                            
-
                             <div className="row">
                                 <div className="col-sm-9 col-md-6">
-                                    <h3>{goal.title}</h3>
-                                    <p>Total amount to pay: {goal.amount}</p>
+                                    <h2>{goal.title}</h2>
+                                    <p>Total amount to pay: {goal.total_amount}</p>
                                     <p>Start Date: {goal.start_date}</p>
                                     <p>End Date: {goal.end_date}</p>
                                 </div>
@@ -77,7 +86,7 @@ const ViewGoal = ({active,goal}) => {
                                 </div>
                             </div>
                             {loading ? <Spinner/> : error ? <Error message={error}/> :
-                                <FundTable funds={fund}
+                                <FundTable funds={funds} goalId={goalId} 
                                                 onEditInit={(fund) => {
                                                     setActiveFund(fund);
                                                     setShowFundModal(true);
@@ -89,7 +98,7 @@ const ViewGoal = ({active,goal}) => {
 
 
                             {/*fund popup*/}
-                            {showFundModal && <FundForm fund={activeFund} show={showFundModal}
+                            {showFundModal && <FundForm fund={activeFund} goalId={goalId} show={showFundModal}
                                                                   handleClose={() => {
                                                                       setShowFundModal(false);
                                                                       setActiveFund(null);
@@ -98,7 +107,7 @@ const ViewGoal = ({active,goal}) => {
                                                                       getData()
                                                                   }}
                             />}
-                            <DeleteModal fund={activeFund} show={showDeleteModal} handleClose={() => {
+                            <DeleteModal fund={activeFund} goalId={goalId} show={showDeleteModal} handleClose={() => {
                                 setShowDeleteModal(false);
                                 setActiveFund(null);
                             }}

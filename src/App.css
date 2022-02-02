@@ -229,3 +229,6 @@ li.active .icon-nav {
     background: lightgrey;
 }
 
+.capitalize {
+    text-transform: capitalize;
+}

@@ -13,6 +13,7 @@ import Spinner from './components/common/Spinner';
 import {useDispatch, useSelector} from 'react-redux';
 import SignInModal from "./components/views/Signin";
 import List from './components/views/Goals/List';
+import ViewGoal from "./components/views/Goals/ViewGoal/index"
 import {auth} from './firebase';
 import Subscription from "./components/views/Subscription";
 import DummyCredentialsModal from "./components/DummyCredentialsModal";
@@ -112,6 +113,15 @@ function App() {
                                 element={
                                     <GuardRoute>
                                         <Profile active="profile"/>
+                                    </GuardRoute>
+                                }
+                            />
+
+                            <Route
+                                path="/goals/goal/:goalId"
+                                element={
+                                    <GuardRoute>
+                                        <ViewGoal active="goals"/>
                                     </GuardRoute>
                                 }
                             />

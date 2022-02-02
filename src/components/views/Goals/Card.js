@@ -13,14 +13,15 @@ import EditGoal from './EditGoal';
 import Button from '../../common/Button';
 import Swal from 'sweetalert2';
 import alertService from '../../Alert';
-import {deleteGoal} from './Api.js'
+import {deleteGoal} from './Api.js';
+import LinesEllipsis from 'react-lines-ellipsis'
+import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 
 const Card = (props) => {
   
     const [colors, setColors] = useState(['cyan', 'red', 'blue', 'orange', 'yellow', 'green'])
-
-    const [loading, setEdit] = useState(false);
-    const [edit, setLoading] = useState(false);
+    const [edit, setEdit] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [goal, setGoal] = useState([]);
     const [add, setAdd] = useState(false);
 
@@ -146,8 +147,15 @@ const Card = (props) => {
                 </Dropdown>
                 <div className='col-12'>
                     <h2>{item.title}</h2>
-                    <p>{item.description}</p>
-                    <h4><b>₹ {item.total_amount}</b></h4>
+                    <h4><b>{props.currency+" "+item.total_amount}</b></h4>
+                    <LinesEllipsis
+                        text={item.description}
+                        maxLine='3'
+                        ellipsis='...'
+                        trimRight
+                        basedOn='letters'
+                    />
+                   
                 </div>
                 <div className='col-12'>
                     <BillboardChart
@@ -161,7 +169,28 @@ const Card = (props) => {
             </div>
         )
     }) : <div className="col-12"><p className="text-black text-center">No records found</p></div>;
-    //console.log(goal_cards)    
+    
+    
+    const handleOnSearch = (string, results) => {
+        // onSearch will have as the first callback parameter
+        // the string searched and for the second the results.
+        console.log(string, results)
+        props.setSearch(string)
+      }
+
+      const formatResult = (item) => {
+        // return item
+        console.log(item)
+        return (<p dangerouslySetInnerHTML={{__html: '<strong>'+item+'</strong>'}}></p>); //To format result as html
+      }
+
+      const handleOnClear = () => {
+        // the item hovered
+        props.setSearch('')
+      }
+
+
+
     return (
         <>
             {/* goal card */}
@@ -176,8 +205,19 @@ const Card = (props) => {
                     <div className='col-4 mt-3'>
                         <div className="form-group align-item-center">
                             <label className='mr-2 pb-0'>Search</label>
-                            <input value={props.search} onChange={(e) => props.setSearch(e.target.value)} name="search" type="text"
-                                   placeholder="Search" className="form-control"/>
+                            <ReactSearchAutocomplete
+                                items={props.goals.docs}
+                                onSearch={handleOnSearch}
+                                onClear={handleOnClear}
+                                placeholder="Search"
+                                fuseOptions={{ keys: ["title"] }}
+                                autoFocus
+                                resultStringKeyName="title"
+                                formatResult={formatResult}
+                                styling={{borderRadius: "0px", height: "38px"}}
+                            />
+                            {/* <input value={props.search} onChange={(e) => props.setSearch(e.target.value)} name="search" type="text"
+                                   placeholder="Search" className="form-control"/> */}
 
                         </div>
                     </div>
@@ -199,12 +239,12 @@ const Card = (props) => {
                     </div>
 
                     <div className="col-2 mt-3  align-item-center flex">
-                        <Button onClick={props.onSubmitSuccess} type="submit" text="Search"
+                        <Button onClick={props.onSubmitSuccess} disabled={props.start_date.length<1 || props.end_date.length<1} type="submit" text="Search"
                                 extraClass="primary btn-lg btn-round text-white"/>
                     </div>
                 </div>
                 <div className="row">
-                    <div className='col-3 mt-3'>
+                    <div className='col-4 mt-3'>
                         <div className="form-group align-item-center">
                             <label className='mr-2 pb-0'>Sort By</label>
                             <select defaultValue={props.orderBy} 
@@ -216,18 +256,22 @@ const Card = (props) => {
                         </div>
                     </div>
 
-                    <div className='col-3 mt-3'>
+                    <div className='col-4 mt-3'>
                         <div className="form-group align-item-center">
                             <label className='mr-2 pb-0'>Order By</label>
                             <select defaultValue={props.sortBy} 
                                 onChange={(e) => props.setSortBy(e.target.value)} name="sort_by" className="form-control mr-2" id="">
-                                <option value="asc">Asc</option>
-                                <option value="desc">Desc</option>
+                                <option value="asc">Ascending </option>
+                                <option value="desc">Descending </option>
                             </select>
                         </div>
                     </div>
-                    <div className='col-6 mt-3'></div>
+                    <div className='col-4 mt-3'></div>
                 </div>
+                {props.loading && <Skeleton totalCollections="1"/>}
+
+                { !props.loading &&
+                <>
                 <div className="row">
                     {goal_cards}
                 </div>
@@ -254,6 +298,8 @@ const Card = (props) => {
                         </>
                     }
                 </div>
+                </>
+                }
 
                 {
                     add && <AddGoal add={add} setAdd={setAdd} onSubmitSuccess={props.onSubmitSuccess}/>

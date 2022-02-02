@@ -1,5 +1,4 @@
 import axiosClient from '../../../axios';
-
 import {auth} from '../../../firebase';
 
 const getGoals = (async (filterData) => {
@@ -11,6 +10,18 @@ const getGoals = (async (filterData) => {
         };
         
         return axiosClient.get(process.env.REACT_APP_API_URL+'/api/goals/', config );
+
+    });
+});
+
+const getGoal = (async (goalID) => {
+    
+    return auth.currentUser.getIdToken().then(token => {
+        const config = {
+            headers: {'X-Auth-Token': token}
+        };
+        
+        return axiosClient.get(process.env.REACT_APP_API_URL+'/api/goals/'+goalID, config );
 
     });
 });
@@ -44,4 +55,4 @@ const deleteGoal = (goalId) => {
     });
 }
 
-export {getGoals, addGoal, updateGoal,deleteGoal};
+export {getGoals, getGoal, addGoal, updateGoal,deleteGoal};

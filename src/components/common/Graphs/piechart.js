@@ -3,12 +3,9 @@ import "billboard.js/dist/theme/insight.css";
 import bb, {pie} from "billboard.js";
 import './index.css';
 
-let chart = bb.generate({
+/*let chart = bb.generate({
     data: {
-    columns: [
-    ["data1", 30],
-    ["data2", 120]
-    ],
+    columns: [],
     type: pie(), // for ESM specify as: pie()
     onclick: function(d, i) {
         console.log("onclick", d, i);
@@ -21,17 +18,32 @@ let chart = bb.generate({
     }
     },
     bindto: "#pieChart"
-});
+});*/
 
 
 const PieChart = ({columns}) => {
-    //const [chart,setChart] = useState('')
+    const [chart,setChart] = useState('')
     useEffect(() => {
         getData() 
     }, []);
     
     const getData = ()=>{
-        
+        setChart(bb.generate({
+            data: {
+                columns: columns,
+                type: pie(),
+                onclick: function(d, i) {
+                    console.log("onclick", d, i);
+                },
+                onover: function(d, i) {
+                    console.log("onover", d, i);
+                },
+                onout: function(d, i) {
+                    console.log("onout", d, i);
+                }
+            },
+            bindto: "#pieChart"
+        }))
     }
 
     setTimeout(function() {

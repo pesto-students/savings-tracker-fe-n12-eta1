@@ -7,6 +7,7 @@ import Error from '../../common/Error';
 import {addGoal} from './Api'
 import alertService from '../../Alert';
 import Loader from "../../common/Loader";
+import CapitalizeText from  "../../common/CapitalizeText";
 
 const AddGoal = ({add, setAdd, onSubmitSuccess}) => {
 
@@ -24,7 +25,8 @@ const AddGoal = ({add, setAdd, onSubmitSuccess}) => {
             .required("Goal title is required")
             .max(30, "Goal title should be of less than 30 characters"),
         description: Yup.string()
-            .required("Goal desccription is required"),
+            .required("Goal desccription is required")
+            .max(500, "Goal desccription should be of less than 500 characters"),
         end_date: Yup.string().required("Deadline is required"),
         total_amount: Yup.string().required("Amount is required"),
     });
@@ -45,10 +47,8 @@ const AddGoal = ({add, setAdd, onSubmitSuccess}) => {
 
             addGoal(data).then((response) => {
 
-                console.log(response)
-    
-                alertService.showSuccess(response.data.message);
-                
+                //console.log(response) 
+                alertService.showSuccess(response.data.message);              
                 onSubmitSuccess();
                 setLoading(false);
     
@@ -89,14 +89,14 @@ const AddGoal = ({add, setAdd, onSubmitSuccess}) => {
                     onSubmit={handleSubmit}
                     // enableReinitialize
                   >
-            {({ isValid, errors }) => (
+            {({ isValid, errors, values }) => (
             <Form autoComplete="off">
                 <div className="col-md-12">
                     <div className="form-group">
 
                         <label>Goal Title</label>
                         <Field name="title" type="text"
-                            placeholder="Enter Goal Title" className="form-control"/>
+                            placeholder="Enter Goal Title" className="form-control capitalize"/>
                         {
                             errors.title && <Error message={errors.title}/>
                         }
@@ -107,7 +107,7 @@ const AddGoal = ({add, setAdd, onSubmitSuccess}) => {
                     <div className="form-group">
                         <label>description</label>
                         <Field as="textarea" name="description" type="text" placeholder="Enter Goal description"
-                                    className="form-control" rows="4"
+                                    className="form-control capitalize" rows="4"
                                 />
                         {
                             errors.description && <Error message={errors.description}/>
@@ -118,7 +118,7 @@ const AddGoal = ({add, setAdd, onSubmitSuccess}) => {
                 <div className="col-md-12">
                     <div className="form-group">
 
-                        <label>Deadline</label>
+                        <label>Target Date</label>
                         <Field name="end_date" type="date"
                             className="form-control"/>
                         {
