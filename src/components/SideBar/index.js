@@ -21,7 +21,7 @@ const SideBar = ({active = 'dashboard'}) => {
                 </div>
                 <div className={active === 'portfolio' ? 'dash_bord active' : 'dash_bord'}>
                     <Link to="/portfolio">
-                        <p><i className="fas fa-dollar-sign mr-md-2"></i> <span className="d-none d-sm-inline">Portfolio</span> </p>
+                        <p><i className="fas fa-dollar-sign mr-md-2"></i><span className="d-none d-sm-inline">&nbsp;&nbsp;Portfolio</span> </p>
                     </Link>
                 </div>
                 <div className={active === 'subscription' ? 'dash_bord active' : 'dash_bord'}>
@@ -31,12 +31,12 @@ const SideBar = ({active = 'dashboard'}) => {
                 </div>
                 <div className={active === 'profile' ? 'dash_bord active' : 'dash_bord'}>
                     <Link to="/profile">
-                        <p><i className="fa fa-user mr-2"></i> <span className="d-none d-sm-inline">Profile</span></p>
+                        <p><i className="fa fa-user mr-md-2"></i> <span className="d-none d-sm-inline">Profile</span></p>
                     </Link>
                 </div>
                 <div className={active === 'logout' ? 'dash_bord active' : 'dash_bord'}>
                     <Link to="/logout">
-                        <p><i className="fas fa-sign-out-alt mr-2"></i> <span className="d-none d-sm-inline">Sign out</span></p>
+                        <p><i className="fas fa-sign-out-alt mr-md-2"></i> <span className="d-none d-sm-inline">Sign out</span></p>
                     </Link>
                 </div>
 

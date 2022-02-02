@@ -26,7 +26,7 @@ function add1YearToDate(date) {
 
 const Subscription = ({active}) => {
 
-    const [mostRecentSubscriptions, setMostRecentSubscriptions] = useState(null);
+    const [mostRecentSubscription, setMostRecentSubscription] = useState(null);
     const [loading, setLoading] = useState(true);
     const [subscriptions, setSubscriptions] = useState([]);
 
@@ -46,7 +46,7 @@ const Subscription = ({active}) => {
             setSubscriptions(data.subscriptions);
 
             if (data.subscriptions.length > 0) {
-                setMostRecentSubscriptions(data.subscriptions[0]);
+                setMostRecentSubscription(data.subscriptions[0]);
             }
 
             setLoading(false);
@@ -89,23 +89,23 @@ const Subscription = ({active}) => {
                                          tabClassName={"text-primary " + (tabKey === 'status' ? 'fw-bold' : '')}>
                                         <div className="row">
                                             <div className="col">
-                                                <h3 className="fs-3">Status {!loading && (mostRecentSubscriptions?.status === 'active' ?
+                                                <h3 className="fs-3">Status {!loading && (mostRecentSubscription?.status === 'active' ?
                                                     <LightningBoltIcon
                                                         className="icon-lg text-success"/> : <LightningBoltIcon
                                                         className="icon-lg text-danger"/>)}</h3>
                                                 {loading && <Spinner/>}
-                                                {!loading && (mostRecentSubscriptions?.status === 'active' ?
+                                                {!loading && (mostRecentSubscription?.status === 'active' ?
 
                                                         <div>
                                                             <div>
                                                                 <p className="d-md-inline">Your Subscription is active
-                                                                    since <b>{formatDateSimple(mostRecentSubscriptions.paid_on)}</b>
+                                                                    since <b>{formatDateSimple(mostRecentSubscription.paid_on)}</b>
                                                                 </p>
                                                                 <CancelSubscriptionBtn
                                                                     className="ms-md-3 mb-3"
                                                                     onSuccess={getInitialData}/></div>
                                                             <p>Next charge
-                                                                on <b>{formatDateSimple(add1YearToDate(mostRecentSubscriptions.paid_on))}</b>
+                                                                on <b>{formatDateSimple(add1YearToDate(mostRecentSubscription.paid_on))}</b>
                                                             </p>
                                                         </div>
                                                         :
