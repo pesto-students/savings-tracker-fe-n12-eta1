@@ -12,10 +12,12 @@ const List = ({active}) => {
 
     const [loading, setLoading] = useState(true)
     const [currency, setCurrency] = useState('');
-    const [page, setPage] = useState(1)
+    const [page, setPage] = useState(1);
     const [perPage, setPerPage] = useState(6);
-    const [sortBy, setSortBy] = useState('desc')
-    const [orderBy, setOrderBy] = useState('start_date')
+
+
+    const [sortFields, setSortFields] = useState('start_date___desc');
+
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
     const [search, setSearch] = useState('')
@@ -44,18 +46,21 @@ const List = ({active}) => {
     useEffect(() => {
 
         getGoalsData();
-        
-    }, [activeTab, page, perPage, sortBy, orderBy, searchBtn, search])
+
+    }, [activeTab, page, perPage, sortFields, searchBtn, search])
 
     const getGoalsData = () => {
-     
+
         setLoading(true);
+
+        const [orderBy, sortOrder] = sortFields.split('___');
+
         let filterData = {
             page: page,
             perPage: perPage,
             searchData: {
                 status: activeTab,
-                sort_by: sortBy, //asc, desc
+                sort_by: sortOrder, //asc, desc
                 order_by: orderBy, // can be created date, title, amount, status
                 start_date: startDate,
                 end_date: endDate,
@@ -63,7 +68,7 @@ const List = ({active}) => {
 
             }
         }
-        
+
 
         getGoals(filterData).then((response) => {
             setGoals(response.data.goals || [])
@@ -96,32 +101,29 @@ const List = ({active}) => {
                                 activeTab={activeTab}
                             />
                             {goals &&
-                                <Card
+                            <Card
 
-                                    loading={loading}
-                                    goals={goals}
-                                    currency={currency}
-                                    perPage={perPage}
-                                    orderBy={orderBy}
-                                    sortBy={sortBy}
-                                    search={search}
-                                    start_date={startDate}
-                                    end_date={endDate}
-                                    setStartDate={setStartDate}
-                                    setEndDate={setEndDate}
-                                    setPage={setPage}
-                                    setPerPage={setPerPage}
-                                    setSortBy={setSortBy}
-                                    setOrderBy={setOrderBy}
-                                    setSearch={setSearch}
-                                    setSearchBtn={setSearchBtn}
-                                    onSubmitSuccess={() => {
-                                        getGoalsData()
-                                    }}
-                                />
+                                loading={loading}
+                                goals={goals}
+                                currency={currency}
+                                perPage={perPage}
+                                search={search}
+                                start_date={startDate}
+                                end_date={endDate}
+                                setStartDate={setStartDate}
+                                setEndDate={setEndDate}
+                                setPage={setPage}
+                                setPerPage={setPerPage}
+                                setSortFields={setSortFields}
+                                setSearch={setSearch}
+                                setSearchBtn={setSearchBtn}
+                                onSubmitSuccess={() => {
+                                    getGoalsData()
+                                }}
+                            />
                             }
                         </div>
-                    
+
                     </div>
                 </div>
             </div>
