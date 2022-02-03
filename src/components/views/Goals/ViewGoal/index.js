@@ -10,11 +10,11 @@ import FundForm from './FundModal';
 import FundTable from "./FundTable";
 import DeleteModal from "./DeleteModal";
 import Spinner from "../../../common/Spinner";
-import { useParams } from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import {formatDateSimple} from "../../../common/utils";
 
 const ViewGoal = ({active}) => {
-    const { goalId } = useParams();
+    const {goalId} = useParams();
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(true);
     const [goal, setGoal] = useState('');
@@ -40,11 +40,11 @@ const ViewGoal = ({active}) => {
             getFunds(goalId).then(fund_response => {
 
                 let data = fund_response.data;
-                const funds = data.funds;   
+                const funds = data.funds;
                 setFunds(funds);
                 setLoading(false);
-    
-            }).catch(err => {   
+
+            }).catch(err => {
                 setError(err.message);
                 setLoading(false);
             });
@@ -55,7 +55,6 @@ const ViewGoal = ({active}) => {
             setLoading(false);
         });
 
-        
 
     };
 
@@ -71,7 +70,7 @@ const ViewGoal = ({active}) => {
                         <SideBar active={active}/>
 
                         <div className="col-md-9">
-                            <h1 className="font_30"><i className="fas fa-users-cog mr-2"></i>Goal Details</h1>                            
+                            <h1 className="font_30"><i className="fas fa-bullseye mr-2"></i>Goal Details</h1>
                             <div className="row">
                                 <div className="col-sm-9 col-md-6">
                                     <h2>{goal.title}</h2>
@@ -87,26 +86,26 @@ const ViewGoal = ({active}) => {
                                 </div>
                             </div>
                             {loading ? <Spinner/> : error ? <Error message={error}/> :
-                                <FundTable funds={funds} goalId={goalId} 
-                                                onEditInit={(fund) => {
-                                                    setActiveFund(fund);
-                                                    setShowFundModal(true);
-                                                }}
-                                                onDeleteInit={(fund) => {
-                                                    setActiveFund(fund);
-                                                    setShowDeleteModal(true);
-                                                }}/>}
+                                <FundTable funds={funds} goalId={goalId}
+                                           onEditInit={(fund) => {
+                                               setActiveFund(fund);
+                                               setShowFundModal(true);
+                                           }}
+                                           onDeleteInit={(fund) => {
+                                               setActiveFund(fund);
+                                               setShowDeleteModal(true);
+                                           }}/>}
 
 
                             {/*fund popup*/}
                             {showFundModal && <FundForm fund={activeFund} goalId={goalId} show={showFundModal}
-                                                                  handleClose={() => {
-                                                                      setShowFundModal(false);
-                                                                      setActiveFund(null);
-                                                                  }}
-                                                                  onSubmitSuccess={() => {
-                                                                      getData()
-                                                                  }}
+                                                        handleClose={() => {
+                                                            setShowFundModal(false);
+                                                            setActiveFund(null);
+                                                        }}
+                                                        onSubmitSuccess={() => {
+                                                            getData()
+                                                        }}
                             />}
                             <DeleteModal fund={activeFund} goalId={goalId} show={showDeleteModal} handleClose={() => {
                                 setShowDeleteModal(false);

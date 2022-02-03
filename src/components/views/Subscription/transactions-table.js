@@ -33,7 +33,7 @@ const Row = ({subscription}) => {
 
     return <>
         <tr
-            className={subscription.status === 'active' ? 'bg-info text-white' : ''}>
+            className={subscription.status === 'active' ? 'bg-info text-white text-capitalize' : 'text-capitalize'}>
             <td>{formatDateSimple(subscription.paid_on)}</td>
             <td>{subscription.status}</td>
             <td>{formatDateSimple(subscription.cancelled_on)}</td>
