@@ -38,7 +38,6 @@ const Card = (props) => {
     const [loading, setLoading] = useState(false);
     const [goal, setGoal] = useState([]);
 
-
     let navigate = useNavigate();
     var goal_cards = props.goals?.docs?.length > 0 ? props.goals.docs.map((goal, index) => {
 
@@ -98,6 +97,8 @@ const Card = (props) => {
             navigate(`goal/${goal._id}`);
         }
 
+        const progress = getGoalCompletionPercentage(item)
+        const colorClass = (progress<50)?'progress-red':((progress>90)?'progress-green':'progress-yellow')
 
         const handleDelete = (goal) => {
 
@@ -173,7 +174,9 @@ const Card = (props) => {
                     <BillboardChart
                         data={{
                             columns: [
+
                                 ["Progress", getGoalCompletionPercentage(goal)],
+
                             ],
                             type: "gauge",
                         }}
@@ -187,10 +190,9 @@ const Card = (props) => {
                         </b></p>
                 </div>
                 <div className='col-md-6 ' id="mobileProgress">
-                    <p className='text-center'><b>From :</b> {goal.start_date} <b> &nbsp;To :</b> {goal.end_date}</p>
-
+                    <p className='text-center'><b>From :</b> {item.start_date} <b> &nbsp;To :</b> {item.end_date}</p>
                     <div className="progress-light-grey progress-xlarge">
-                        <div className="progress-container progress-orange" style={{width: "40%"}}>40%</div>
+                        <div className={"progress-container "+colorClass} style={{width: progress+"%"}}>{progress }%</div>
                     </div>
                 </div>
             </div>
