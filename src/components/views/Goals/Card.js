@@ -14,7 +14,9 @@ import alertService from '../../Alert';
 import {deleteGoal} from './Api.js';
 import LinesEllipsis from 'react-lines-ellipsis'
 import {ReactSearchAutocomplete} from 'react-search-autocomplete'
+import {formatDateSimple} from "../../common/utils";
 
+import {CalendarIcon} from '@heroicons/react/solid';
 
 const sortFields = [
     {field: 'start_date', order: 'desc', label: 'Start Date - Newest first'},
@@ -173,14 +175,17 @@ const Card = (props) => {
                         zoom={zoom}
                     />
 
-                    <p className='text-center'><b>From :</b> {item.start_date} <b> &nbsp;To :</b> {item.end_date}</p>
+                    <p className='text-center'>
+                        <b><CalendarIcon
+                            className="icon-portfolio"/> {formatDateSimple(item.start_date)} - {formatDateSimple(item.end_date)}
+                        </b></p>
                 </div>
                 <div className='col-md-6 ' id="mobileProgress">
                     <p className='text-center'><b>From :</b> {item.start_date} <b> &nbsp;To :</b> {item.end_date}</p>
-      
+
                     <div class="progress-light-grey progress-xlarge">
-                        <div class="progress-container progress-orange" style={{width:"40%"}}>40%</div>
-                    </div> 
+                        <div class="progress-container progress-orange" style={{width: "40%"}}>40%</div>
+                    </div>
                 </div>
             </div>
         )
@@ -209,119 +214,119 @@ const Card = (props) => {
     return (
         <>
 
-            
-                <div className='row'>
-                    <div className="col-12 mt-3 mb-3">
-                        <Button onClick={(e) => setAdd(true)} type="submit" text="Add Goal"
-                                extraClass="primary btn-lg btn-round text-white float-right"/>
-                    </div>
+
+            <div className='row'>
+                <div className="col-12 mt-3 mb-3">
+                    <Button onClick={(e) => setAdd(true)} type="submit" text="Add Goal"
+                            extraClass="primary btn-lg btn-round text-white float-right"/>
                 </div>
-                <div className='row bg-grey justify-content-start'>
-                    <div className='col-md-4 mt-3'>
-                        <div className="form-group align-item-center">
-                            <label className='mr-2 pb-0'>Search</label>
-                            <ReactSearchAutocomplete
-                                items={props.goals.docs}
-                                onSearch={handleOnSearch}
-                                onClear={handleOnClear}
-                                placeholder="Search"
-                                fuseOptions={{keys: ["title"]}}
-                                autoFocus
-                                resultStringKeyName="title"
-                                formatResult={formatResult}
-                                styling={{borderRadius: "0px", height: "38px"}}
-                            />
-                            {/* <input value={props.search} onChange={(e) => props.setSearch(e.target.value)} name="search" type="text"
+            </div>
+            <div className='row bg-grey justify-content-start'>
+                <div className='col-md-4 mt-3'>
+                    <div className="form-group align-item-center">
+                        <label className='mr-2 pb-0'>Search</label>
+                        <ReactSearchAutocomplete
+                            items={props.goals.docs}
+                            onSearch={handleOnSearch}
+                            onClear={handleOnClear}
+                            placeholder="Search"
+                            fuseOptions={{keys: ["title"]}}
+                            autoFocus
+                            resultStringKeyName="title"
+                            formatResult={formatResult}
+                            styling={{borderRadius: "0px", height: "38px"}}
+                        />
+                        {/* <input value={props.search} onChange={(e) => props.setSearch(e.target.value)} name="search" type="text"
                                    placeholder="Search" className="form-control"/> */}
 
-                        </div>
                     </div>
+                </div>
 
-                    <div className='col-md-3 mt-3'>
-                        <div className="form-group align-item-center">
-                            <label className='mr-2 pb-0'>Start Date</label>
-                            <input value={props.start_date} onChange={(e) => props.setStartDate(e.target.value)}
-                                   name="start_date" type="date"
-                                   placeholder="start date" className="form-control"/>
-                        </div>
+                <div className='col-md-3 mt-3'>
+                    <div className="form-group align-item-center">
+                        <label className='mr-2 pb-0'>Start Date</label>
+                        <input value={props.start_date} onChange={(e) => props.setStartDate(e.target.value)}
+                               name="start_date" type="date"
+                               placeholder="start date" className="form-control"/>
                     </div>
+                </div>
 
-                    <div className='col-md-3 mt-3'>
-                        <div className="form-group align-item-center">
-                            <label className='mr-2 pb-0'>End Date</label>
-                            <input value={props.end_date} onChange={(e) => props.setEndDate(e.target.value)}
-                                   name="end_date" type="date"
-                                   placeholder="end date" className="form-control"/>
-                        </div>
+                <div className='col-md-3 mt-3'>
+                    <div className="form-group align-item-center">
+                        <label className='mr-2 pb-0'>End Date</label>
+                        <input value={props.end_date} onChange={(e) => props.setEndDate(e.target.value)}
+                               name="end_date" type="date"
+                               placeholder="end date" className="form-control"/>
                     </div>
+                </div>
 
-                    <div className="col-md-2 mt-3  align-item-center flex">
-                        <Button onClick={props.onSubmitSuccess}
-                                disabled={props.start_date.length < 1 || props.end_date.length < 1} type="submit"
-                                text="Search"
-                                extraClass="primary btn-lg btn-round text-white"/>
+                <div className="col-md-2 mt-3  align-item-center flex">
+                    <Button onClick={props.onSubmitSuccess}
+                            disabled={props.start_date.length < 1 || props.end_date.length < 1} type="submit"
+                            text="Search"
+                            extraClass="primary btn-lg btn-round text-white"/>
+                </div>
+            </div>
+            <div className="row justify-content-start">
+                <div className='col-md-4 mt-3'>
+                    <div className="form-group align-item-center">
+                        <label className='mr-2 pb-0'>Sort By</label>
+                        <select onChange={(e) => props.setSortFields(e.target.value)
+                        } name="order_by"
+                                className="form-control mr-2" id="">
+                            {sortFields.map(option => {
+                                return <option key={option.label}
+                                               value={option.field + '___' + option.order}>{option.label}</option>
+                            })}
+                        </select>
                     </div>
+                </div>
+
+
+                <div className='col-md-4 mt-3'></div>
+            </div>
+            {props.loading && <Skeleton totalCollections="1"/>}
+
+            {!props.loading &&
+            <>
+                <div className="row justify-content-start">
+                    {goal_cards}
                 </div>
                 <div className="row justify-content-start">
-                    <div className='col-md-4 mt-3'>
-                        <div className="form-group align-item-center">
-                            <label className='mr-2 pb-0'>Sort By</label>
-                            <select onChange={(e) => props.setSortFields(e.target.value)
-                            } name="order_by"
-                                    className="form-control mr-2" id="">
-                                {sortFields.map(option => {
-                                    return <option key={option.label}
-                                                   value={option.field + '___' + option.order}>{option.label}</option>
-                                })}
-                            </select>
-                        </div>
-                    </div>
-
-
-                    <div className='col-md-4 mt-3'></div>
+                    {
+                        props.goals.docs.length > 0 &&
+                        <>
+                            <div className='col-md-6'>
+                                <div className="form-group flex align-item-center">
+                                    <label className='mr-2 pb-0'>Showing</label>
+                                    <select defaultValue={props.perPage}
+                                            onChange={(e) => props.setPerPage(e.target.value)}
+                                            className="form-control width-25 mr-2" id="">
+                                        <option value="6">6</option>
+                                        <option value="12">12</option>
+                                        <option value="18">18</option>
+                                    </select>
+                                    <label className='pb-0'>of 20 Records</label>
+                                </div>
+                            </div>
+                            <div className='col-md-6'>
+                                <Paginate items={props.goals} setPage={props.setPage}/>
+                            </div>
+                        </>
+                    }
                 </div>
-                {props.loading && <Skeleton totalCollections="1"/>}
+            </>
+            }
 
-                {!props.loading &&
-                <>
-                    <div className="row justify-content-start">
-                        {goal_cards}
-                    </div>
-                    <div className="row justify-content-start">
-                        {
-                            props.goals.docs.length > 0 &&
-                            <>
-                                <div className='col-md-6'>
-                                    <div className="form-group flex align-item-center">
-                                        <label className='mr-2 pb-0'>Showing</label>
-                                        <select defaultValue={props.perPage}
-                                                onChange={(e) => props.setPerPage(e.target.value)}
-                                                className="form-control width-25 mr-2" id="">
-                                            <option value="6">6</option>
-                                            <option value="12">12</option>
-                                            <option value="18">18</option>
-                                        </select>
-                                        <label className='pb-0'>of 20 Records</label>
-                                    </div>
-                                </div>
-                                <div className='col-md-6'>
-                                    <Paginate items={props.goals} setPage={props.setPage}/>
-                                </div>
-                            </>
-                        }
-                    </div>
-                </>
-                }
+            {
+                add && <AddGoal add={add} setAdd={setAdd} onSubmitSuccess={props.onSubmitSuccess}/>
+            }
 
-                {
-                    add && <AddGoal add={add} setAdd={setAdd} onSubmitSuccess={props.onSubmitSuccess}/>
-                }
+            {
+                edit &&
+                <EditGoal edit={edit} setEdit={setEdit} goal={goal} onSubmitSuccess={props.onSubmitSuccess}/>
+            }
 
-                {
-                    edit &&
-                    <EditGoal edit={edit} setEdit={setEdit} goal={goal} onSubmitSuccess={props.onSubmitSuccess}/>
-                }
-            
             {/* end goal card */}
         </>
     );

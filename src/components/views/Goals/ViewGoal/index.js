@@ -26,7 +26,6 @@ const ViewGoal = ({active}) => {
 
     useEffect(() => {
         getData();
-
     }, []);
 
     const getData = () => {
@@ -74,9 +73,8 @@ const ViewGoal = ({active}) => {
                             <div className="row">
                                 <div className="col-sm-9 col-md-6">
                                     <h2>{goal.title}</h2>
-                                    <p>Total amount to pay: {goal.total_amount}</p>
-                                    <p>Start Date: {formatDateSimple(goal.start_date)}</p>
-                                    <p>End Date: {formatDateSimple(goal.end_date)}</p>
+                                    <h4>Target: {goal.total_amount}</h4>
+                                    <h4>Duration: {formatDateSimple(goal.start_date)} - {formatDateSimple(goal.end_date)}</h4>
                                 </div>
                                 <div className="col-sm-3 col-md-6">
                                     <Button onClick={() => {
