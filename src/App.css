@@ -199,8 +199,8 @@ li.active .icon-nav {
 .loader {
     width: 100%;
     justify-content: center;
-    opacity: 0.75;
-    background: grey;
+    /*opacity: 0.75;*/
+    background: #ddd;
     height: 100%;
     align-items: center;
 }

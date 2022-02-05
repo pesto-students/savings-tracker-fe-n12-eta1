@@ -8,7 +8,7 @@ const Tabs =({tabTitle, activeTab, setActiveTab})=> {
                 </li>
     });
     return (
-        <ul className="tabs-header px-0">{tabs}</ul>
+        <ul className="tabs-header px-0 mb-0">{tabs}</ul>
     )
 }
 export default Tabs

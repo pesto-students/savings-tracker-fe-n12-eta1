@@ -23,7 +23,7 @@ function App() {
 
     const dispatch = useDispatch();
 
-    const APP_LOADING = useSelector((state) => state.appLoader);
+    const {APP_LOADING, PAGE_LOADING} = useSelector((state) => state.appLoader);
 
     const [loading, setLoading] = useState(true);
 
@@ -32,17 +32,16 @@ function App() {
 
     useEffect(() => {
 
-
         auth.onAuthStateChanged(function (user) {
             dispatch({type: 'AUTH', payload: user});
 
-          /*  if (user) {
-                user.getIdToken().then(token => {
-                    console.log(token);
-                });
-            }*/
+            /*  if (user) {
+                  user.getIdToken().then(token => {
+                      console.log(token);
+                  });
+              }*/
 
-            dispatch({type: 'LOADING', payload: false});
+            dispatch({type: 'APP_LOADING', payload: false});
 
             setLoading(false);
 
@@ -54,9 +53,10 @@ function App() {
 
     return (
         <div className="App">
-
             {APP_LOADING ? <Spinner/> :
                 <>
+                    {PAGE_LOADING && <Spinner/>}
+
                     <Router>
                         <Header setShowSignIn={setShowSignIn} setShowDummyCredentials={setShowDummyCredentials}
                         />

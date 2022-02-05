@@ -8,22 +8,27 @@ import DashboardBanner from '../../common/DashboardBanner';
 import Tabs from '../../common/Tabs/Tabs.js';
 import banner from './images/target.jpg';
 import Skeleton from '../../common/Skeleton';
+import {useDispatch} from "react-redux";
+import AddGoal from "./AddGoal";
+import React from "react";
 
 const List = ({active}) => {
 
-    const [loading, setLoading] = useState(true)
+    const dispatch = useDispatch();
     const [currency, setCurrency] = useState('');
     const [page, setPage] = useState(1);
     const [perPage, setPerPage] = useState(6);
 
+    const [add, setAdd] = useState(false);
 
-    const [sortFields, setSortFields] = useState('start_date___desc');
+
+    const [sortFields, setSortFields] = useState('start_date___desc');//split on ___ for field + order
 
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
     const [search, setSearch] = useState('')
     const [searchBtn, setSearchBtn] = useState(false)
-    const [goals, setGoals] = useState('')
+    const [goals, setGoals] = useState({});
     const [activeTab, setActiveTab] = useState('All')
     const [tabTitle, setTabtitle] = useState([
                                                  {
@@ -48,11 +53,11 @@ const List = ({active}) => {
 
         getGoalsData();
 
-    }, [activeTab, page, perPage, sortFields, searchBtn, search])
+    }, [activeTab, page, perPage, sortFields, searchBtn, search]);
 
     const getGoalsData = () => {
 
-        setLoading(true);
+        dispatch({type: 'PAGE_LOADING', payload: true});
 
         const [orderBy, sortOrder] = sortFields.split('___');
 
@@ -68,17 +73,16 @@ const List = ({active}) => {
                 search: search,
 
             }
-        }
-
+        };
 
         getGoals(filterData).then((response) => {
-            setGoals(response.data.goals || [])
-            setLoading(false);
-            console.log(response.data)
+            setGoals(response.data.goals);
+            dispatch({type: 'PAGE_LOADING', payload: false});
             setCurrency(response.data.currency);
 
         }).catch((error) => {
-            setLoading(false);
+            dispatch({type: 'PAGE_LOADING', payload: false});
+
             alertService.showError(error/*.data.message*/);
         });
     }
@@ -96,21 +100,26 @@ const List = ({active}) => {
 
                         <div className="col-md-9">
                             <h1 className="font_30 mb-3"><i className="fas fa-bullseye mr-2"></i>Goals</h1>
-                            <div className="row mt-5 mb-3 justify-content-start">
-                                <div className="col-md-15 ">
+                            <div className="row mt-5 mb-3 justify-content-start align-items-center">
+                                <div className="col-md-10">
                                     <Tabs
                                         tabTitle={tabTitle}
                                         setActiveTab={setActiveTab}
                                         activeTab={activeTab}
                                     />
                                 </div>
+                                <div className="col-md-2">
+                                    <Button onClick={(e) => setAdd(true)} type="submit" text="Add Goal"
+                                            extraClass="primary float-end"/>
+                                    {
+                                        add && <AddGoal add={add} setAdd={setAdd} onSubmitSuccess={() => {
+                                            getGoalsData()
+                                        }}/>
+                                    }
+                                </div>
                             </div>
-
-                            {loading && <Skeleton totalCollections="1"/>}
-                            {!loading && goals &&
+                            {goals &&
                             <Card
-
-                                loading={loading}
                                 goals={goals}
                                 currency={currency}
                                 perPage={perPage}
