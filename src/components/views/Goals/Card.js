@@ -156,7 +156,7 @@ const Card = (props) => {
                 </Dropdown>
                 <div className='col-md-12'>
                     <h2>{item.title}</h2>
-                    <h4><b>{props.currency + " " + item.total_amount}</b></h4>
+                    <h4><b>{props.currency } {item.total_amount}</b></h4>
                     <LinesEllipsis
                         text={item.description}
                         maxLine='3'

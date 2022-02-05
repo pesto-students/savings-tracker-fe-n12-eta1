@@ -50,6 +50,7 @@ export default function DatesRangePicker({start_date,end_date,onSubmitSuccess}) 
                     focusedInput={focusedInput}
                     onFocusChange={e => setFocusedInput(e)}
                     displayFormat="DD/MM/YYYY"
+                    isOutsideRange={() => false}
 
                 />
             </div>
