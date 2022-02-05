@@ -98,13 +98,13 @@ const List = ({active}) => {
                             <div className="row mt-5 mb-3 justify-content-start">
                                 <div className="col-md-15 ">
                                     <Tabs
-                                    tabTitle={tabTitle}
-                                    setActiveTab={setActiveTab}
-                                    activeTab={activeTab}
-                                />
+                                        tabTitle={tabTitle}
+                                        setActiveTab={setActiveTab}
+                                        activeTab={activeTab}
+                                    />
                                 </div>
                             </div>
-                            
+
                             {goals &&
                             <Card
 

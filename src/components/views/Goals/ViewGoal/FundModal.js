@@ -7,7 +7,7 @@ import Error from "../../../common/Error";
 import {formatDateSimple} from "../../../common/utils";
 import {validateFundFormFields} from "./utils";
 
-const FundModal = ({show, handleClose, fund,goalId, onSubmitSuccess}) => {
+const FundModal = ({show, handleClose, fund, goalId, onSubmitSuccess}) => {
 
     const [serverErrors, setServerErrors] = useState([]);
     const [errors, setErrors] = useState({});
@@ -32,10 +32,10 @@ const FundModal = ({show, handleClose, fund,goalId, onSubmitSuccess}) => {
         const data = Object.fromEntries(formData);
 
         if (fund) {
-            updateFund(goalId,fund._id, data).then(handleResponse).catch(handleServerError)
+            updateFund(goalId, fund._id, data).then(handleResponse).catch(handleServerError)
         }
         else {
-            addFund(data,goalId).then(handleResponse).catch(handleServerError)
+            addFund(data, goalId).then(handleResponse).catch(handleServerError)
         }
     };
 
@@ -71,18 +71,8 @@ const FundModal = ({show, handleClose, fund,goalId, onSubmitSuccess}) => {
             <Modal.Title>{fund ? 'Edit' : 'Add'}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <form onSubmit={handleSubmit} className="row">
-            <input type="hidden" name="goal_id" value=""/>
-                <div className="col-md-6 mb-sm-3">
-                    <label htmlFor="fund_type" className="form-label">Fund Type</label>
-                    <select name="fund_type" className="form-control" defaultValue={fund?.fund_type}
-                            id="fund_type">
-                        <option value="Salary">Salary</option>
-                        <option value="Income1">Income1</option>
-                        <option value="Income2">Income2</option>
-                    </select>
-                </div>
-                
+            <form autoComplete="off" onSubmit={handleSubmit} className="row">
+                <input type="hidden" name="goal_id" value=""/>
                 <div className="col-md-6 mb-sm-3">
                     <label htmlFor="amount" className="form-label">Amount</label>
                     <input onChange={handleChange} type="number" name="amount" min="1" className="form-control"
@@ -91,17 +81,13 @@ const FundModal = ({show, handleClose, fund,goalId, onSubmitSuccess}) => {
                            placeholder=""/>
                     {errors.amount && <Error message={errors.amount}/>}
 
-                </div>                
+                </div>
+                <div className="col-md-6 mb-sm-3">
+                    <label htmlFor="description" className="form-label">Description</label>
+                    <input name="description" className="form-control" defaultValue={fund?.description}
+                           id="description"/>
 
-                {/* <div className="col-md-6 mb-sm-3">
-                    <label htmlFor="created_at" className="form-label">Start Date</label>
-                    <input onChange={handleChange} type="date" name="created_at" className="form-control"
-                           id="created_at"
-                           defaultValue={formatDateSimple(fund?.created_at)}/>
-                    {errors.created_at && <Error message={errors.created_at}/>}
-
-                </div> */}
-                
+                </div>
                 <div>
                     <div className="d-flex">
                         <Button disabled={loading || Object.keys(errors).length > 0} type="submit" text="Save"/>

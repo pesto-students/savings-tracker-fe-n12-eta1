@@ -108,7 +108,7 @@ function Table({columns, data, defaultPageSize = 5, selectOptions = [5, 10, 50],
     const {pageIndex, pageSize, globalFilter} = state;
 
     useEffect(() => {
-        setSearchParams({page: pageIndex + 1, size: pageSize});
+        setSearchParams({page: pageIndex + 1, size: pageSize}, {replace: true});
     }, [pageSize, pageIndex]);
 
     return (

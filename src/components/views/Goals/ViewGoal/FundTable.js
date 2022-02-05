@@ -12,27 +12,17 @@ const FundTable = ({funds, onEditInit, onDeleteInit}) => {
                 "Header": "Date Added",
                 "accessor": "created_at",
                 "Cell": function ({value}) {
-
                     return formatDateSimple(value);
                 }
             },
-            {
-                "Header": "Type",
-                "accessor": "fund_type"
-                
-            },          
             {
                 "Header": "Amount",
                 "accessor": "amount"
             },
             {
-                "Header": "Last Updated",
-                "accessor": "updated_at",
-                "Cell": function ({value}) {
-                    return formatDateSimple(value);
-
-                }
-            },                 
+                "Header": "Description",
+                "accessor": "description",
+            },
             {
                 "Header": "Action",
                 // "accessor": "description"

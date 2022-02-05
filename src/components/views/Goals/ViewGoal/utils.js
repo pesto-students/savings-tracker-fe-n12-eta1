@@ -3,7 +3,7 @@ const validateFundFormFields = (form) => {
 
     const submitAttempted = form.getAttribute('data-submit-attempted') === '1';
 
-    const {amount, fund_type} = form;
+    const {amount} = form;
 
     if (submitAttempted || amount.getAttribute('data-touched') === '1') {
         if (amount.value === '') {
@@ -13,12 +13,6 @@ const validateFundFormFields = (form) => {
         }
     }
 
-    if (submitAttempted || fund_type.getAttribute('data-touched') === '1') {
-
-        if (fund_type.value === '') {
-            errors['fund_type'] = 'Fund Type is required';
-        }
-    }
 
     return errors;
 };
