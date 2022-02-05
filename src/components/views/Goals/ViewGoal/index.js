@@ -79,20 +79,24 @@ const ViewGoal = ({active}) => {
                                 <div className="col-sm-3 col-md-6">
                                     <Button onClick={() => {
                                         setShowFundModal(true)
-                                    }} type="submit" text="Add New"
+                                    }} type="submit" text="Add Funds"
                                             extraClass="primary btn-round text-white float-md-end"/>
                                 </div>
                             </div>
                             {loading ? <Spinner/> : error ? <Error message={error}/> :
-                                <FundTable funds={funds} goalId={goalId}
-                                           onEditInit={(fund) => {
-                                               setActiveFund(fund);
-                                               setShowFundModal(true);
-                                           }}
-                                           onDeleteInit={(fund) => {
-                                               setActiveFund(fund);
-                                               setShowDeleteModal(true);
-                                           }}/>}
+                                <>
+                                    <h3 className="mt-3">Goal Funds History</h3>
+                                    <FundTable funds={funds} goalId={goalId}
+                                               onEditInit={(fund) => {
+                                                   setActiveFund(fund);
+                                                   setShowFundModal(true);
+                                               }}
+                                               onDeleteInit={(fund) => {
+                                                   setActiveFund(fund);
+                                                   setShowDeleteModal(true);
+                                               }}/>
+                                </>
+                            }
 
 
                             {/*fund popup*/}

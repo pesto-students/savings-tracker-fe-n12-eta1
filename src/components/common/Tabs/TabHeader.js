@@ -6,13 +6,13 @@ const TabHeader =(props)=> {
     let activeClass = props.activeId;
 
     let tabs = props.data.map((item, index) => {
-        return <li className={(activeClass === index ? 'active' : '')}>
+        return <li className={(activeClass === index ? 'active text-white' : '')}>
                     <a onClick={doClick.bind} ><span>{item.name}</span></a>
                 </li>
     });
 
     return (
-        <ul className="tabs-header">{tabs}</ul>
+        <ul className="tabs-header px-0">{tabs}</ul>
     )
     
 

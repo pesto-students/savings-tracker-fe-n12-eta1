@@ -68,7 +68,7 @@ const FundModal = ({show, handleClose, fund, goalId, onSubmitSuccess}) => {
 
     return <Modal size="lg" show={show} onHide={handleClose} dialogClassName="modal-90w">
         <Modal.Header closeButton>
-            <Modal.Title>{fund ? 'Edit' : 'Add'}</Modal.Title>
+            <Modal.Title>{fund ? 'Edit Funds' : 'Add Funds'}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
             <form autoComplete="off" onSubmit={handleSubmit} className="row">
