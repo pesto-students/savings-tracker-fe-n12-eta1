@@ -7,7 +7,6 @@ import Error from '../../common/Error';
 import {addGoal} from './Api'
 import alertService from '../../Alert';
 import Loader from "../../common/Loader";
-import CapitalizeText from "../../common/CapitalizeText";
 
 const AddGoal = ({add, setAdd, onSubmitSuccess}) => {
 
@@ -32,7 +31,7 @@ const AddGoal = ({add, setAdd, onSubmitSuccess}) => {
                                                 });
 
     const handleSubmit = async (_formInput) => {
-        setLoading(true)
+        setLoading(true);
 
         try {
             const formData = new FormData();
@@ -47,18 +46,17 @@ const AddGoal = ({add, setAdd, onSubmitSuccess}) => {
             addGoal(data).then((response) => {
 
                 alertService.showSuccess(response.data.message);
+                setAdd(false);
                 onSubmitSuccess();
                 setLoading(false);
 
             }).catch((error) => {
-                console.log(error)
                 setLoading(false);
                 alertService.showError(error.data.message);
             });
 
         }
         catch (err) {
-            console.log(err)
             setLoading(false)
         }
 
@@ -94,7 +92,7 @@ const AddGoal = ({add, setAdd, onSubmitSuccess}) => {
 
                                         <label>Goal Title</label>
                                         <Field name="title" type="text"
-                                               placeholder="Enter Goal Title" className="form-control capitalize"/>
+                                               placeholder="Enter Goal Title" className="form-control"/>
                                         {
                                             errors.title && <Error message={errors.title}/>
                                         }
@@ -106,7 +104,7 @@ const AddGoal = ({add, setAdd, onSubmitSuccess}) => {
                                         <label>description</label>
                                         <Field as="textarea" name="description" type="text"
                                                placeholder="Enter Goal description"
-                                               className="form-control capitalize" rows="4"
+                                               className="form-control" rows="4"
                                         />
                                         {
                                             errors.description && <Error message={errors.description}/>

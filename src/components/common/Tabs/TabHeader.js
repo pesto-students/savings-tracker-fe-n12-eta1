@@ -12,7 +12,7 @@ const TabHeader =(props)=> {
     });
 
     return (
-        <ul className="tabs-header px-0">{tabs}</ul>
+        <ul className="tabs-header px-0 mb-0">{tabs}</ul>
     )
     
 

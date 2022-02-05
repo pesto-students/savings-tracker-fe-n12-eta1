@@ -34,6 +34,7 @@ const SignIn = ({show, setShow}) => {
 
     useEffect(() => {
 
+        setPhoneNumber('');
         let btn = document.getElementById('signin-btn');
 
         if (btn && show) {
@@ -48,7 +49,6 @@ const SignIn = ({show, setShow}) => {
 
             try {
                 window.recaptchaVerifier.render().then((widgetId) => {
-                    // window.recaptchaWidgetId = widgetId;
                 });
             }
             catch (e) {

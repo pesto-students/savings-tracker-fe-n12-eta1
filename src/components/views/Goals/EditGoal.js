@@ -7,6 +7,7 @@ import Button from '../../common/Button';
 import Error from '../../common/Error';
 import alertService from '../../Alert';
 import Loader from "../../common/Loader";
+import {formatDateYYYYMMDD} from "../../common/utils";
 
 const EditGoal = ({edit, setEdit, goal, onSubmitSuccess}) => {
 
@@ -15,7 +16,7 @@ const EditGoal = ({edit, setEdit, goal, onSubmitSuccess}) => {
     const initialValues = {
         title: goal?.title || '',
         description: goal?.description || '',
-        end_date: goal?.end_date || '',
+        end_date: formatDateYYYYMMDD(goal?.end_date) || '',
         total_amount: goal?.total_amount || '',
     };
 
@@ -111,7 +112,7 @@ const EditGoal = ({edit, setEdit, goal, onSubmitSuccess}) => {
                                         <label>description</label>
                                         <Field as="textarea" name="description" type="text"
                                                placeholder="Enter Goal description"
-                                               className="form-control capitalize" rows="4"
+                                               className="form-control" rows="4"
                                         />
                                         {
                                             errors.description && <Error message={errors.description}/>

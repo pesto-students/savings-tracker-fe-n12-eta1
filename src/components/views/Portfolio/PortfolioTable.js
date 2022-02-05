@@ -50,7 +50,7 @@ const PortfolioTable = ({currency, portfolios, onEditInit, onDeleteInit}) => {
             {
                 "Header": "Amount",
                 "accessor": "amount",
-                "Cell": ({value}) => `${currency}  ${value}`
+                "Cell": ({value}) => `${currency}  ${value.toLocaleString()}`
 
             },
             {
