@@ -111,15 +111,13 @@ const Dashboard = ({active}) => {
                                 <div className="col-md-3 col-lg-3 col-6 mb-4 mb-lg-0">
                                     <div className="dashboard_div">
                                         <div className="row h-100">
-                                            <div className="col-8 pr-0 d-flex align-content-center">
+                                            <div className="col-md-8 pr-0 d-flex align-content-center">
                                                 <div>
                                                     <h1 className="mb-0">{dashboard.salary}</h1>
-                                                    <p className="mb-0">Income</p>
+                                                    <p className="mb-0">Income {currency}</p>
                                                 </div>
                                             </div>
-                                            <div className="col-4 d-flex">
-                                            {currency}
-                                            </div>
+                                            
                                         </div>
                                     </div>
                                 </div>
