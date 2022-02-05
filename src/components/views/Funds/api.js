@@ -37,9 +37,10 @@ const updateFund = (goalID,fundId, data) => {
 
 }
 
-const deleteFund = (goalID,fundId) => {
+const deleteFund = (/*goalID,*/fundId) => {
     return auth.currentUser.getIdToken().then(token => {
-        return axiosClient.delete(process.env.REACT_APP_API_URL+'/api/funds/' + goalID+'/'+fundId+'/delete', {headers: {'X-Auth-Token': token}});
+        return axiosClient.delete(process.env.REACT_APP_API_URL+'/api/funds/' +fundId+'/delete', {headers: {'X-Auth-Token': token}});
+        //return axiosClient.delete(process.env.REACT_APP_API_URL+'/api/funds/' + goalID+'/'+fundId+'/delete', {headers: {'X-Auth-Token': token}});
     });
 }
 

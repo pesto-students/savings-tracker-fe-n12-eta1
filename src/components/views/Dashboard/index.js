@@ -7,12 +7,8 @@ import {getDashboardData} from './api'
 import PieChart from '../../common/Graphs/piechart';
 import LineChart from '../../common/Graphs/index'
 import Skeleton from '../../common/Skeleton';
-import CurrencyForm from "../Portfolio/CurrencyForm";
-
-/*const columns=  [
-    ["Expenses", 1.4, 1.5, 1.5, 1.3, 1.5, 1.3, 1.6, 1.0, 1.3, 1.4, 1.0, 1.5, 1.0, 1.4, 1.3, 1.4, 1.5, 1.0, 1.5, 1.1, 1.8, 1.3, 1.5, 1.2, 1.3, 1.4, 1.4, 1.7, 1.5, 1.0, 1.1, 1.0, 1.2, 1.6, 1.5, 1.6, 1.5, 1.3, 1.3, 1.3, 1.2, 1.4, 1.2, 1.0, 1.3, 1.2, 1.3, 1.3, 1.1, 1.3],
-    ["Income", 2.5, 1.9, 2.1, 1.8, 2.2, 2.1, 1.7, 1.8, 1.8, 2.5, 2.0, 1.9, 2.1, 2.0, 2.4, 2.3, 1.8, 2.2, 2.3, 1.5, 2.3, 2.0, 2.0, 1.8, 2.1, 1.8, 1.8, 1.8, 2.1, 1.6, 1.9, 2.0, 2.2, 1.5, 1.4, 2.3, 2.4, 1.8, 1.8, 2.1, 2.4, 2.3, 1.9, 2.3, 2.5, 2.3, 1.9, 2.0, 2.3, 1.8]
-]*/
+import DatesRangePicker from "../../common/DateRangePicker/index";
+import Error from "../../common/Error";
 
 const Dashboard = ({active}) => {
     let goals = []
@@ -21,16 +17,17 @@ const Dashboard = ({active}) => {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(true)
     const [currency, setCurrency] = useState('');
+    const [filter, setFilter] = useState({});
 
     useEffect(() => {
 
         setLoading(true)
-        getData() 
+        getData(filter) 
     }, []);
 
-    const getData = () => {
+    const getData = (filters) => {
         setError('');
-        getDashboardData().then(response => {
+        getDashboardData(filters).then(response => {
             goals = response.data.dashboard.goals
             var total = goals.map(goal => goal.count).reduce((acc, goal) => goal + acc);
             setDashboard(response.data.dashboard)
@@ -135,16 +132,33 @@ const Dashboard = ({active}) => {
                             
                             { dashboard.chart_data && 
 
-                                
-                                <div className="row mt-5">
-                                    <h4 style={{marginLeft:"300px"}}>Income Vs Expense</h4>
-                                    <div className="col-6">
-                                        <LineChart columns={dashboard.chart_data}/>
+                                <>
+                                    <div className="row mt-5" style={{marginLeft:"100px"}}>
+
+
+                                        <div className="col-8">
+                                            <DatesRangePicker 
+                                            start_date={dashboard.start_date} 
+                                            end_date={dashboard.end_date}
+                                            onSubmitSuccess={(filterDate) => {
+                                                getData(filterDate)
+                                                //setFilter(filterDate)
+                                            }}
+                                            />
+                                            {error && <Error message={error}/>}
+                                        </div>
+                                        
                                     </div>
-                                    <div className="col-6">
-                                        <PieChart columns={dashboard.chart_data}/>
+                                    <div className="row mt-5">
+                                        
+                                        <div className="col-6">
+                                            <LineChart columns={dashboard.chart_data}/>
+                                        </div>
+                                        <div className="col-6">
+                                            <PieChart columns={dashboard.chart_data}/>
+                                        </div>
                                     </div>
-                                </div>
+                                </>
 
                             
                             }
