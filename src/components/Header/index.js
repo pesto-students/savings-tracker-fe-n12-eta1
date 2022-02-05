@@ -31,15 +31,8 @@ const Header = ({setShowSignIn, setShowDummyCredentials}) => {
                             <Link className="nav-link navbar-brand px-0" to="/">
                                 <img src={logo} className="App-logo" alt="logo"/>
                             </Link>
-                            {/*<button className="navbar-toggler" type="button" data-toggle="collapse"
-                                    aria-expanded="false" aria-label="Toggle navigation">
-                                <span className="sr-only">Toggle navigation</span>
-                                <span className="navbar-toggler-icon"></span>
-                                <span className="navbar-toggler-icon"></span>
-                                <span className="navbar-toggler-icon"></span>
-                            </button>*/}
+
                         </div>
-                        {/*<div className="collapse navbar-collapse">*/}
                         <div className="">
                             <ul className="navbar-nav ml-auto nav-ul flex-row">
                                 <li className={(location === '/' ? 'active ' : '') + 'nav-item pe-sm-2 pe-md-3 pe-1'}>
