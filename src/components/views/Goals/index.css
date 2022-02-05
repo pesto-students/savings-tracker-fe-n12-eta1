@@ -77,9 +77,28 @@ h1:last-of-type {
 justify-content: space-between;
 }
 
+@media only screen and (max-width: 450px) {
+    #mobileProgress {
+      display: block;
+    }
+    #desktopProgress {
+        display: none;
+      }
+  }
+
+  @media only screen and (min-width: 450px) {
+    #desktopProgress {
+        display: block;
+      }
+    #mobileProgress {
+      display: none;
+    }
+  }
+
 @media (max-width: 450px) {
     .box {
-        height: 200px;
+        height: 400px;
+       margin: 0px;
     }
 }
 
@@ -89,6 +108,13 @@ justify-content: space-between;
         height: 180px;
     }
 }
+
+
+.progress-tiny{font-size:10px!important}.w3-small{font-size:12px!important}.w3-medium{font-size:15px!important}.w3-large{font-size:18px!important}
+.progress-light-grey,.w3-hover-light-grey:hover,.w3-light-gray,.w3-hover-light-gray:hover{color:#000!important;background-color:#f1f1f1!important}
+.progress-green,.w3-hover-green:hover{color:#fff!important;background-color:#4CAF50!important}
+.progress-container,.w3-panel{padding:0.01em 16px}.w3-panel{margin-top:16px;margin-bottom:16px}
+.progress-orange,.w3-hover-orange:hover{color:#000!important;background-color:#ff9800!important}
 
 .cyan {
     border-top: 3px solid var(--cyan);

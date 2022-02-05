@@ -36,8 +36,11 @@ export default function DatesRangePicker({start_date,end_date,onSubmitSuccess}) 
     };
     return(
         <div className="row mt-6">
-            <h5 className="mb-3">Income Vs Expense</h5>
-            <div className="col-8">
+            <div className=" col-md-5">
+                <h5 className="mb-3">Income Vs Expense</h5>
+            </div>
+            
+            <div className="col-md-8">
                 <DateRangePicker 
                     startDate={startDate}
                     startDateId="s_id"
