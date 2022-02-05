@@ -172,7 +172,7 @@ const Card = (props) => {
                     <BillboardChart
                         data={{
                             columns: [
-                                [item.status, progress],
+                                [goal.status, progress],
 
                             ],
                             type: "gauge",
@@ -186,7 +186,7 @@ const Card = (props) => {
                             <CalendarIcon
                             className="icon-portfolio"
                             /> 
-                            {formatDateSimple(item.start_date)} - {formatDateSimple(item.end_date)}
+                            {formatDateSimple(goal.start_date)} - {formatDateSimple(goal.end_date)}
                         </b>
                     </p>
                 </div>
@@ -196,10 +196,10 @@ const Card = (props) => {
                             <CalendarIcon
                             className="icon-portfolio"
                             /> 
-                            {formatDateSimple(item.start_date)} - {formatDateSimple(item.end_date)}
+                            {formatDateSimple(goal.start_date)} - {formatDateSimple(goal.end_date)}
                         </b>
                     </p>
-                    <div>{item.status}</div>
+                    <div>{goal.status}</div>
                     
                     <div className="progress-light-grey progress-xlarge">
                         <div className={"progress-container " + colorClass}
