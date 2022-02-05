@@ -35,11 +35,6 @@ function App() {
         auth.onAuthStateChanged(function (user) {
             dispatch({type: 'AUTH', payload: user});
 
-            /*  if (user) {
-                  user.getIdToken().then(token => {
-                      console.log(token);
-                  });
-              }*/
 
             dispatch({type: 'APP_LOADING', payload: false});
 

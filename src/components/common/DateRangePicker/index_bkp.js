@@ -1,21 +1,20 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import 'react-dates/initialize';
-import { DateRangePicker } from 'react-dates';
+import {DateRangePicker} from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 import {formatDateSimple} from "../utils";
 import Button from "../Button";
 import Loader from "../Loader";
 import moment from "moment";
 
-export default function DatesRangePicker({start_date,end_date,onSubmitSuccess}) {
-    
+export default function DatesRangePicker({start_date, end_date, onSubmitSuccess}) {
+
     const [startDate, setStartDate] = useState(moment(start_date).format('DD/MM/YYYY'));
     const [endDate, setEndDate] = useState(moment(end_date).format('DD/MM/YYYY'));
     /*const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);*/
     const [focusedInput, setFocusedInput] = useState(null);
     const [loading, setLoading] = useState(false);
-    console.log(start_date,moment(start_date),startDate)
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -37,35 +36,38 @@ export default function DatesRangePicker({start_date,end_date,onSubmitSuccess}) 
 
     };
     return (
-      <div className="App">   
-        <h5 className="mb-3">Income Vs Expenses</h5>
-        <DateRangePicker
-        startDate={startDate}
-        startDateId="s_id"
-        endDate={endDate}
-        endDateId="e_id"
-        onDatesChange={({ startDate, endDate }) => { setStartDate(startDate); setEndDate(endDate); }}
-        focusedInput={focusedInput}
-        onFocusChange={e => setFocusedInput(e)}
-        displayFormat="DD/MM/YYYY"
-        />
+        <div className="App">
+            <h5 className="mb-3">Income Vs Expenses</h5>
+            <DateRangePicker
+                startDate={startDate}
+                startDateId="s_id"
+                endDate={endDate}
+                endDateId="e_id"
+                onDatesChange={({startDate, endDate}) => {
+                    setStartDate(startDate);
+                    setEndDate(endDate);
+                }}
+                focusedInput={focusedInput}
+                onFocusChange={e => setFocusedInput(e)}
+                displayFormat="DD/MM/YYYY"
+            />
 
-        <form onSubmit={handleSubmit} className="row">
-            <input type="hidden" name="start_date" value={startDate}/>
-            <input type="hidden" name="end_date" value={endDate}/>
-            <div>
-                <div className="d-flex">
-                    <Button type="submit" text="Apply"/>
-                    <Loader
-                        visible={loading}/>
+            <form onSubmit={handleSubmit} className="row">
+                <input type="hidden" name="start_date" value={startDate}/>
+                <input type="hidden" name="end_date" value={endDate}/>
+                <div>
+                    <div className="d-flex">
+                        <Button type="submit" text="Apply"/>
+                        <Loader
+                            visible={loading}/>
+
+                    </div>
 
                 </div>
-                
-            </div>
-        </form>       
-      </div>
+            </form>
+        </div>
     );
-  }
+}
 
 
 /*import React, { useState } from "react";

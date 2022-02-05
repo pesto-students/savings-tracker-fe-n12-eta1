@@ -13,10 +13,11 @@ import Swal from 'sweetalert2';
 import alertService from '../../Alert';
 import {deleteGoal} from './Api.js';
 import LinesEllipsis from 'react-lines-ellipsis'
-import {ReactSearchAutocomplete} from 'react-search-autocomplete'
 import {formatDateSimple} from "../../common/utils";
 
 import {CalendarIcon} from '@heroicons/react/solid';
+
+import GoalSearchForm from "./GoalSearchForm";
 
 const sortFields = [
     {field: 'start_date', order: 'desc', label: 'Start Date - Newest first'},
@@ -97,8 +98,8 @@ const Card = (props) => {
             navigate(`goal/${goal._id}`);
         }
 
-        const progress = getGoalCompletionPercentage(item)
-        const colorClass = (progress<50)?'progress-red':((progress>90)?'progress-green':'progress-yellow')
+        const progress = getGoalCompletionPercentage(goal)
+        const colorClass = (progress < 50) ? 'progress-red' : ((progress > 90) ? 'progress-green' : 'progress-yellow')
 
         const handleDelete = (goal) => {
 
@@ -132,8 +133,7 @@ const Card = (props) => {
                     });
             }
             catch (error) {
-                //setLoading(false);
-                //console.log(error)
+
                 setLoading(false);
                 alertService.showError(error.data.message);
             }
@@ -190,9 +190,11 @@ const Card = (props) => {
                         </b></p>
                 </div>
                 <div className='col-md-6 ' id="mobileProgress">
-                    <p className='text-center'><b>From :</b> {item.start_date} <b> &nbsp;To :</b> {item.end_date}</p>
+                    <p className='text-center'><b>From :</b> {goal.start_date} <b> &nbsp;To :</b> {goal.end_date}</p>
                     <div className="progress-light-grey progress-xlarge">
-                        <div className={"progress-container "+colorClass} style={{width: progress+"%"}}>{progress }%</div>
+                        <div className={"progress-container " + colorClass}
+                             style={{width: progress + "%"}}>{progress}%
+                        </div>
                     </div>
                 </div>
             </div>
@@ -200,69 +202,9 @@ const Card = (props) => {
     }) : <div className="col-md-12"><p className="text-black text-center">No records found</p></div>;
 
 
-    const handleOnSearch = (string, results) => {
-
-        props.setSearch(string)
-    }
-
-    const formatResult = (item) => {
-        return (<p dangerouslySetInnerHTML={{__html: '<strong>' + item + '</strong>'}}></p>); //To format result as html
-    }
-
-    const handleOnClear = () => {
-        // the item hovered
-        props.setSearch('')
-    }
-
-
     return (
         <>
-            <div className='row bg-grey justify-content-start'>
-                <div className='col-md-4 mt-3'>
-                    <div className="form-group align-item-center">
-                        <label className='mr-2 pb-0'>Search</label>
-                        <ReactSearchAutocomplete
-                            items={props.goals.docs}
-                            onSearch={handleOnSearch}
-                            onClear={handleOnClear}
-                            placeholder="Search"
-                            fuseOptions={{keys: ["title"]}}
-                            autoFocus
-                            resultStringKeyName="title"
-                            formatResult={formatResult}
-                            styling={{borderRadius: "0px", height: "38px"}}
-                        />
-                        {/* <input value={props.search} onChange={(e) => props.setSearch(e.target.value)} name="search" type="text"
-                                   placeholder="Search" className="form-control"/> */}
-
-                    </div>
-                </div>
-
-                <div className='col-md-3 mt-3'>
-                    <div className="form-group align-item-center">
-                        <label className='mr-2 pb-0'>Start Date</label>
-                        <input value={props.start_date} onChange={(e) => props.setStartDate(e.target.value)}
-                               name="start_date" type="date"
-                               placeholder="start date" className="form-control"/>
-                    </div>
-                </div>
-
-                <div className='col-md-3 mt-3'>
-                    <div className="form-group align-item-center">
-                        <label className='mr-2 pb-0'>End Date</label>
-                        <input value={props.end_date} onChange={(e) => props.setEndDate(e.target.value)}
-                               name="end_date" type="date"
-                               placeholder="end date" className="form-control"/>
-                    </div>
-                </div>
-
-                <div className="col-md-2 mt-3  align-item-center flex">
-                    <Button onClick={props.onSubmitSuccess}
-                            disabled={props.start_date.length < 1 || props.end_date.length < 1} type="submit"
-                            text="Search"
-                            extraclassName="primary btn-lg btn-round text-white"/>
-                </div>
-            </div>
+            <GoalSearchForm onSearch={props.onSearch}/>
             <div className="row justify-content-start">
                 <div className='col-md-4 mt-3'>
                     <div className="form-group align-item-center">
