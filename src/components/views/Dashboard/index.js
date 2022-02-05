@@ -9,6 +9,7 @@ import LineChart from '../../common/Graphs/index'
 import Skeleton from '../../common/Skeleton';
 import DatesRangePicker from "../../common/DateRangePicker/index";
 import Error from "../../common/Error";
+import moment from "moment";
 
 const Dashboard = ({active}) => {
     let goals = []
@@ -115,6 +116,7 @@ const Dashboard = ({active}) => {
                                                 <div>
                                                     <h1 className="mb-0">{dashboard.salary}</h1>
                                                     <p className="mb-0">Income {currency}</p>
+                                                    
                                                 </div>
                                             </div>
                                             
