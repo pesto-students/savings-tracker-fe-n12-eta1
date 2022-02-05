@@ -23,6 +23,7 @@ const Dashboard = ({active}) => {
 
         setLoading(true)
         getData(filter) 
+        
     }, []);
 
     const getData = (filters) => {

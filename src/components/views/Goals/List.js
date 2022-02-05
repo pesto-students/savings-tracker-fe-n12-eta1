@@ -74,7 +74,6 @@ const List = ({active}) => {
         getGoals(filterData).then((response) => {
             setGoals(response.data.goals || [])
             setLoading(false);
-            console.log(response.data)
             setCurrency(response.data.currency);
 
         }).catch((error) => {

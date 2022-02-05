@@ -7,6 +7,7 @@ import Spinner from '../../common/Spinner';
 import {saveProfile} from "./api";
 import {formatDateSimple, formatDateYYYYMMDD} from "../../common/utils";
 import Alert from "../../Alert";
+import moment from "moment"
 
 
 const Edit = ({setEdit, userData, onSave}) => {
@@ -121,7 +122,7 @@ const Edit = ({setEdit, userData, onSave}) => {
 
                                     <label>Date of Birth <span className='text-danger'>*</span></label>
                                     <Field name="dob" type="date"
-                                           placeholder="DOB" className="form-control"/>
+                                           placeholder="DOB" className="form-control" max={moment().format("YYYY-MM-DD")}/>
                                     {
                                         errors.dob && <Error message={errors.dob}/>
                                     }

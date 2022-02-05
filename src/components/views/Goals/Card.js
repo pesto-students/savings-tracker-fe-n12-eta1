@@ -118,8 +118,6 @@ const Card = (props) => {
                         if (result.value) {
                             deleteGoal(goal._id).then((response) => {
 
-                                //console.log(response)
-
                                 if (response.success === false) {
                                     setLoading(false)
                                     alertService.showError(response.data.message);
@@ -129,7 +127,6 @@ const Card = (props) => {
                                 setLoading(false);
 
                             }).catch((error) => {
-                                //console.log(error)
                                 setLoading(false);
                                 alertService.showError(error.data.message);
                             });
@@ -137,8 +134,6 @@ const Card = (props) => {
                     });
             }
             catch (error) {
-                //setLoading(false);
-                //console.log(error)
                 setLoading(false);
                 alertService.showError(error.data.message);
             }
@@ -179,7 +174,7 @@ const Card = (props) => {
                     <BillboardChart
                         data={{
                             columns: [
-                                ["Progress", progress],
+                                [item.status, progress],
                             ],
                             type: "gauge",
                         }}
@@ -188,12 +183,24 @@ const Card = (props) => {
                     />
 
                     <p className='text-center'>
-                        <b><CalendarIcon
-                            className="icon-portfolio"/> {formatDateSimple(item.start_date)} - {formatDateSimple(item.end_date)}
-                        </b></p>
+                        <b>
+                            <CalendarIcon
+                            className="icon-portfolio"
+                            /> 
+                            {formatDateSimple(item.start_date)} - {formatDateSimple(item.end_date)}
+                        </b>
+                    </p>
                 </div>
                 <div className='col-md-6 ' id="mobileProgress">
-                    <p className='text-center'><b>From :</b> {item.start_date} <b> &nbsp;To :</b> {item.end_date}</p>
+                    <p className='text-center'>
+                        <b>
+                            <CalendarIcon
+                            className="icon-portfolio"
+                            /> 
+                            {formatDateSimple(item.start_date)} - {formatDateSimple(item.end_date)}
+                        </b>
+                    </p>
+                    <div>{item.status}</div>
                     
                     <div className="progress-light-grey progress-xlarge">
                         <div className={"progress-container "+colorClass} style={{width: progress+"%"}}>{progress }%</div>
@@ -207,13 +214,11 @@ const Card = (props) => {
     const handleOnSearch = (string, results) => {
         // onSearch will have as the first callback parameter
         // the string searched and for the second the results.
-        console.log(string, results)
         props.setSearch(string)
     }
 
     const formatResult = (item) => {
         // return item
-        console.log(item)
         return (<p dangerouslySetInnerHTML={{__html: '<strong>' + item + '</strong>'}}></p>); //To format result as html
     }
 

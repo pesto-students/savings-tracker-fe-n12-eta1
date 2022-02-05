@@ -12,6 +12,7 @@ import DeleteModal from "./DeleteModal";
 import Spinner from "../../../common/Spinner";
 import {useParams} from 'react-router-dom';
 import {formatDateSimple} from "../../../common/utils";
+import {CalendarIcon} from '@heroicons/react/solid';
 
 const ViewGoal = ({active}) => {
     const {goalId} = useParams();
@@ -20,7 +21,7 @@ const ViewGoal = ({active}) => {
     const [goal, setGoal] = useState('');
     const [funds, setFunds] = useState([]);
     const [activeFund, setActiveFund] = useState(null);
-
+    const [currency, setCurrency] = useState('INR');
     const [showFundModal, setShowFundModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
 
@@ -36,6 +37,7 @@ const ViewGoal = ({active}) => {
 
             let data = response.data;
             setGoal(data.goal);
+            setCurrency(data.currency)
             getFunds(goalId).then(fund_response => {
 
                 let data = fund_response.data;
@@ -73,8 +75,6 @@ const ViewGoal = ({active}) => {
                             <div className="row">
                                 <div className="col-sm-9 col-md-6">
                                     <h2>{goal.title}</h2>
-                                    <h4>Target: {goal.total_amount}</h4>
-                                    <h4>Duration: {formatDateSimple(goal.start_date)} - {formatDateSimple(goal.end_date)}</h4>
                                 </div>
                                 <div className="col-sm-3 col-md-6">
                                     <Button onClick={() => {
@@ -82,9 +82,26 @@ const ViewGoal = ({active}) => {
                                     }} type="submit" text="Add Funds"
                                             extraClass="primary btn-round text-white float-md-end"/>
                                 </div>
+                                <div className="col-sm-9 col-md-6">
+                                    <h4>Target: {currency+ " "+goal.total_amount}</h4>
+                                    <h4>Duration: </h4>
+                                    <b>
+                                        <CalendarIcon
+                                        className="icon-portfolio"
+                                        /> 
+                                        {formatDateSimple(goal.start_date)} - {formatDateSimple(goal.end_date)}
+                                    </b>
+                                    
+                                </div>
+                                <div className="col-sm-9 col-md-6">
+                                    <h4>Details: </h4>
+                                    <p>{goal.description}</p>
+                                </div>
+                                
                             </div>
                             {loading ? <Spinner/> : error ? <Error message={error}/> :
                                 <>
+                                    
                                     <h3 className="mt-3">Goal Funds History</h3>
                                     <FundTable funds={funds} goalId={goalId}
                                                onEditInit={(fund) => {
