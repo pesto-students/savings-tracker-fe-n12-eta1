@@ -8,12 +8,12 @@ import {getSubscriptionStatus} from "./api";
 import TransactionsTable from "./transactions-table";
 import CancelSubscriptionBtn from "./cancel-subscription-btn";
 import Error from "../../common/Error";
-import Spinner from "../../common/Spinner";
 import {Tabs, Tab} from "react-bootstrap";
 
 
 import {LightningBoltIcon} from '@heroicons/react/solid';
 import {formatDateSimple} from "../../common/utils";
+import {useDispatch} from "react-redux";
 
 
 function add1YearToDate(date) {
@@ -25,9 +25,9 @@ function add1YearToDate(date) {
 }
 
 const Subscription = ({active}) => {
+    const dispatch = useDispatch();
 
     const [mostRecentSubscription, setMostRecentSubscription] = useState(null);
-    const [loading, setLoading] = useState(true);
     const [subscriptions, setSubscriptions] = useState([]);
 
     const [serverErrors, setServerErrors] = useState(false);
@@ -40,7 +40,8 @@ const Subscription = ({active}) => {
 
 
     const getInitialData = () => {
-        setLoading(true);
+        dispatch({type: 'PAGE_LOADING', payload: true});
+
         getSubscriptionStatus().then(({data}) => {
 
             setSubscriptions(data.subscriptions);
@@ -49,7 +50,8 @@ const Subscription = ({active}) => {
                 setMostRecentSubscription(data.subscriptions[0]);
             }
 
-            setLoading(false);
+            dispatch({type: 'PAGE_LOADING', payload: false});
+
 
         }).catch(handleServerError)
     };
@@ -58,7 +60,8 @@ const Subscription = ({active}) => {
     const handleServerError = (error) => {
         const errors = error.response?.data?.errors || [error.message];
         setServerErrors(errors);
-        setLoading(false);
+        dispatch({type: 'PAGE_LOADING', payload: false});
+
     };
 
     return (
@@ -77,24 +80,26 @@ const Subscription = ({active}) => {
                                     <h1 className="font_30"><i className="fa fa-credit-card mr-2"></i>Subscription</h1>
                                 </div>
                             </div>
-                            <div className="row">
-                                <Tabs
-                                    onSelect={setTabKey}
-                                    defaultActiveKey="status"
-                                    transition={false}
-                                    id="subscription-tabs"
-                                    className="mb-3"
-                                >
-                                    <Tab eventKey="status" title="Status"
-                                         tabClassName={"text-primary " + (tabKey === 'status' ? 'fw-bold' : '')}>
-                                        <div className="row">
-                                            <div className="col">
-                                                <h3 className="fs-3">Status {!loading && (mostRecentSubscription?.status === 'active' ?
-                                                    <LightningBoltIcon
-                                                        className="icon-lg text-success"/> : <LightningBoltIcon
-                                                        className="icon-lg text-danger"/>)}</h3>
-                                                {loading && <Spinner/>}
-                                                {!loading && (mostRecentSubscription?.status === 'active' ?
+                            {serverErrors ? <div className="row">
+                                    <div className="col"><Error message={serverErrors}/></div>
+                                </div> :
+                                <div className="row">
+                                    <Tabs
+                                        onSelect={setTabKey}
+                                        defaultActiveKey="status"
+                                        transition={false}
+                                        id="subscription-tabs"
+                                        className="mb-3"
+                                    >
+                                        <Tab eventKey="status" title="Status"
+                                             tabClassName={"text-primary " + (tabKey === 'status' ? 'fw-bold' : '')}>
+                                            <div className="row">
+                                                <div className="col">
+                                                    <h3 className="fs-3">Status {(mostRecentSubscription?.status === 'active' ?
+                                                        <LightningBoltIcon
+                                                            className="icon-lg text-success"/> : <LightningBoltIcon
+                                                            className="icon-lg text-danger"/>)}</h3>
+                                                    {mostRecentSubscription?.status === 'active' ?
 
                                                         <div>
                                                             <div>
@@ -113,28 +118,25 @@ const Subscription = ({active}) => {
                                                             className="ms-3"
                                                             onSuccess={getInitialData}/>
                                                         </div>
-                                                )}
+                                                    }
+                                                </div>
                                             </div>
-                                        </div>
-                                    </Tab>
-                                    <Tab eventKey="subscriptions"
-                                         title={"History" + (loading ? '' : ` (${subscriptions.length})`)}
-                                         tabClassName={"text-primary " + (tabKey === 'subscriptions' ? 'fw-bold' : '')}>
+                                        </Tab>
+                                        <Tab eventKey="subscriptions"
+                                             title={"History" + ` (${subscriptions.length})`}
+                                             tabClassName={"text-primary " + (tabKey === 'subscriptions' ? 'fw-bold' : '')}>
 
-                                        {!loading && <div className="row mt-3">
-                                            <div className="col">
-                                                <h3 className="fs-3">Subscriptions</h3>
-                                                <TransactionsTable subscriptions={subscriptions}/>
-                                            </div>
-                                        </div>}
-                                    </Tab>
-                                </Tabs>
-                            </div>
-
-                            {serverErrors && <div className="row">
-                                <div className="col"><Error message={serverErrors}/></div>
-                            </div>
+                                            {<div className="row mt-3">
+                                                <div className="col">
+                                                    <h3 className="fs-3">Subscriptions</h3>
+                                                    <TransactionsTable subscriptions={subscriptions}/>
+                                                </div>
+                                            </div>}
+                                        </Tab>
+                                    </Tabs>
+                                </div>
                             }
+
 
                         </div>
                     </div>

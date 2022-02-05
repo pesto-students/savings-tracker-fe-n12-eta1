@@ -7,6 +7,7 @@ import Button from '../../common/Button';
 import Error from '../../common/Error';
 import alertService from '../../Alert';
 import Loader from "../../common/Loader";
+import {formatDateYYYYMMDD} from "../../common/utils";
 
 const EditGoal = ({edit, setEdit, goal, onSubmitSuccess}) => {
 
@@ -15,7 +16,7 @@ const EditGoal = ({edit, setEdit, goal, onSubmitSuccess}) => {
     const initialValues = {
         title: goal?.title || '',
         description: goal?.description || '',
-        end_date: goal?.end_date || '',
+        end_date: formatDateYYYYMMDD(goal?.end_date) || '',
         total_amount: goal?.total_amount || '',
     };
 
@@ -36,7 +37,7 @@ const EditGoal = ({edit, setEdit, goal, onSubmitSuccess}) => {
         setLoading(true)
 
         try {
-            console.log(_formInput)
+
             const formData = new FormData();
 
             formData.append('total_amount', _formInput.total_amount);
@@ -48,22 +49,19 @@ const EditGoal = ({edit, setEdit, goal, onSubmitSuccess}) => {
 
             updateGoal(goal._id, data).then((response) => {
 
-                console.log(response)
 
                 alertService.showSuccess(response.data.message);
-
                 onSubmitSuccess();
+                setEdit(false);
                 setLoading(false);
 
             }).catch((error) => {
-                console.log(error)
                 setLoading(false);
                 alertService.showError(error.data.message);
             });
 
         }
         catch (err) {
-            console.log(err)
             setLoading(false)
         }
 
@@ -111,7 +109,7 @@ const EditGoal = ({edit, setEdit, goal, onSubmitSuccess}) => {
                                         <label>description</label>
                                         <Field as="textarea" name="description" type="text"
                                                placeholder="Enter Goal description"
-                                               className="form-control capitalize" rows="4"
+                                               className="form-control" rows="4"
                                         />
                                         {
                                             errors.description && <Error message={errors.description}/>
@@ -145,7 +143,7 @@ const EditGoal = ({edit, setEdit, goal, onSubmitSuccess}) => {
                                 </div>
 
                                 <div className="row">
-                                    <div className="col-md-6 ml-auto mr-auto text-center">
+                                    <div className="col-md-6 ml-auto mr-auto flex">
                                         <Button disabled={!isValid} type="submit" text="Update Goal"
                                                 extraClass="primary btn-round text-white"/>
                                         <Loader

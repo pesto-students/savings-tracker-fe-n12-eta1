@@ -13,12 +13,14 @@ import PortfolioForm from './PortfolioModal';
 import PortfolioTable from "./PortfolioTable";
 import CurrencyForm from "./CurrencyForm";
 import DeleteModal from "./DeleteModal";
-import Spinner from "../../common/Spinner";
+import {useDispatch} from "react-redux";
 
 const Portfolio = ({active}) => {
 
+
+    const dispatch = useDispatch();
+
     const [error, setError] = useState('');
-    const [loading, setLoading] = useState(true);
 
     const [portfolios, setPortfolios] = useState([]);
     const [currency, setCurrency] = useState('');
@@ -32,12 +34,14 @@ const Portfolio = ({active}) => {
     useEffect(() => {
         getData();
 
+
     }, []);
 
     const getData = () => {
 
         setError('');
-        setLoading(true);
+
+        dispatch({type: 'PAGE_LOADING', payload: true});
 
         getPortfolio().then(response => {
 
@@ -45,12 +49,14 @@ const Portfolio = ({active}) => {
             const portfolio = data.portfolios;
             setPortfolios(portfolio);
             setCurrency(data.currency);
-            setLoading(false);
+            dispatch({type: 'PAGE_LOADING', payload: false});
+
 
         }).catch(err => {
 
             setError(err.message);
-            setLoading(false);
+            dispatch({type: 'PAGE_LOADING', payload: false});
+
         });
 
     };
@@ -82,7 +88,7 @@ const Portfolio = ({active}) => {
                                             extraClass="primary btn-round text-white"/>
                                 </div>
                             </div>
-                            {loading ? <Spinner/> : error ? <Error message={error}/> :
+                            {error ? <Error message={error}/> :
                                 <PortfolioTable currency={currency} portfolios={portfolios}
                                                 onEditInit={(portfolio) => {
                                                     setActivePortfolio(portfolio);

@@ -13,10 +13,11 @@ import Swal from 'sweetalert2';
 import alertService from '../../Alert';
 import {deleteGoal} from './Api.js';
 import LinesEllipsis from 'react-lines-ellipsis'
-import {ReactSearchAutocomplete} from 'react-search-autocomplete'
 import {formatDateSimple} from "../../common/utils";
 
 import {CalendarIcon} from '@heroicons/react/solid';
+
+import GoalSearchForm from "./GoalSearchForm";
 
 const sortFields = [
     {field: 'start_date', order: 'desc', label: 'Start Date - Newest first'},
@@ -28,9 +29,7 @@ const sortFields = [
 ];
 
 const getGoalCompletionPercentage = (goal) => {
-
-    return Math.round(goal.saved_amount/ goal.total_amount*100);
-
+    return (goal.saved_amount / goal.total_amount * 100).toFixed(2);
 }
 
 const Card = (props) => {
@@ -39,10 +38,9 @@ const Card = (props) => {
     const [edit, setEdit] = useState(false);
     const [loading, setLoading] = useState(false);
     const [goal, setGoal] = useState([]);
-    const [add, setAdd] = useState(false);
 
     let navigate = useNavigate();
-    var goal_cards = props.goals.docs.length > 0 ? props.goals.docs.map((item, index) => {
+    var goal_cards = props.goals?.docs?.length > 0 ? props.goals.docs.map((goal, index) => {
 
         const CHART_DATA = {
             columns: [
@@ -100,8 +98,8 @@ const Card = (props) => {
             navigate(`goal/${goal._id}`);
         }
 
-        const progress = getGoalCompletionPercentage(item)
-        const colorClass = (progress<50)?'progress-red':((progress>90)?'progress-green':'progress-yellow')
+        const progress = getGoalCompletionPercentage(goal)
+        const colorClass = (progress < 50) ? 'progress-red' : ((progress > 90) ? 'progress-green' : 'progress-yellow')
 
         const handleDelete = (goal) => {
 
@@ -145,24 +143,24 @@ const Card = (props) => {
                     <Dropdown.Toggle as={CustomToggle}/>
                     <Dropdown.Menu size="sm" title="">
                         <Dropdown.Item
-                            onClick={(e) => handleEdit(item)}>
+                            onClick={(e) => handleEdit(goal)}>
                             <i className="fa fa-edit text-black" aria-hidden="true"></i> &nbsp;Edit
                         </Dropdown.Item>
                         <Dropdown.Item
-                            onClick={(e) => handleDelete(item)}>
+                            onClick={(e) => handleDelete(goal)}>
                             <i className="fa fa-trash text-black" aria-hidden="true"></i> &nbsp;Delete
                         </Dropdown.Item>
                         <Dropdown.Item
-                            onClick={(e) => handleView(item)}>
+                            onClick={(e) => handleView(goal)}>
                             <i className="fa fa-eye text-black" aria-hidden="true"></i> &nbsp;View
                         </Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
                 <div className='col-md-12'>
-                    <h2>{item.title}</h2>
-                    <h4><b>{props.currency + " " + item.total_amount}</b></h4>
+                    <h2>{goal.title}</h2>
+                    <h4><b>{props.currency + " " + goal.total_amount.toLocaleString()}</b></h4>
                     <LinesEllipsis
-                        text={item.description}
+                        text={goal.description}
                         maxLine='3'
                         ellipsis='...'
                         trimRight
@@ -175,6 +173,7 @@ const Card = (props) => {
                         data={{
                             columns: [
                                 [item.status, progress],
+
                             ],
                             type: "gauge",
                         }}
@@ -203,7 +202,9 @@ const Card = (props) => {
                     <div>{item.status}</div>
                     
                     <div className="progress-light-grey progress-xlarge">
-                        <div className={"progress-container "+colorClass} style={{width: progress+"%"}}>{progress }%</div>
+                        <div className={"progress-container " + colorClass}
+                             style={{width: progress + "%"}}>{progress}%
+                        </div>
                     </div>
                 </div>
             </div>
@@ -228,62 +229,10 @@ const Card = (props) => {
     }
 
 
+
     return (
         <>
-
-
-            <div className='row'>
-                <div className="col-12 mt-3 mb-3">
-                    <Button onClick={(e) => setAdd(true)} type="submit" text="Add Goal"
-                            extraclassName="primary btn-lg btn-round text-white float-end"/>
-                </div>
-            </div>
-            <div className='row bg-grey justify-content-start'>
-                <div className='col-md-4 mt-3'>
-                    <div className="form-group align-item-center">
-                        <label className='mr-2 pb-0'>Search</label>
-                        <ReactSearchAutocomplete
-                            items={props.goals.docs}
-                            onSearch={handleOnSearch}
-                            onClear={handleOnClear}
-                            placeholder="Search"
-                            fuseOptions={{keys: ["title"]}}
-                            autoFocus
-                            resultStringKeyName="title"
-                            formatResult={formatResult}
-                            styling={{borderRadius: "0px", height: "38px"}}
-                        />
-                        {/* <input value={props.search} onChange={(e) => props.setSearch(e.target.value)} name="search" type="text"
-                                   placeholder="Search" className="form-control"/> */}
-
-                    </div>
-                </div>
-
-                <div className='col-md-3 mt-3'>
-                    <div className="form-group align-item-center">
-                        <label className='mr-2 pb-0'>Start Date</label>
-                        <input value={props.start_date} onChange={(e) => props.setStartDate(e.target.value)}
-                               name="start_date" type="date"
-                               placeholder="start date" className="form-control"/>
-                    </div>
-                </div>
-
-                <div className='col-md-3 mt-3'>
-                    <div className="form-group align-item-center">
-                        <label className='mr-2 pb-0'>End Date</label>
-                        <input value={props.end_date} onChange={(e) => props.setEndDate(e.target.value)}
-                               name="end_date" type="date"
-                               placeholder="end date" className="form-control"/>
-                    </div>
-                </div>
-
-                <div className="col-md-2 mt-3  align-item-center flex">
-                    <Button onClick={props.onSubmitSuccess}
-                            disabled={props.start_date.length < 1 || props.end_date.length < 1} type="submit"
-                            text="Search"
-                            extraclassName="primary btn-lg btn-round text-white"/>
-                </div>
-            </div>
+            <GoalSearchForm onSearch={props.onSearch}/>
             <div className="row justify-content-start">
                 <div className='col-md-4 mt-3'>
                     <div className="form-group align-item-center">
@@ -298,45 +247,36 @@ const Card = (props) => {
                         </select>
                     </div>
                 </div>
-
-
-                <div className='col-md-4 mt-3'></div>
             </div>
-            {props.loading && <Skeleton totalCollections="1"/>}
-
-            {!props.loading &&
-            <>
-                <div className="row justify-content-start">
-                    {goal_cards}
-                </div>
-                <div className="row justify-content-start">
-                    {
-                        props.goals.docs.length > 0 &&
-                        <>
-                            <div className='col-md-6'>
-                                <div className="form-group flex align-item-center">
-                                    <label className='mr-2 pb-0'>Showing</label>
-                                    <select defaultValue={props.perPage}
-                                            onChange={(e) => props.setPerPage(e.target.value)}
-                                            className="form-control width-25 mr-2" id="">
-                                        <option value="6">6</option>
-                                        <option value="12">12</option>
-                                        <option value="18">18</option>
-                                    </select>
-                                    <label className='pb-0'>of 20 Records</label>
-                                </div>
-                            </div>
-                            <div className='col-md-6'>
-                                <Paginate items={props.goals} setPage={props.setPage}/>
-                            </div>
-                        </>
-                    }
-                </div>
-            </>
-            }
-
             {
-                add && <AddGoal add={add} setAdd={setAdd} onSubmitSuccess={props.onSubmitSuccess}/>
+                <>
+                    <div className="row justify-content-start">
+                        {goal_cards}
+                    </div>
+                    <div className="row justify-content-start">
+                        {
+                            props.goals?.docs?.length > 0 &&
+                            <>
+                                <div className='col-md-6'>
+                                    <div className="form-group flex align-item-center">
+                                        <label className='mr-2 pb-0'>Showing</label>
+                                        <select defaultValue={props.perPage}
+                                                onChange={(e) => props.setPerPage(e.target.value)}
+                                                className="form-control width-25 mr-2" id="">
+                                            <option value="6">6</option>
+                                            <option value="12">12</option>
+                                            <option value="18">18</option>
+                                        </select>
+                                        <label className='pb-0'>of {props.goals?.docs?.length} Records</label>
+                                    </div>
+                                </div>
+                                <div className='col-md-6'>
+                                    <Paginate items={props.goals} setPage={props.setPage}/>
+                                </div>
+                            </>
+                        }
+                    </div>
+                </>
             }
 
             {
