@@ -51,8 +51,8 @@ const EditGoal = ({edit, setEdit, goal, onSubmitSuccess}) => {
 
 
                 alertService.showSuccess(response.data.message);
-
                 onSubmitSuccess();
+                setEdit(false);
                 setLoading(false);
 
             }).catch((error) => {
@@ -143,7 +143,7 @@ const EditGoal = ({edit, setEdit, goal, onSubmitSuccess}) => {
                                 </div>
 
                                 <div className="row">
-                                    <div className="col-md-6 ml-auto mr-auto text-center">
+                                    <div className="col-md-6 ml-auto mr-auto flex">
                                         <Button disabled={!isValid} type="submit" text="Update Goal"
                                                 extraClass="primary btn-round text-white"/>
                                         <Loader

@@ -1,4 +1,5 @@
 const formatDateSimple = (dateStr) => {
+
     if (dateStr) {
         const date = new Date(dateStr);
 
@@ -24,4 +25,4 @@ const formatDateYYYYMMDD = (dateStr) => {
     return '';
 };
 
-export {formatDateSimple,formatDateYYYYMMDD};
+export {formatDateSimple, formatDateYYYYMMDD};

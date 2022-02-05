@@ -71,7 +71,7 @@ const Home = ({show, setShow}) => {
 
         return () => {
             document.removeEventListener('scroll', watchScroll);
-            _('contact-us-item').classList.remove('active');
+            _('contact-us-item')?.classList.remove('active');
 
         }
     }, []);

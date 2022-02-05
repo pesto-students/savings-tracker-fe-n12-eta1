@@ -34,12 +34,8 @@ function App() {
 
         auth.onAuthStateChanged(function (user) {
             dispatch({type: 'AUTH', payload: user});
-
-
             dispatch({type: 'APP_LOADING', payload: false});
-
             setLoading(false);
-
         });
 
 
