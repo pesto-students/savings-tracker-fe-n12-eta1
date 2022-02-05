@@ -239,7 +239,7 @@ const Card = (props) => {
                                             <option value="12">12</option>
                                             <option value="18">18</option>
                                         </select>
-                                        <label className='pb-0'>of 20 Records</label>
+                                        <label className='pb-0'>of {props.goals?.docs?.length} Records</label>
                                     </div>
                                 </div>
                                 <div className='col-md-6'>
