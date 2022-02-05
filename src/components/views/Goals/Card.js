@@ -1,9 +1,7 @@
-import {useState} from 'react';
+import React, {useState} from 'react';
 import './index.css';
-import React from 'react';
-import image from './images/target.jpg';
 import Skeleton from '../../common/Skeleton';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import Paginate from '../../common/Paginate';
 import BillboardChart from 'react-billboardjs';
 import 'billboard.js/dist/billboard.css';
@@ -15,19 +13,30 @@ import Swal from 'sweetalert2';
 import alertService from '../../Alert';
 import {deleteGoal} from './Api.js';
 import LinesEllipsis from 'react-lines-ellipsis'
-import { ReactSearchAutocomplete } from 'react-search-autocomplete'
+import {ReactSearchAutocomplete} from 'react-search-autocomplete'
+
+
+const sortFields = [
+    {field: 'start_date', order: 'desc', label: 'Start Date - Newest first'},
+    {field: 'start_date', order: 'asc', label: 'Start Date - Oldest first'},
+    {field: 'total_amount', order: 'desc', label: 'Amount - High to Low'},
+    {field: 'total_amount', order: 'asc', label: 'Amount - Low to High'},
+    {field: 'title', order: 'asc', label: 'Title - A-Z'},
+    {field: 'title', order: 'desc', label: 'Title - Z-A'},
+];
 
 const Card = (props) => {
-  
+
     const [colors, setColors] = useState(['cyan', 'red', 'blue', 'orange', 'yellow', 'green'])
     const [edit, setEdit] = useState(false);
     const [loading, setLoading] = useState(false);
     const [goal, setGoal] = useState([]);
     const [add, setAdd] = useState(false);
 
+
     let navigate = useNavigate();
     var goal_cards = props.goals.docs.length > 0 ? props.goals.docs.map((item, index) => {
-        
+
         const CHART_DATA = {
             columns: [
                 ["Progress", 40],
@@ -86,39 +95,39 @@ const Card = (props) => {
 
 
         const handleDelete = (goal) => {
-            
-            try{
-                Swal.fire({
-                            title: "Are you sure?",
-                            text: "You want to delete this goal? ",
-                            icon: "warning",
-                            confirmButtonText: 'Delete',
-                            confirmButtonColor: '#d71616',
-                            showCancelButton: true,
-                        })
-                .then((result) => {
-                    if (result.value) {
-                        deleteGoal(goal._id).then((response) => {
 
-                            //console.log(response)
-                            
-                            if(response.success === false){
-                                setLoading(false)
-                                alertService.showError(response.data.message);
-                            }
-                            props.onSubmitSuccess();
-                            alertService.showSuccess(response.data.message);
-                            setLoading(false);
-                
-                        }).catch((error) => {
-                            //console.log(error)
-                            setLoading(false);
-                            alertService.showError(error.data.message);
-                        });
-                    }
-                });
+            try {
+                Swal.fire({
+                              title: "Are you sure?",
+                              text: "You want to delete this goal? ",
+                              icon: "warning",
+                              confirmButtonText: 'Delete',
+                              confirmButtonColor: '#d71616',
+                              showCancelButton: true,
+                          })
+                    .then((result) => {
+                        if (result.value) {
+                            deleteGoal(goal._id).then((response) => {
+
+                                //console.log(response)
+
+                                if (response.success === false) {
+                                    setLoading(false)
+                                    alertService.showError(response.data.message);
+                                }
+                                props.onSubmitSuccess();
+                                alertService.showSuccess(response.data.message);
+                                setLoading(false);
+
+                            }).catch((error) => {
+                                //console.log(error)
+                                setLoading(false);
+                                alertService.showError(error.data.message);
+                            });
+                        }
+                    });
             }
-            catch(error){
+            catch (error) {
                 //setLoading(false);
                 //console.log(error)
                 setLoading(false);
@@ -131,15 +140,15 @@ const Card = (props) => {
                 <Dropdown className="float-right">
                     <Dropdown.Toggle as={CustomToggle}/>
                     <Dropdown.Menu size="sm" title="">
-                        <Dropdown.Item 
+                        <Dropdown.Item
                             onClick={(e) => handleEdit(item)}>
                             <i className="fa fa-edit text-black" aria-hidden="true"></i> &nbsp;Edit
                         </Dropdown.Item>
-                        <Dropdown.Item 
+                        <Dropdown.Item
                             onClick={(e) => handleDelete(item)}>
                             <i className="fa fa-trash text-black" aria-hidden="true"></i> &nbsp;Delete
                         </Dropdown.Item>
-                        <Dropdown.Item 
+                        <Dropdown.Item
                             onClick={(e) => handleView(item)}>
                             <i className="fa fa-eye text-black" aria-hidden="true"></i> &nbsp;View
                         </Dropdown.Item>
@@ -147,7 +156,7 @@ const Card = (props) => {
                 </Dropdown>
                 <div className='col-12'>
                     <h2>{item.title}</h2>
-                    <h4><b>{props.currency+" "+item.total_amount}</b></h4>
+                    <h4><b>{props.currency + " " + item.total_amount}</b></h4>
                     <LinesEllipsis
                         text={item.description}
                         maxLine='3'
@@ -155,7 +164,7 @@ const Card = (props) => {
                         trimRight
                         basedOn='letters'
                     />
-                   
+
                 </div>
                 <div className='col-12'>
                     <BillboardChart
@@ -169,26 +178,25 @@ const Card = (props) => {
             </div>
         )
     }) : <div className="col-12"><p className="text-black text-center">No records found</p></div>;
-    
-    
+
+
     const handleOnSearch = (string, results) => {
         // onSearch will have as the first callback parameter
         // the string searched and for the second the results.
         console.log(string, results)
         props.setSearch(string)
-      }
+    }
 
-      const formatResult = (item) => {
+    const formatResult = (item) => {
         // return item
         console.log(item)
-        return (<p dangerouslySetInnerHTML={{__html: '<strong>'+item+'</strong>'}}></p>); //To format result as html
-      }
+        return (<p dangerouslySetInnerHTML={{__html: '<strong>' + item + '</strong>'}}></p>); //To format result as html
+    }
 
-      const handleOnClear = () => {
+    const handleOnClear = () => {
         // the item hovered
         props.setSearch('')
-      }
-
+    }
 
 
     return (
@@ -210,7 +218,7 @@ const Card = (props) => {
                                 onSearch={handleOnSearch}
                                 onClear={handleOnClear}
                                 placeholder="Search"
-                                fuseOptions={{ keys: ["title"] }}
+                                fuseOptions={{keys: ["title"]}}
                                 autoFocus
                                 resultStringKeyName="title"
                                 formatResult={formatResult}
@@ -225,7 +233,8 @@ const Card = (props) => {
                     <div className='col-3 mt-3'>
                         <div className="form-group align-item-center">
                             <label className='mr-2 pb-0'>Start Date</label>
-                            <input value={props.start_date} onChange={(e) => props.setStartDate(e.target.value)} name="start_date" type="date"
+                            <input value={props.start_date} onChange={(e) => props.setStartDate(e.target.value)}
+                                   name="start_date" type="date"
                                    placeholder="start date" className="form-control"/>
                         </div>
                     </div>
@@ -233,13 +242,16 @@ const Card = (props) => {
                     <div className='col-3 mt-3'>
                         <div className="form-group align-item-center">
                             <label className='mr-2 pb-0'>End Date</label>
-                            <input value={props.end_date} onChange={(e) => props.setEndDate(e.target.value)} name="end_date" type="date"
+                            <input value={props.end_date} onChange={(e) => props.setEndDate(e.target.value)}
+                                   name="end_date" type="date"
                                    placeholder="end date" className="form-control"/>
                         </div>
                     </div>
 
                     <div className="col-2 mt-3  align-item-center flex">
-                        <Button onClick={props.onSubmitSuccess} disabled={props.start_date.length<1 || props.end_date.length<1} type="submit" text="Search"
+                        <Button onClick={props.onSubmitSuccess}
+                                disabled={props.start_date.length < 1 || props.end_date.length < 1} type="submit"
+                                text="Search"
                                 extraClass="primary btn-lg btn-round text-white"/>
                     </div>
                 </div>
@@ -247,57 +259,50 @@ const Card = (props) => {
                     <div className='col-4 mt-3'>
                         <div className="form-group align-item-center">
                             <label className='mr-2 pb-0'>Sort By</label>
-                            <select defaultValue={props.orderBy} 
-                                onChange={(e) => props.setOrderBy(e.target.value)} name="order_by" className="form-control mr-2" id="">
-                                <option value="title">Title</option>
-                                <option value="start_date">Date</option>
-                                <option value="total_amount">Amount</option>
+                            <select onChange={(e) => props.setSortFields(e.target.value)
+                            } name="order_by"
+                                    className="form-control mr-2" id="">
+                                {sortFields.map(option => {
+                                    return <option key={option.label}
+                                                   value={option.field + '___' + option.order}>{option.label}</option>
+                                })}
                             </select>
                         </div>
                     </div>
 
-                    <div className='col-4 mt-3'>
-                        <div className="form-group align-item-center">
-                            <label className='mr-2 pb-0'>Order By</label>
-                            <select defaultValue={props.sortBy} 
-                                onChange={(e) => props.setSortBy(e.target.value)} name="sort_by" className="form-control mr-2" id="">
-                                <option value="asc">Ascending </option>
-                                <option value="desc">Descending </option>
-                            </select>
-                        </div>
-                    </div>
+
                     <div className='col-4 mt-3'></div>
                 </div>
                 {props.loading && <Skeleton totalCollections="1"/>}
 
-                { !props.loading &&
+                {!props.loading &&
                 <>
-                <div className="row">
-                    {goal_cards}
-                </div>
-                <div className="row">
-                    {
-                        props.goals.docs.length > 0 &&
-                        <>
-                            <div className='col-6'>
-                                <div className="form-group flex align-item-center">
-                                    <label className='mr-2 pb-0'>Showing</label>
-                                    <select defaultValue={props.perPage}
-                                            onChange={(e) => props.setPerPage(e.target.value)}
-                                            className="form-control width-25 mr-2" id="">
-                                        <option value="6">6</option>
-                                        <option value="12">12</option>
-                                        <option value="18">18</option>
-                                    </select>
-                                    <label className='pb-0'>of 20 Records</label>
+                    <div className="row">
+                        {goal_cards}
+                    </div>
+                    <div className="row">
+                        {
+                            props.goals.docs.length > 0 &&
+                            <>
+                                <div className='col-6'>
+                                    <div className="form-group flex align-item-center">
+                                        <label className='mr-2 pb-0'>Showing</label>
+                                        <select defaultValue={props.perPage}
+                                                onChange={(e) => props.setPerPage(e.target.value)}
+                                                className="form-control width-25 mr-2" id="">
+                                            <option value="6">6</option>
+                                            <option value="12">12</option>
+                                            <option value="18">18</option>
+                                        </select>
+                                        <label className='pb-0'>of 20 Records</label>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className='col-6'>
-                                <Paginate items={props.goals} setPage={props.setPage}/>
-                            </div>
-                        </>
-                    }
-                </div>
+                                <div className='col-6'>
+                                    <Paginate items={props.goals} setPage={props.setPage}/>
+                                </div>
+                            </>
+                        }
+                    </div>
                 </>
                 }
 
@@ -306,7 +311,8 @@ const Card = (props) => {
                 }
 
                 {
-                    edit && <EditGoal edit={edit} setEdit={setEdit} goal={goal} onSubmitSuccess={props.onSubmitSuccess}/>
+                    edit &&
+                    <EditGoal edit={edit} setEdit={setEdit} goal={goal} onSubmitSuccess={props.onSubmitSuccess}/>
                 }
             </div>
             {/* end goal card */}
