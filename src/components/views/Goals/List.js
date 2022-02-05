@@ -7,6 +7,7 @@ import Card from './Card.js';
 import DashboardBanner from '../../common/DashboardBanner';
 import Tabs from '../../common/Tabs/Tabs.js';
 import banner from './images/target.jpg';
+import Skeleton from '../../common/Skeleton';
 
 const List = ({active}) => {
 
@@ -105,7 +106,8 @@ const List = ({active}) => {
                                 </div>
                             </div>
 
-                            {goals &&
+                            {loading && <Skeleton totalCollections="1"/>}
+                            {!loading && goals &&
                             <Card
 
                                 loading={loading}

@@ -12,6 +12,7 @@
     display: table;
     width: 100%;
     list-style-type: none;
+    
 }
 .tabs-header li {
 display: table-cell;
@@ -23,12 +24,12 @@ cursor: pointer;
     display: block;
     padding: 15px;
     background: #F7F9F9;
-    transition: all .2s ease-in;
-    transform: skew(-40deg);
+    /* transition: all .2s ease-in;
+    transform: skew(-40deg); */
 }
 .tabs-header li > a span {
 display: block;
-transform: skew(40deg);
+/*transform: skew(40deg);*/
 }
 .tabs-header li > a:hover {
     background: #ec407a;
