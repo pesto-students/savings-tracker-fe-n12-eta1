@@ -136,7 +136,7 @@ const Card = (props) => {
         }
 
         return (
-            <div key={index} className={`col-5 box ${colors[index]} mb-5`}>
+            <div key={index} className={`col-md-5 box ${colors[index]} mb-5`}>
                 <Dropdown className="float-right">
                     <Dropdown.Toggle as={CustomToggle}/>
                     <Dropdown.Menu size="sm" title="">
@@ -154,9 +154,9 @@ const Card = (props) => {
                         </Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
-                <div className='col-12'>
+                <div className='col-md-12'>
                     <h2>{item.title}</h2>
-                    <h4><b>{props.currency + " " + item.total_amount}</b></h4>
+                    <h4><b>{props.currency } {item.total_amount}</b></h4>
                     <LinesEllipsis
                         text={item.description}
                         maxLine='3'
@@ -166,7 +166,7 @@ const Card = (props) => {
                     />
 
                 </div>
-                <div className='col-12'>
+                <div className='col-md-12' id="desktopProgress">
                     <BillboardChart
                         data={CHART_DATA}
                         color={color}
@@ -175,9 +175,16 @@ const Card = (props) => {
 
                     <p className='text-center'><b>From :</b> {item.start_date} <b> &nbsp;To :</b> {item.end_date}</p>
                 </div>
+                <div className='col-md-6 ' id="mobileProgress">
+                    <p className='text-center'><b>From :</b> {item.start_date} <b> &nbsp;To :</b> {item.end_date}</p>
+      
+                    <div class="progress-light-grey progress-xlarge">
+                        <div class="progress-container progress-orange" style={{width:"40%"}}>40%</div>
+                    </div> 
+                </div>
             </div>
         )
-    }) : <div className="col-12"><p className="text-black text-center">No records found</p></div>;
+    }) : <div className="col-md-12"><p className="text-black text-center">No records found</p></div>;
 
 
     const handleOnSearch = (string, results) => {
@@ -201,16 +208,16 @@ const Card = (props) => {
 
     return (
         <>
-            {/* goal card */}
-            <div className="container">
+
+            
                 <div className='row'>
                     <div className="col-12 mt-3 mb-3">
                         <Button onClick={(e) => setAdd(true)} type="submit" text="Add Goal"
                                 extraClass="primary btn-lg btn-round text-white float-right"/>
                     </div>
                 </div>
-                <div className='row bg-grey'>
-                    <div className='col-4 mt-3'>
+                <div className='row bg-grey justify-content-start'>
+                    <div className='col-md-4 mt-3'>
                         <div className="form-group align-item-center">
                             <label className='mr-2 pb-0'>Search</label>
                             <ReactSearchAutocomplete
@@ -230,7 +237,7 @@ const Card = (props) => {
                         </div>
                     </div>
 
-                    <div className='col-3 mt-3'>
+                    <div className='col-md-3 mt-3'>
                         <div className="form-group align-item-center">
                             <label className='mr-2 pb-0'>Start Date</label>
                             <input value={props.start_date} onChange={(e) => props.setStartDate(e.target.value)}
@@ -239,7 +246,7 @@ const Card = (props) => {
                         </div>
                     </div>
 
-                    <div className='col-3 mt-3'>
+                    <div className='col-md-3 mt-3'>
                         <div className="form-group align-item-center">
                             <label className='mr-2 pb-0'>End Date</label>
                             <input value={props.end_date} onChange={(e) => props.setEndDate(e.target.value)}
@@ -248,15 +255,15 @@ const Card = (props) => {
                         </div>
                     </div>
 
-                    <div className="col-2 mt-3  align-item-center flex">
+                    <div className="col-md-2 mt-3  align-item-center flex">
                         <Button onClick={props.onSubmitSuccess}
                                 disabled={props.start_date.length < 1 || props.end_date.length < 1} type="submit"
                                 text="Search"
                                 extraClass="primary btn-lg btn-round text-white"/>
                     </div>
                 </div>
-                <div className="row">
-                    <div className='col-4 mt-3'>
+                <div className="row justify-content-start">
+                    <div className='col-md-4 mt-3'>
                         <div className="form-group align-item-center">
                             <label className='mr-2 pb-0'>Sort By</label>
                             <select onChange={(e) => props.setSortFields(e.target.value)
@@ -271,20 +278,20 @@ const Card = (props) => {
                     </div>
 
 
-                    <div className='col-4 mt-3'></div>
+                    <div className='col-md-4 mt-3'></div>
                 </div>
                 {props.loading && <Skeleton totalCollections="1"/>}
 
                 {!props.loading &&
                 <>
-                    <div className="row">
+                    <div className="row justify-content-start">
                         {goal_cards}
                     </div>
-                    <div className="row">
+                    <div className="row justify-content-start">
                         {
                             props.goals.docs.length > 0 &&
                             <>
-                                <div className='col-6'>
+                                <div className='col-md-6'>
                                     <div className="form-group flex align-item-center">
                                         <label className='mr-2 pb-0'>Showing</label>
                                         <select defaultValue={props.perPage}
@@ -297,7 +304,7 @@ const Card = (props) => {
                                         <label className='pb-0'>of 20 Records</label>
                                     </div>
                                 </div>
-                                <div className='col-6'>
+                                <div className='col-md-6'>
                                     <Paginate items={props.goals} setPage={props.setPage}/>
                                 </div>
                             </>
@@ -314,7 +321,7 @@ const Card = (props) => {
                     edit &&
                     <EditGoal edit={edit} setEdit={setEdit} goal={goal} onSubmitSuccess={props.onSubmitSuccess}/>
                 }
-            </div>
+            
             {/* end goal card */}
         </>
     );

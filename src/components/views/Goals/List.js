@@ -90,16 +90,21 @@ const List = ({active}) => {
             />
             <div className="main main-raised dashoard-container">
                 <div className="container">
-                    <div className="row">
+                    <div className="row mt-5 mb-5 justify-content-start">
                         <SideBar active={active}/>
 
                         <div className="col-md-9">
                             <h1 className="font_30 mb-3"><i className="fas fa-bullseye mr-2"></i>Goals</h1>
-                            <Tabs
-                                tabTitle={tabTitle}
-                                setActiveTab={setActiveTab}
-                                activeTab={activeTab}
-                            />
+                            <div className="row mt-5 mb-3 justify-content-start">
+                                <div className="col-md-15 ">
+                                    <Tabs
+                                    tabTitle={tabTitle}
+                                    setActiveTab={setActiveTab}
+                                    activeTab={activeTab}
+                                />
+                                </div>
+                            </div>
+                            
                             {goals &&
                             <Card
 
