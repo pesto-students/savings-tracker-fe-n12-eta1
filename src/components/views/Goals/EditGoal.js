@@ -37,7 +37,7 @@ const EditGoal = ({edit, setEdit, goal, onSubmitSuccess}) => {
         setLoading(true)
 
         try {
-            console.log(_formInput)
+
             const formData = new FormData();
 
             formData.append('total_amount', _formInput.total_amount);
@@ -49,7 +49,6 @@ const EditGoal = ({edit, setEdit, goal, onSubmitSuccess}) => {
 
             updateGoal(goal._id, data).then((response) => {
 
-                console.log(response)
 
                 alertService.showSuccess(response.data.message);
 
@@ -57,14 +56,12 @@ const EditGoal = ({edit, setEdit, goal, onSubmitSuccess}) => {
                 setLoading(false);
 
             }).catch((error) => {
-                console.log(error)
                 setLoading(false);
                 alertService.showError(error.data.message);
             });
 
         }
         catch (err) {
-            console.log(err)
             setLoading(false)
         }
 

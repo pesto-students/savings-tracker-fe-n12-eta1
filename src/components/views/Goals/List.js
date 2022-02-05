@@ -24,10 +24,7 @@ const List = ({active}) => {
 
     const [sortFields, setSortFields] = useState('start_date___desc');//split on ___ for field + order
 
-    const [startDate, setStartDate] = useState('')
-    const [endDate, setEndDate] = useState('')
-    const [search, setSearch] = useState('')
-    const [searchBtn, setSearchBtn] = useState(false)
+    const [search, setSearch] = useState({query: '', start_date: '', end_date: ''});
     const [goals, setGoals] = useState({});
     const [activeTab, setActiveTab] = useState('All')
     const [tabTitle, setTabtitle] = useState([
@@ -53,7 +50,7 @@ const List = ({active}) => {
 
         getGoalsData();
 
-    }, [activeTab, page, perPage, sortFields, searchBtn, search]);
+    }, [activeTab, page, perPage, sortFields, search]);
 
     const getGoalsData = () => {
 
@@ -68,9 +65,9 @@ const List = ({active}) => {
                 status: activeTab,
                 sort_by: sortOrder, //asc, desc
                 order_by: orderBy, // can be created date, title, amount, status
-                start_date: startDate,
-                end_date: endDate,
-                search: search,
+                start_date: search.start_date,
+                end_date: search.end_date,
+                search: search.query,
 
             }
         };
@@ -123,16 +120,10 @@ const List = ({active}) => {
                                 goals={goals}
                                 currency={currency}
                                 perPage={perPage}
-                                search={search}
-                                start_date={startDate}
-                                end_date={endDate}
-                                setStartDate={setStartDate}
-                                setEndDate={setEndDate}
+                                onSearch={setSearch}
                                 setPage={setPage}
                                 setPerPage={setPerPage}
                                 setSortFields={setSortFields}
-                                setSearch={setSearch}
-                                setSearchBtn={setSearchBtn}
                                 onSubmitSuccess={() => {
                                     getGoalsData()
                                 }}

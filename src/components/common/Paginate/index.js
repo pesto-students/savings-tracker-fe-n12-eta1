@@ -2,14 +2,9 @@ import ReactPaginate from 'react-paginate';
 
 const Paginate = ({items, setPage}) => {
 
-    console.log(items);
 
     const handlePageClick = (event) => {
-
-        console.log(event);
-        console.log(items.nextPage);
         setPage(items.nextPage);
-        // setPage(event);
     };
 
     return (
