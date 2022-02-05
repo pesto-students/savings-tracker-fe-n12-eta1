@@ -18,10 +18,11 @@ const Banner = ({show, setShow}) => {
                     <div className="row">
                         <div className="col-md-12">
                             <h1 className="text-white">Savings Tracker</h1>
-                            <p className="lead">looking to digitally track your financial goals and expenses with
+                            <p className="lead">Looking to digitally track your financial goals and expenses with
                                 minimal efforts?
                                 <br/>We are there to help you
                             </p>
+                            <p className="lead">Try for Free and Upgrade for <b>INR 999/yr</b></p>
                             {user ? <Link to="/dashboard"
                                           className="btn btn-primary btn-round text-white shadow glob-btn">Dashboard</Link>
                                 :

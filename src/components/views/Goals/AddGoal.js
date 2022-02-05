@@ -138,7 +138,7 @@ const AddGoal = ({add, setAdd, onSubmitSuccess}) => {
                                 </div>
 
                                 <div className="row">
-                                    <div className="col-md-6 ml-auto mr-auto text-center">
+                                    <div className="col-md-6 ml-auto mr-auto flex">
                                         <Button disabled={!isValid} type="submit" text="Add Goal"
                                                 extraClass="primary btn-round text-white"/>
                                         <Loader
