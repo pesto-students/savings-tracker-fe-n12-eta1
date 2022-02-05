@@ -1,25 +1,27 @@
 /* designing for tabs */
 
-
 .content {
-  width: 640px;
-  margin:  45px auto;
+    width: 640px;
+    margin: 45px auto;
 }
-  /* .tabs-body {
 
-  } */
+/* .tabs-body {
+
+} */
 .tabs-header {
     display: table;
     width: 100%;
     list-style-type: none;
-    
+
 }
+
 .tabs-header li {
-display: table-cell;
-text-align: center;
-color: #000000;
-cursor: pointer;
+    display: table-cell;
+    text-align: center;
+    color: #000000;
+    cursor: pointer;
 }
+
 .tabs-header li > a {
     display: block;
     padding: 15px;
@@ -27,17 +29,21 @@ cursor: pointer;
     /* transition: all .2s ease-in;
     transform: skew(-40deg); */
 }
+
 .tabs-header li > a span {
-display: block;
-/*transform: skew(40deg);*/
+    display: block;
+    /*transform: skew(40deg);*/
 }
+
 .tabs-header li > a:hover {
     background: #ec407a;
-    color: #e0e2e2;
+    color: #fff !important;
 }
+
 .tabs-header li.active > a {
     background: #ec407a;
 }
+
 .tabs-content {
     margin-top: 15px;
     position: relative;
@@ -45,28 +51,32 @@ display: block;
     overflow: hidden;
     background: #F7F9F9;
 }
+
 .tabs-content .tabs-textItem {
-display: none;
-transform: translateY(100%);
+    display: none;
+    transform: translateY(100%);
 }
+
 .tabs-content .tabs-textItem.show {
-display: block;
-transform: translateY(0);
-animation: change .49s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: block;
+    transform: translateY(0);
+    animation: change .49s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
+
 .tabs-content .tabs-textItem p {
-font: normal 15px/1.5 'Open Sans';
-color: #23282c;
+    font: normal 15px/1.5 'Open Sans';
+    color: #23282c;
 }
 
 @keyframes change {
-  0% {
-    transform: translateY(100%);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
+    0% {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
+
 /* designing for tabs end */

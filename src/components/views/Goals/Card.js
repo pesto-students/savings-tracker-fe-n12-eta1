@@ -27,6 +27,12 @@ const sortFields = [
     {field: 'title', order: 'desc', label: 'Title - Z-A'},
 ];
 
+const getGoalCompletionPercentage = (goal) => {
+
+    return Math.round(goal.saved_amount/ goal.total_amount*100);
+
+}
+
 const Card = (props) => {
 
     const [colors, setColors] = useState(['cyan', 'red', 'blue', 'orange', 'yellow', 'green'])
@@ -170,7 +176,12 @@ const Card = (props) => {
                 </div>
                 <div className='col-md-12' id="desktopProgress">
                     <BillboardChart
-                        data={CHART_DATA}
+                        data={{
+                            columns: [
+                                ["Progress", getGoalCompletionPercentage(item)],
+                            ],
+                            type: "gauge",
+                        }}
                         color={color}
                         zoom={zoom}
                     />
@@ -183,8 +194,8 @@ const Card = (props) => {
                 <div className='col-md-6 ' id="mobileProgress">
                     <p className='text-center'><b>From :</b> {item.start_date} <b> &nbsp;To :</b> {item.end_date}</p>
 
-                    <div class="progress-light-grey progress-xlarge">
-                        <div class="progress-container progress-orange" style={{width: "40%"}}>40%</div>
+                    <div className="progress-light-grey progress-xlarge">
+                        <div className="progress-container progress-orange" style={{width: "40%"}}>40%</div>
                     </div>
                 </div>
             </div>
@@ -218,7 +229,7 @@ const Card = (props) => {
             <div className='row'>
                 <div className="col-12 mt-3 mb-3">
                     <Button onClick={(e) => setAdd(true)} type="submit" text="Add Goal"
-                            extraClass="primary btn-lg btn-round text-white float-right"/>
+                            extraclassName="primary btn-lg btn-round text-white float-end"/>
                 </div>
             </div>
             <div className='row bg-grey justify-content-start'>
@@ -264,7 +275,7 @@ const Card = (props) => {
                     <Button onClick={props.onSubmitSuccess}
                             disabled={props.start_date.length < 1 || props.end_date.length < 1} type="submit"
                             text="Search"
-                            extraClass="primary btn-lg btn-round text-white"/>
+                            extraclassName="primary btn-lg btn-round text-white"/>
                 </div>
             </div>
             <div className="row justify-content-start">
