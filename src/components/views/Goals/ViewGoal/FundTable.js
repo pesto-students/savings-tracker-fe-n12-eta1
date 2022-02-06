@@ -3,7 +3,7 @@ import React from 'react'
 import {PlusCircleIcon, MinusCircleIcon, PencilAltIcon, TrashIcon} from '@heroicons/react/solid';
 import Table from "../../../common/Table";
 
-const FundTable = ({funds, onEditInit, onDeleteInit}) => {
+const FundTable = ({funds, onEditInit, onDeleteInit, currency}) => {
 
 
     const columns = React.useMemo(
@@ -11,13 +11,19 @@ const FundTable = ({funds, onEditInit, onDeleteInit}) => {
             {
                 "Header": "Date Added",
                 "accessor": "created_at",
+                "sortType": 'datetime',
                 "Cell": function ({value}) {
                     return formatDateSimple(value);
                 }
             },
             {
                 "Header": "Amount",
-                "accessor": "amount"
+                "accessor": "amount",
+                "sortType": 'number',
+                "Cell": function ({value}) {
+                    return currency+' '+ value.toLocaleString();
+                }
+
             },
             {
                 "Header": "Description",
@@ -25,7 +31,6 @@ const FundTable = ({funds, onEditInit, onDeleteInit}) => {
             },
             {
                 "Header": "Action",
-                // "accessor": "description"
                 "Cell": function ({row}) {
                     return <>
                         <i title="Edit" className="cursor-pointer" onClick={() => {
@@ -47,7 +52,15 @@ const FundTable = ({funds, onEditInit, onDeleteInit}) => {
     );
 
 
-    const data = React.useMemo(() => funds, [funds]);
+    // const data = React.useMemo(() => funds, [funds]);
+
+    const data = React.useMemo(() => funds.map(fund => {
+        return {
+            ...fund,
+            created_at: new Date(fund.created_at),
+
+        }
+    }), [funds]);
 
     return <Table columns={columns} data={data}/>;
 }

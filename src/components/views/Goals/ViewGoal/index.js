@@ -82,28 +82,28 @@ const ViewGoal = ({active}) => {
                                     }} type="submit" text="Add Funds"
                                             extraClass="primary btn-round text-white float-md-end"/>
                                 </div>
-                                <div className="col-sm-9 col-md-6">
-                                    <h4>Target: {currency+ " "+goal.total_amount}</h4>
-                                    <h4>Duration: </h4>
-                                    <b>
+                            </div>
+                            <div className="row">
+                                <div className="col">
+                                    <h4>Target: <b>{currency + " " + goal.total_amount}</b></h4>
+                                    <h4>Duration: <b>
                                         <CalendarIcon
-                                        className="icon-portfolio"
-                                        /> 
+                                            className="icon-portfolio"
+                                        />
                                         {formatDateSimple(goal.start_date)} - {formatDateSimple(goal.end_date)}
-                                    </b>
-                                    
-                                </div>
-                                <div className="col-sm-9 col-md-6">
+                                    </b></h4>
+
+
                                     <h4>Details: </h4>
                                     <p>{goal.description}</p>
                                 </div>
-                                
+
                             </div>
                             {loading ? <Spinner/> : error ? <Error message={error}/> :
                                 <>
-                                    
+
                                     <h3 className="mt-3">Goal Funds History</h3>
-                                    <FundTable funds={funds} goalId={goalId}
+                                    <FundTable currency={currency} funds={funds} goalId={goalId}
                                                onEditInit={(fund) => {
                                                    setActiveFund(fund);
                                                    setShowFundModal(true);

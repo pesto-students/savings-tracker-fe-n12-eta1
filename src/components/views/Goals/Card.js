@@ -6,7 +6,6 @@ import Paginate from '../../common/Paginate';
 import BillboardChart from 'react-billboardjs';
 import 'billboard.js/dist/billboard.css';
 import Dropdown from "react-bootstrap/Dropdown";
-import AddGoal from './AddGoal';
 import EditGoal from './EditGoal';
 import Button from '../../common/Button';
 import Swal from 'sweetalert2';
@@ -157,7 +156,7 @@ const Card = (props) => {
                     </Dropdown.Menu>
                 </Dropdown>
                 <div className='col-md-12'>
-                    <h2>{goal.title}</h2>
+                    <h2 className="cursor-pointer" onClick={(e) => handleView(goal)}>{goal.title}</h2>
                     <h4><b>{props.currency + " " + goal.total_amount.toLocaleString()}</b></h4>
                     <LinesEllipsis
                         text={goal.description}
@@ -227,7 +226,6 @@ const Card = (props) => {
         // the item hovered
         props.setSearch('')
     }
-
 
 
     return (
