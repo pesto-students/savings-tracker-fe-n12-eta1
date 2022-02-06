@@ -85,7 +85,7 @@ const ViewGoal = ({active}) => {
                             </div>
                             <div className="row">
                                 <div className="col">
-                                    <h4>Target: <b>{currency + " " + goal.total_amount}</b></h4>
+                                    <h4>Target: <b>{currency + " " + goal.total_amount?.toLocaleString()}</b></h4>
                                     <h4>Duration: <b>
                                         <CalendarIcon
                                             className="icon-portfolio"
