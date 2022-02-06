@@ -123,10 +123,6 @@ Follow the steps to run this project.
    ```
 5. Open http://localhost:5000 to view it in the browser
 
-6. Run Test cases
-   ```sh
-   npm test
-   ```
 
 ## Test Credentials
 
