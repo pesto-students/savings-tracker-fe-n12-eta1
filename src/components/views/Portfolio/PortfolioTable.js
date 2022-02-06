@@ -48,9 +48,10 @@ const PortfolioTable = ({currency, portfolios, onEditInit, onDeleteInit}) => {
                 "disableSortBy": true,
             },
             {
+                "sortType":'number',
                 "Header": "Amount",
                 "accessor": "amount",
-                "Cell": ({value}) => `${currency}  ${value}`
+                "Cell": ({value}) => `${currency}  ${value.toLocaleString()}`
 
             },
             {
@@ -104,7 +105,7 @@ const PortfolioTable = ({currency, portfolios, onEditInit, onDeleteInit}) => {
         return {
             ...portfolio,
             created_date: new Date(portfolio.created_date),
-            end_date: new Date(portfolio.end_date),
+            end_date: (portfolio.end_date ? new Date(portfolio.end_date) : ''),
             start_date: new Date(portfolio.start_date),
             frequency_display: frequency(portfolio),
         }

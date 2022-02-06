@@ -34,6 +34,7 @@ const SignIn = ({show, setShow}) => {
 
     useEffect(() => {
 
+        setPhoneNumber('');
         let btn = document.getElementById('signin-btn');
 
         if (btn && show) {
@@ -48,14 +49,12 @@ const SignIn = ({show, setShow}) => {
 
             try {
                 window.recaptchaVerifier.render().then((widgetId) => {
-                    // window.recaptchaWidgetId = widgetId;
                 });
             }
             catch (e) {
 
             }
         }
-
 
     }, [show]);
 
@@ -118,8 +117,7 @@ const SignIn = ({show, setShow}) => {
         authConfirmationResult.confirm(otp).then((result) => {
             // User signed in successfully. Redirect
 
-            dispatch({type: 'LOADING', payload: true});
-
+            dispatch({type: 'APP_LOADING', payload: true});
 
             getUserStatus().then((response => {
 
@@ -132,7 +130,7 @@ const SignIn = ({show, setShow}) => {
                 setShow(false);
                 setLoading(false);
 
-                dispatch({type: 'LOADING', payload: false});
+                dispatch({type: 'APP_LOADING', payload: false});
 
 
             })).catch(err => {

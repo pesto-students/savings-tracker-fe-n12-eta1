@@ -86,13 +86,6 @@ function Table({columns, data, defaultPageSize = 5, selectOptions = [5, 10, 50],
         {
             columns,
             data,
-            sortTypes: {
-                alphanumeric: (rowA, rowB, columnId, desc) => {
-                    const valueA = rowA.values[columnId].toLowerCase();
-                    const valueB = rowB.values[columnId].toLowerCase();
-                    return valueB.localeCompare(valueA) > 0 ? -1 : 1;
-                }
-            },
             initialState: {
                 pageIndex: getInitialPageIndex(searchParams),
                 pageSize: getInitialPageSize(searchParams) || defaultPageSize
