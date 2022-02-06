@@ -48,6 +48,7 @@ const PortfolioTable = ({currency, portfolios, onEditInit, onDeleteInit}) => {
                 "disableSortBy": true,
             },
             {
+                "sortType":'number',
                 "Header": "Amount",
                 "accessor": "amount",
                 "Cell": ({value}) => `${currency}  ${value.toLocaleString()}`
