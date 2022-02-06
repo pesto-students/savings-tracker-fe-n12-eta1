@@ -119,7 +119,7 @@ const Dashboard = ({active}) => {
                                         <div className="row h-100">
                                             <div className="col-md-8 pr-0 d-flex align-content-center">
                                                 <div>
-                                                    <h1 className="mb-0">{dashboard.salary}</h1>
+                                                    <h1 className="mb-0">{dashboard.salary.toLocaleString()}</h1>
                                                     <p className="mb-0">Income {currency}</p>
                                                     
                                                 </div>
