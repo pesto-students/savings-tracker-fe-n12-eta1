@@ -145,7 +145,6 @@ const Dashboard = ({active}) => {
                                             end_date={dashboard.end_date}
                                             onSubmitSuccess={(filterDate) => {
                                                 getData(filterDate)
-                                                //setFilter(filterDate)
                                             }}
                                         />
                                         {error && <Error message={error}/>}
