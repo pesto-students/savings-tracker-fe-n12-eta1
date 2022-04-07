@@ -55,7 +55,7 @@ REACT_APP_FIREBASE_PROJECT_ID=sa</br>
 REACT_APP_FIREBASE_STORAGE_BUCKET=</br>
 REACT_APP_FIREBASE_MESSAGING_SENDER_ID=</br>
 REACT_APP_FIREBASE_APP_ID=</br>
-REACT_APP_API_URL=http://localhost:5000 
+REACT_APP_API_URL=http://localhost:3000 
 
 3. Install NPM packages
     ```sh
@@ -93,8 +93,6 @@ You don't have to ever use `eject`. The curated feature set is suitable for smal
 
 
 # Technology Stack
-Primary DB : MongoDB
-Social Feeds : Firebase Realtime Database
 We tried to use a completely modern tech stack while testing out some new technologies that we had never used before. This resulted in a fast, performant, and easily-extensible web app that should be fairly future-proof for the coming next several years. We used:
 
 - [Firebase](https://firebase.google.com/)
