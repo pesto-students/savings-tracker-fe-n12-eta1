@@ -1,36 +1,85 @@
+<!-- PROJECT LOGO -->
+<br />
+<p align="center">
+    <img src="https://savings-tracker-111.netlify.app/static/media/logo.7835c574029d421e4eaf.png" alt="Logo" width="400" height="200" >
+</p>
+<div style="margin-left:200px"><h1 >Saving Tracker Frontend</h1></div>
+<p>A quick and easy way to get started with your  
+financial goals planning and tracking spends
+</p>
 
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome! we hope you enjoy the site as much as we enjoyed making it.
+<!-- TABLE OF CONTENTS -->
+<br/>
+<!-- TABLE OF CONTENTS -->
+<br/>
 
-## Available Scripts
+# Table of Contents
 
-In the project directory, you can run:
+1. [Demo](#demo)
+2. [Installation](#installation)
+3. [Technology Stack](#technology-stack)
+4. [Authors](#authors)
+5. [License](#license)
 
-### `npm start`
+<br/>
+# Demo
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+[Live Demo](https://savings-tracker-111.netlify.app/)
+<br/>  
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Please Note:
 
-### `npm test`
+1. We recommend using this app in Google Chrome
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<br/>
+Test Credentials:
 
-### `npm run build`
+- For User
+ 	 - Phone Number: 9999999999
+ 	 - OTP: 111111
+<br/>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Installation
+. Clone the repo
+    ```sh
+    https://github.com/pesto-students/savings-tracker-fe-n12-eta1
+    ```
+2. Set environment variables
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+PORT=3000
+REACT_APP_FIREBASE_API_KEY=</br>
+REACT_APP_FIREBASE_AUTH_DOMAIN=</br>
+REACT_APP_FIREBASE_PROJECT_ID=sa</br>
+REACT_APP_FIREBASE_STORAGE_BUCKET=</br>
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID=</br>
+REACT_APP_FIREBASE_APP_ID=</br>
+REACT_APP_API_URL=http://localhost:5000 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. Install NPM packages
+    ```sh
+    cd savings-tracker-fe-n12-eta1 && npm install
+    ```
+4. Run
+    ```sh
+    npm start
+    ```
+5. Open http://localhost:3000 to view it in the browser
 
-### `npm run eject`
+6. Run Test cases
+    ```sh
+    npm test
+    ```
+7. Run Build
+    ```sh
+    npm run build
+    ```
+7. Run Eject
+    ```sh
+    npm run eject
+    ```
+<br/>
 
 **Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
@@ -39,37 +88,30 @@ If you aren't satisfied with the build tool and configuration choices, you can `
 Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+<br/>
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Technology Stack
+Primary DB : MongoDB
+Social Feeds : Firebase Realtime Database
+We tried to use a completely modern tech stack while testing out some new technologies that we had never used before. This resulted in a fast, performant, and easily-extensible web app that should be fairly future-proof for the coming next several years. We used:
 
-### Code Splitting
+- [Firebase](https://firebase.google.com/)
+- [Redux](https://redux.js.org/)
+- [React](https://reactjs.org/)
+- [Bootstrap](https://getbootstrap.com/)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+<br/>
 
-### Analyzing the Bundle Size
+# Authors
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- [Kashifa Khan](https://github.com/kashifakhan1996/)
+- [Karandeep Singh](https://github.com/karan-2809/)
+- [Haris Patidar](https://github.com/rjharish333) 
 
-### Making a Progressive Web App
+<br/>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+# License
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-saving-tracker-frontend... done
-https://saving-tracker-frontend.herokuapp.com/ | https://git.heroku.com/saving-tracker-frontend.git
-
+[MIT](https://opensource.org/licenses/MIT)
